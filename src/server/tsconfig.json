@@ -1,0 +1,30 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"baseUrl": "./",
+		"paths": {
+			"~common/*": ["../common/*"],
+      "~types": ["../types/index"],
+      "~types/*": ["../types/*"],
+			"@models/*": ["./models/*"],
+      "@routes/*": ["./routes/*"]
+		},
+		"experimentalDecorators": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
+		"noEmit": true,
+		"moduleResolution": "bundler",
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true
+	},
+	"include": ["**/*.ts", "../common/**/*.ts", "../types/**/*.ts"],
+	"exclude": ["node_modules"]
+}
