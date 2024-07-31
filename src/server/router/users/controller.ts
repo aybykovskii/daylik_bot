@@ -1,5 +1,6 @@
 import { Op } from '@sequelize/core'
 import { Request, Response } from 'express'
+import { z } from 'zod'
 
 import {
 	BodyRequest,
@@ -10,12 +11,13 @@ import {
 	TelegramUserId,
 	User,
 	UserFullData,
+	modelId,
 	userBase,
 } from '~types'
 
 import { UserModel } from '@models/user'
 
-import { Controller, Method, Route, Validate } from '../metadata'
+import { Controller, Method, Route, ValidateBody, ValidateParams } from '../metadata'
 
 @Controller('/users')
 export class UsersController {
@@ -26,7 +28,7 @@ export class UsersController {
 
 	@Route('/')
 	@Method('post')
-	@Validate(userBase.pick({ firstName: true, lastName: true, telegramUserId: true }))
+	@ValidateBody(userBase.pick({ firstName: true, lastName: true, telegramUserId: true }))
 	createUser = async ({ body }: BodyRequest<CreateUserArg>, res: Response<User | ErrorResponse>) => {
 		const user = await UserModel.create({ ...body, requestsSent: 0, access: 'trial' })
 
@@ -34,6 +36,7 @@ export class UsersController {
 	}
 
 	@Route('/:id')
+	@ValidateParams(z.object({ id: modelId }))
 	getUser = async (
 		req: ParamsRequest<{ id: ModelId | TelegramUserId }>,
 		res: Response<UserFullData | ErrorResponse>
@@ -43,7 +46,7 @@ export class UsersController {
 		})
 
 		if (!user) {
-			res.status(404).json({ error: 'User not found' })
+			res.status(404).json({ error: res.t('server.error.users.not_found') })
 			return
 		}
 
@@ -58,6 +61,7 @@ export class UsersController {
 
 	@Route('/:id/increaseSentRequest')
 	@Method('post')
+	@ValidateParams(z.object({ id: modelId }))
 	increaseSentRequest = async (
 		req: ParamsRequest<{ id: ModelId }>,
 		res: Response<number | ErrorResponse>
@@ -66,7 +70,7 @@ export class UsersController {
 		console.log({ user: result })
 
 		if (!result) {
-			res.status(404).json({ error: 'User not found' })
+			res.status(404).json({ error: res.t('server.error.users.not_found') })
 			return
 		}
 
@@ -79,6 +83,7 @@ export class UsersController {
 
 	@Route('/:id/license')
 	@Method('post')
+	@ValidateParams(z.object({ id: modelId }))
 	addLicense = async (
 		req: ParamsRequest<{ id: ModelId }>,
 		res: Response<undefined | ErrorResponse>
@@ -86,7 +91,7 @@ export class UsersController {
 		const result = await UserModel.findByPk(req.params.id)
 
 		if (!result) {
-			res.status(404).json({ error: 'User not found' })
+			res.status(404).json({ error: res.t('server.error.users.not_found') })
 			return
 		}
 

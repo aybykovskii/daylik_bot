@@ -6,10 +6,13 @@
 		"baseUrl": "./",
 		"paths": {
 			"~common/*": ["../common/*"],
-      "~types": ["../types/index"],
-      "~types/*": ["../types/*"],
+			"~types": ["../types/index"],
+			"~types/*": ["../types/*"],
+			"@models": ["./models/index"],
 			"@models/*": ["./models/*"],
-      "@routes/*": ["./routes/*"]
+			"@router": ["./router/index"],
+			"@router/*": ["./router/*"],
+			"@helpers": ["./helpers/index"],
 		},
 		"experimentalDecorators": true,
 		"resolveJsonModule": true,
@@ -25,6 +28,6 @@
 		"jsx": "preserve",
 		"incremental": true
 	},
-	"include": ["**/*.ts", "../common/**/*.ts", "../types/**/*.ts"],
+	"include": ["**/*.ts", "../common/**/*.ts", "../types/**/*.ts", "../../global.t.ts"],
 	"exclude": ["node_modules"]
 }

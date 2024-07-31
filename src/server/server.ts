@@ -5,26 +5,28 @@ import express from 'express'
 
 import { Environment } from '~common/environment'
 import { i18n } from '~common/i18n'
-import { Log, loggerMiddleware, validateMiddleware } from '~common/logger'
+import { Log } from '~common/logger'
 
-import { envSchema } from './envSchema'
-import { EventDraftModel, EventModel, PaymentModel, UserModel } from './models'
-import { eventDraftsRouter, eventsRouter, paymentsRouter, usersRouter } from './router'
+import { authMiddleware, logMiddleware, makeAllRoutesRoutes } from '@helpers'
+import { EventDraftModel, EventModel, PaymentModel, UserModel } from '@models'
+import { eventDraftsRouter, eventsRouter, paymentsRouter, usersRouter } from '@router'
+
+import { serverEnvSchema } from './envSchema'
 
 const app = express()
 
-const env = Environment.get(envSchema, [
+const serverEnv = Environment.get(serverEnvSchema, [
 	path.resolve(__dirname, '../../.env'),
 	path.resolve(__dirname, '.env'),
 ])
 
 const sql = new Sequelize({
 	dialect: PostgresDialect,
-	host: env.POSTGRES_HOST,
-	port: env.POSTGRES_PORT,
-	user: env.POSTGRES_USER,
-	password: env.POSTGRES_PASSWORD,
-	database: env.POSTGRES_DB,
+	host: serverEnv.POSTGRES_HOST,
+	port: serverEnv.POSTGRES_PORT,
+	user: serverEnv.POSTGRES_USER,
+	password: serverEnv.POSTGRES_PASSWORD,
+	database: serverEnv.POSTGRES_DB,
 	models: [UserModel, EventModel, EventDraftModel, PaymentModel],
 	logging: false,
 })
@@ -40,17 +42,24 @@ sql
 	.catch((e) => Log.error(`Catch error while syncing models to postgres: ${e}`))
 
 // TODO: Add CORS middleware
-app.use(loggerMiddleware)
-app.use(validateMiddleware)
-app.use(express.json())
 app.use(i18n.init)
+app.use(logMiddleware)
+app.use(authMiddleware(serverEnv))
+app.use(express.json())
 
-app.use('/api', usersRouter, paymentsRouter, eventsRouter, eventDraftsRouter)
+app.use(
+	'/api',
+	usersRouter,
+	paymentsRouter,
+	eventsRouter,
+	eventDraftsRouter,
+	makeAllRoutesRoutes('')
+)
 
 app
-	.listen(env.SERVER_PORT, () => {
-		Log.info(`Listening on port ${env.SERVER_PORT}`)
+	.listen(serverEnv.SERVER_PORT, () => {
+		Log.info(`Listening on port ${serverEnv.SERVER_PORT}`)
 	})
 	.on('error', (e) => {
-		Log.error(`Catch error while listening on port ${env.SERVER_PORT}: ${e}`)
+		Log.error(`Catch error while listening on port ${serverEnv.SERVER_PORT}: ${e}`)
 	})

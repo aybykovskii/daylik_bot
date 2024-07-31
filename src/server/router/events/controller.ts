@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
 
 import {
 	BodyRequest,
@@ -8,11 +9,12 @@ import {
 	ModelId,
 	ParamsRequest,
 	eventBase,
+	modelId,
 } from '~types'
 
 import { EventModel } from '@models/event'
 
-import { Controller, Method, Route, Validate } from '../metadata'
+import { Controller, Method, Route, ValidateBody, ValidateParams } from '../metadata'
 
 @Controller('/events')
 export class EventsController {
@@ -23,7 +25,7 @@ export class EventsController {
 
 	@Route('/')
 	@Method('post')
-	@Validate(eventBase.omit({ period: true }))
+	@ValidateBody(eventBase.omit({ period: true }))
 	createEvent = async (req: BodyRequest<CreateEventArg>, res: Response<Event | ErrorResponse>) => {
 		const event = await EventModel.create(req.body)
 
@@ -31,6 +33,7 @@ export class EventsController {
 	}
 
 	@Route('/:id')
+	@ValidateParams(z.object({ id: modelId }))
 	getEvent = async (req: ParamsRequest<{ id: ModelId }>, res: Response<Event>) => {
 		const event = await EventModel.findByPk(req.params.id)
 

@@ -1,6 +1,7 @@
 import { z } from 'zod'
+import { commonEnvSchema } from '~types'
 
-export const envSchema = z.object({
+export const serverEnvSchema = commonEnvSchema.extend({
 	SERVER_PORT: z.coerce.number(),
 	POSTGRES_HOST: z.string(),
 	POSTGRES_PORT: z.coerce.number(),
@@ -8,3 +9,5 @@ export const envSchema = z.object({
 	POSTGRES_PASSWORD: z.string(),
 	POSTGRES_DB: z.string(),
 })
+
+export type ServerEnv = z.infer<typeof serverEnvSchema>

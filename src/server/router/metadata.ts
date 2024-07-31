@@ -2,17 +2,15 @@ import { Request, Response, Router } from 'express'
 import 'reflect-metadata'
 import { ZodError, ZodSchema } from 'zod'
 
-import { ErrorResponse, RequestMethod } from '~types'
+import { RequestMethod } from '~types'
+
+import { makeAllRoutesRoutes } from '@helpers'
 
 export function Controller(rootPath: string) {
 	// biome-ignore lint/complexity/noBannedTypes:
 	return (controller: Function) => {
 		Reflect.defineMetadata('rootPath', rootPath, controller.prototype)
 	}
-}
-
-function getRootPath(target: object): string {
-	return Reflect.getMetadata('rootPath', target) ?? ''
 }
 
 export function Route(path: string) {
@@ -27,6 +25,22 @@ export function Method(method: RequestMethod) {
 	}
 }
 
+export function ValidateBody(schema: ZodSchema) {
+	return (target: object, propertyKey: string) => {
+		Reflect.defineMetadata('validationSchema', schema, target, propertyKey)
+	}
+}
+
+export function ValidateParams(schema: ZodSchema) {
+	return (target: object, propertyKey: string) => {
+		Reflect.defineMetadata('validationParamsSchema', schema, target, propertyKey)
+	}
+}
+
+function getRootPath(target: object): string {
+	return Reflect.getMetadata('rootPath', target) ?? ''
+}
+
 function getRoute(target: object, propertyKey: string): string {
 	return Reflect.getMetadata('path', target, propertyKey)
 }
@@ -35,13 +49,22 @@ function getMethod(target: object, propertyKey: string): RequestMethod {
 	return Reflect.getMetadata('method', target, propertyKey) ?? 'get'
 }
 
-export function Validate(schema: ZodSchema) {
-	return (target: object, propertyKey: string) => {
-		Reflect.defineMetadata('validationSchema', schema, target, propertyKey)
+function getParamsValidationSchema(target: object, propertyKey: string): ZodSchema | undefined {
+	return Reflect.getMetadata('validationParamsSchema', target, propertyKey)
+}
+
+const validateParams = (schema: ZodSchema) => async (req: Request, res: Response) => {
+	try {
+		req.params = schema.parse(req.params)
+		return
+	} catch (error) {
+		res.status(400).json({
+			error: res.t('server.invalid_params', { path: (error as ZodError).errors[0].path.join('.') }),
+		})
 	}
 }
 
-function getValidationSchema(target: object, propertyKey: string): ZodSchema | undefined {
+function getBodyValidationSchema(target: object, propertyKey: string): ZodSchema | undefined {
 	return Reflect.getMetadata('validationSchema', target, propertyKey)
 }
 
@@ -51,7 +74,7 @@ const validateBody = (schema: ZodSchema) => async (req: Request, res: Response) 
 		return
 	} catch (error) {
 		res.status(400).json({
-			error: `Invalid input argument.${error instanceof ZodError ? ` Path: ${error.errors[0].path.join('.')}` : ''}`,
+			error: res.t('server.invalid_argument', { path: (error as ZodError).errors[0].path.join('.') }),
 		})
 
 		return
@@ -67,17 +90,16 @@ export const makeRouter = (controller: any) => {
 	for (const property in controller) {
 		const path = getRoute(controller, property)
 		const method = getMethod(controller, property)
-		const schema = getValidationSchema(controller, property)
+		const paramsSchema = getParamsValidationSchema(controller, property)
+		const schema = getBodyValidationSchema(controller, property)
 
-		router[method](
-			rootPath + path,
-			schema ? [validateBody(schema), controller[property]] : [controller[property]]
-		)
+		const middlewares = [controller[property]]
+
+		if (paramsSchema) middlewares.unshift(validateParams(paramsSchema))
+		if (schema) middlewares.unshift(validateBody(schema))
+
+		router[method](rootPath + path, middlewares)
 	}
 
-	router.all(`${rootPath}/*`, (req: Request, res: Response<ErrorResponse>) => {
-		res.status(404).json({ error: `Route ${req.path} not found` })
-	})
-
-	return router
+	return makeAllRoutesRoutes(rootPath, router)
 }

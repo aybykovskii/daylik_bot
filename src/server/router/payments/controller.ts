@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
 
 import {
 	BodyRequest,
@@ -7,11 +8,13 @@ import {
 	ModelId,
 	ParamsRequest,
 	Payment,
+	modelId,
 	paymentBase,
 } from '~types'
 
 import { PaymentModel } from '@models/payment'
-import { Controller, Method, Route, Validate } from '../metadata'
+
+import { Controller, Method, Route, ValidateBody, ValidateParams } from '../metadata'
 
 @Controller('/payments')
 export class PaymentsController {
@@ -22,7 +25,7 @@ export class PaymentsController {
 
 	@Route('/')
 	@Method('post')
-	@Validate(paymentBase.pick({ amount: true, userId: true }))
+	@ValidateBody(paymentBase.pick({ amount: true, userId: true }))
 	createPayment = async (
 		req: BodyRequest<CreatePaymentArg>,
 		res: Response<Payment | ErrorResponse>
@@ -33,6 +36,7 @@ export class PaymentsController {
 	}
 
 	@Route('/:id')
+	@ValidateParams(z.object({ id: modelId }))
 	getPayment = async (
 		req: ParamsRequest<{ id: ModelId }>,
 		res: Response<Payment | ErrorResponse>
@@ -40,7 +44,7 @@ export class PaymentsController {
 		const payment = await PaymentModel.findByPk(req.params.id)
 
 		if (!payment) {
-			res.status(404).json({ error: 'Payment not found' })
+			res.status(404).json({ error: res.t('server.error.payments.not_found') })
 			return
 		}
 
@@ -49,6 +53,7 @@ export class PaymentsController {
 
 	@Route('/:id/success')
 	@Method('post')
+	@ValidateParams(z.object({ id: modelId }))
 	paymentSuccess = async (
 		req: ParamsRequest<{ id: ModelId }>,
 		res: Response<Payment | ErrorResponse>
@@ -56,7 +61,7 @@ export class PaymentsController {
 		const payment = await PaymentModel.findByPk(req.params.id)
 
 		if (!payment) {
-			res.status(404).json({ error: 'Payment not found' })
+			res.status(404).json({ error: res.t('server.error.payments.not_found') })
 			return
 		}
 
@@ -67,6 +72,7 @@ export class PaymentsController {
 
 	@Route('/:id/failed')
 	@Method('post')
+	@ValidateParams(z.object({ id: modelId }))
 	paymentFailed = async (
 		req: ParamsRequest<{ id: ModelId }>,
 		res: Response<Payment | ErrorResponse>
@@ -74,7 +80,7 @@ export class PaymentsController {
 		const payment = await PaymentModel.findByPk(req.params.id)
 
 		if (!payment) {
-			res.status(404).json({ error: 'Payment not found' })
+			res.status(404).json({ error: res.t('server.error.payments.not_found') })
 			return null
 		}
 

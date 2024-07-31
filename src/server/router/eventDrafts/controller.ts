@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { z } from 'zod'
 
 import {
 	BodyRequest,
@@ -8,11 +9,12 @@ import {
 	ModelId,
 	ParamsRequest,
 	eventBase,
+	modelId,
 } from '~types'
 
 import { EventDraftModel } from '@models/eventDraft'
 
-import { Controller, Method, Route, Validate } from '../metadata'
+import { Controller, Method, Route, ValidateBody, ValidateParams } from '../metadata'
 
 @Controller('/eventDrafts')
 export class EventDraftsController {
@@ -23,7 +25,7 @@ export class EventDraftsController {
 
 	@Route('/')
 	@Method('post')
-	@Validate(eventBase.omit({ period: true }))
+	@ValidateBody(eventBase.omit({ period: true }))
 	createEventDraft = async (
 		req: BodyRequest<CreateEventArg>,
 		res: Response<Event | ErrorResponse>
@@ -34,6 +36,7 @@ export class EventDraftsController {
 	}
 
 	@Route('/:id')
+	@ValidateParams(z.object({ id: modelId }))
 	getEventDraft = async (req: ParamsRequest<{ id: ModelId }>, res: Response<Event>) => {
 		const eventDraft = await EventDraftModel.findByPk(req.params.id)
 
@@ -47,6 +50,7 @@ export class EventDraftsController {
 
 	@Route('/:id')
 	@Method('delete')
+	@ValidateParams(z.object({ id: modelId }))
 	deleteEventDraft = async (
 		req: ParamsRequest<{ id: ModelId }>,
 		res: Response<undefined | ErrorResponse>
