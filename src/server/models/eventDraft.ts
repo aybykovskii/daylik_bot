@@ -1,7 +1,7 @@
 import { BelongsToGetAssociationMixin, DataTypes, NonAttribute } from '@sequelize/core'
-import { Attribute, BelongsTo, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
+import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { Event, eventPeriod } from '~common/event'
+import { Event, eventPeriod } from '~types'
 
 import { BaseModel } from './baseModel'
 import { UserModel } from './user'

@@ -5,6 +5,7 @@ import { z } from 'zod'
 import {
 	BodyRequest,
 	CreateUserArg,
+	CreateUserResponse,
 	ErrorResponse,
 	ModelId,
 	ParamsRequest,
@@ -12,6 +13,7 @@ import {
 	User,
 	UserFullData,
 	modelId,
+	telegramUserId,
 	userBase,
 } from '~types'
 
@@ -29,14 +31,17 @@ export class UsersController {
 	@Route('/')
 	@Method('post')
 	@ValidateBody(userBase.pick({ firstName: true, lastName: true, telegramUserId: true }))
-	createUser = async ({ body }: BodyRequest<CreateUserArg>, res: Response<User | ErrorResponse>) => {
+	createUser = async (
+		{ body }: BodyRequest<CreateUserArg>,
+		res: Response<CreateUserResponse | ErrorResponse>
+	) => {
 		const user = await UserModel.create({ ...body, requestsSent: 0, access: 'trial' })
 
 		return res.json(user.asUserInfo())
 	}
 
 	@Route('/:id')
-	@ValidateParams(z.object({ id: modelId }))
+	@ValidateParams(z.object({ id: modelId.or(telegramUserId) }))
 	getUser = async (
 		req: ParamsRequest<{ id: ModelId | TelegramUserId }>,
 		res: Response<UserFullData | ErrorResponse>

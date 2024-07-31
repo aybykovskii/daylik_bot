@@ -42,10 +42,11 @@ sql
 	.catch((e) => Log.error(`Catch error while syncing models to postgres: ${e}`))
 
 // TODO: Add CORS middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(i18n.init)
 app.use(logMiddleware)
 app.use(authMiddleware(serverEnv))
-app.use(express.json())
 
 app.use(
 	'/api',

@@ -8,7 +8,6 @@ import { ServerEnv } from '../envSchema'
 export const authMiddleware =
 	(env: ServerEnv) => (req: Request, res: Response<ErrorResponse>, next: NextFunction) => {
 		if (req.headers[env.BOT_AUTHENTICATE_HEADER_KEY] !== env.BOT_AUTHENTICATE_HEADER_VALUE) {
-			Log.info({ res })
 			res.status(401).send({ error: res.t('server.no_auth_header') })
 		} else {
 			next()

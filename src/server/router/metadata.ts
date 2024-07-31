@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import 'reflect-metadata'
 import { ZodError, ZodSchema } from 'zod'
 
@@ -53,33 +53,37 @@ function getParamsValidationSchema(target: object, propertyKey: string): ZodSche
 	return Reflect.getMetadata('validationParamsSchema', target, propertyKey)
 }
 
-const validateParams = (schema: ZodSchema) => async (req: Request, res: Response) => {
-	try {
-		req.params = schema.parse(req.params)
-		return
-	} catch (error) {
-		res.status(400).json({
-			error: res.t('server.invalid_params', { path: (error as ZodError).errors[0].path.join('.') }),
-		})
+const validateParams =
+	(schema: ZodSchema) => async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			await schema.parse(req.params)
+			next()
+		} catch (error) {
+			res.status(400).json({
+				error: res.t('server.invalid_params', { path: (error as ZodError).errors[0].path.join('.') }),
+			})
+
+			return
+		}
 	}
-}
 
 function getBodyValidationSchema(target: object, propertyKey: string): ZodSchema | undefined {
 	return Reflect.getMetadata('validationSchema', target, propertyKey)
 }
 
-const validateBody = (schema: ZodSchema) => async (req: Request, res: Response) => {
-	try {
-		req.body = await schema.parse(req.body)
-		return
-	} catch (error) {
-		res.status(400).json({
-			error: res.t('server.invalid_argument', { path: (error as ZodError).errors[0].path.join('.') }),
-		})
+const validateBody =
+	(schema: ZodSchema) => async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			req.body = await schema.parse(req.body)
+			next()
+		} catch (error) {
+			res.status(400).json({
+				error: res.t('server.invalid_argument', { path: (error as ZodError).errors[0].path.join('.') }),
+			})
 
-		return
+			return
+		}
 	}
-}
 
 // biome-ignore lint/suspicious/noExplicitAny:
 export const makeRouter = (controller: any) => {

@@ -6,7 +6,7 @@ import {
 } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { Event, eventPeriod } from '~common/event'
+import { Event, eventPeriod } from '~types'
 
 import { BaseModel } from './baseModel'
 import { UserModel } from './user'
@@ -28,7 +28,7 @@ export class EventModel extends BaseModel<EventModel> implements Event {
 
 	@Attribute(DataTypes.ENUM(eventPeriod.Values))
 	@NotNull
-	@Default(eventPeriod.Values.everyDay)
+	@Default(eventPeriod.Values.once)
 	declare period: CreationOptional<Event['period']>
 
 	@Attribute(DataTypes.STRING)

@@ -7,7 +7,7 @@ import {
 } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table, Unique } from '@sequelize/core/decorators-legacy'
 
-import { Payment, paymentStatus } from '~common/payment'
+import { Payment, paymentStatus } from '~types'
 
 import { BaseModel } from './baseModel'
 import { UserModel } from './user'
