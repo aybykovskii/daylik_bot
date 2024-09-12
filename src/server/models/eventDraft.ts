@@ -16,14 +16,20 @@ export class EventDraftModel extends BaseModel<EventDraftModel> implements Event
 	@NotNull
 	declare date: Event['date']
 
-	@Attribute(DataTypes.STRING)
-	@NotNull
+	@Attribute({
+		type: DataTypes.STRING,
+		allowNull: true,
+	})
 	declare time: Event['time']
 
 	@Attribute(DataTypes.ENUM(eventPeriod.Values))
 	@NotNull
 	@Default(eventPeriod.Values.everyDay)
 	declare period: Event['period']
+
+	@Attribute(DataTypes.TEXT)
+	@NotNull
+	declare emoji: Event['emoji']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
@@ -51,6 +57,7 @@ export class EventDraftModel extends BaseModel<EventDraftModel> implements Event
 			time: this.time,
 			period: this.period,
 			text: this.text,
+			emoji: this.emoji,
 			weekDayNumber: this.weekDayNumber,
 			monthDayNumber: this.monthDayNumber,
 		}

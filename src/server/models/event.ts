@@ -21,15 +21,20 @@ export class EventModel extends BaseModel<EventModel> implements Event {
 	@NotNull
 	declare date: Event['date']
 
-	@Attribute(DataTypes.STRING)
-	@NotNull
-	@Default('allDay')
+	@Attribute({
+		type: DataTypes.STRING,
+		allowNull: true,
+	})
 	declare time: Event['time']
 
 	@Attribute(DataTypes.ENUM(eventPeriod.Values))
 	@NotNull
 	@Default(eventPeriod.Values.once)
 	declare period: CreationOptional<Event['period']>
+
+	@Attribute(DataTypes.TEXT)
+	@NotNull
+	declare emoji: Event['emoji']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
@@ -57,6 +62,7 @@ export class EventModel extends BaseModel<EventModel> implements Event {
 			time: this.time,
 			period: this.period,
 			text: this.text,
+			emoji: this.emoji,
 			weekDayNumber: this.weekDayNumber,
 			monthDayNumber: this.monthDayNumber,
 		}
