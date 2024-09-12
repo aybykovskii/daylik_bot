@@ -1,10 +1,11 @@
+import cn from 'classnames'
 import dayjs from 'dayjs'
 
-import { chunkArray, getSortedDayEvents } from '@/utils'
+import { Event, ModelId } from '~types'
 
 import { EventBadge } from '@/components/EventBadge'
-import cn from 'classnames'
-import { Event, ModelId } from '~types'
+import { chunkArray, getSortedDayEvents } from '@/utils'
+
 import styles from './styles.module.scss'
 
 type Props = {

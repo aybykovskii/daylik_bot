@@ -6,7 +6,7 @@ import { Event } from '~types'
 
 import { getSortedDayEvents } from '@/utils/events'
 
-import { useAppContext } from '@/context'
+import { useAppContext } from '@/AppContext'
 import { useSwipe } from '@/hooks'
 import { WeekEventsList } from './WeekEventsList'
 import { WeekHeader } from './WeekHeader'

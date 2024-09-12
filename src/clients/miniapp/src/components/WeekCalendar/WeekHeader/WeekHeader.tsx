@@ -14,7 +14,6 @@ export const WeekHeader = ({ days, onDayClick }: Props) => (
 				key={date.format('DD.MM.YYYY')}
 				onClick={() => onDayClick(dateIndex)}
 				className={styles.dayButton}
-				type="button"
 			>
 				<div className={styles.dateInfo}>
 					<span>{date.format('dd' /** Short day name */)}</span>
