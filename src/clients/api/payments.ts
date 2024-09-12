@@ -1,15 +1,20 @@
 import { ModelId, Payment } from '~types'
 
-import { paymentsApi } from './core'
+import { makeCoreApi } from './core'
 
-export const payments = {
-	getAll: async () => await paymentsApi.get<Payment[]>('', []),
+export const makePaymentsApi = () => {
+	const coreApi = makeCoreApi()
+	const paymentsApi = coreApi.extend({ prefixUrl: '/payments' })
 
-	get: async (id: ModelId) => await paymentsApi.get<Payment | null>(`${id}`, null),
+	return {
+		getAll: async () => await paymentsApi.get<Payment[]>('', []),
 
-	paymentSuccess: async (id: ModelId) =>
-		await paymentsApi.post<Payment>(`${id}/success`, {} as Payment),
+		get: async (id: ModelId) => await paymentsApi.get<Payment | null>(`${id}`, null),
 
-	paymentFailed: async (id: ModelId) =>
-		await paymentsApi.post<Payment>(`${id}/failed`, {} as Payment),
+		paymentSuccess: async (id: ModelId) =>
+			await paymentsApi.post<Payment>(`${id}/success`, {} as Payment),
+
+		paymentFailed: async (id: ModelId) =>
+			await paymentsApi.post<Payment>(`${id}/failed`, {} as Payment),
+	}
 }

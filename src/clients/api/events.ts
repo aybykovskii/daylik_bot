@@ -1,13 +1,21 @@
-import { CreateEventArg, ModelId } from '~types'
+import { CreateEventArg, Event, ModelId, UpdateEventArg } from '~types'
 
-import { eventsApi } from './core'
+import { makeCoreApi } from './core'
 
-export const events = {
-	getAll: async () => eventsApi.get<Event[]>('', []),
+export const makeEventsApi = () => {
+	const coreApi = makeCoreApi()
+	const eventsApi = coreApi.extend({ prefixUrl: '/events' })
 
-	create: async (event: CreateEventArg) => eventsApi.post<Event>('', {} as Event, { json: event }),
+	return {
+		getAll: async () => eventsApi.get<Event[]>('', []),
 
-	get: async (id: ModelId) => eventsApi.get<Event | null>(`${id}`, null),
+		create: async (event: CreateEventArg) => eventsApi.post<Event>('', {} as Event, { json: event }),
 
-	delete: async (id: ModelId) => eventsApi.delete<void>(`${id}`, undefined),
+		update: async (id: ModelId, event: UpdateEventArg) =>
+			eventsApi.patch<Event>(`${id}`, {} as Event, { json: event }),
+
+		get: async (id: ModelId) => eventsApi.get<Event | null>(`${id}`, null),
+
+		delete: async (id: ModelId) => eventsApi.delete<void>(`${id}`, undefined),
+	}
 }

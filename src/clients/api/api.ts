@@ -1,13 +1,13 @@
-import { eventDrafts } from './eventDrafts'
-import { events } from './events'
-import { payments } from './payments'
-import { users } from './users'
+import { makeEventDraftsApi } from './eventDrafts'
+import { makeEventsApi } from './events'
+import { makePaymentsApi } from './payments'
+import { makeUsersApi } from './users'
 
-export const api = {
-	users,
-	payments,
-	events,
-	eventDrafts,
-}
+export const makeApi = () => ({
+	users: makeUsersApi(),
+	payments: makePaymentsApi(),
+	events: makeEventsApi(),
+	eventDrafts: makeEventDraftsApi(),
+})
 
-export type Api = typeof api
+export type Api = ReturnType<typeof makeApi>
