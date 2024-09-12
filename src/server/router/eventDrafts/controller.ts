@@ -14,6 +14,7 @@ import {
 
 import { EventDraftModel } from '@models/eventDraft'
 
+import dayjs from 'dayjs'
 import { Controller, Method, Route, ValidateBody, ValidateParams } from '../metadata'
 
 @Controller('/eventDrafts')
@@ -25,12 +26,19 @@ export class EventDraftsController {
 
 	@Route('/')
 	@Method('post')
-	@ValidateBody(eventBase.omit({ period: true }))
+	@ValidateBody(eventBase.omit({ period: true, weekDayNumber: true, monthDayNumber: true }))
 	createEventDraft = async (
 		req: BodyRequest<CreateEventArg>,
 		res: Response<Event | ErrorResponse>
 	) => {
-		const eventDraft = await EventDraftModel.create({ ...req.body, period: 'once' })
+		const date = dayjs(req.body.date)
+
+		const eventDraft = await EventDraftModel.create({
+			...req.body,
+			period: 'once',
+			weekDayNumber: date.day() + 1,
+			monthDayNumber: date.date(),
+		})
 
 		res.status(201).json(eventDraft.asEventDraftInfo())
 	}

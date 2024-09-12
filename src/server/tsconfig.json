@@ -12,7 +12,7 @@
 			"@models/*": ["./models/*"],
 			"@router": ["./router/index"],
 			"@router/*": ["./router/*"],
-			"@helpers": ["./helpers/index"],
+			"@helpers": ["./helpers/index"]
 		},
 		"experimentalDecorators": true,
 		"resolveJsonModule": true,
@@ -28,6 +28,6 @@
 		"jsx": "preserve",
 		"incremental": true
 	},
-	"include": ["**/*.ts", "../common/**/*.ts", "../types/**/*.ts", "../../global.t.ts"],
+	"include": ["**/*.ts", "../common/**/*.ts", "../types/**/*.ts", "../../global.d.ts"],
 	"exclude": ["node_modules"]
 }

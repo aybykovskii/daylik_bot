@@ -1,6 +1,7 @@
 import path from 'node:path'
 import Sequelize from '@sequelize/core'
 import { PostgresDialect } from '@sequelize/postgres'
+import cors from 'cors'
 import express from 'express'
 
 import { Environment } from '~common/environment'
@@ -41,7 +42,7 @@ sql
 	.then(() => Log.info('Synced models to postgres'))
 	.catch((e) => Log.error(`Catch error while syncing models to postgres: ${e}`))
 
-// TODO: Add CORS middleware
+app.use(cors({ origin: '*', credentials: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(i18n.init)
