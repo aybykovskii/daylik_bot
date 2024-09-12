@@ -52,7 +52,7 @@ export const makeCoreApi = () => {
 	const commonEnv = commonEnvSchema.parse(process.env)
 
 	return new ApiClient({
-		prefixUrl: `/api`,
+		prefixUrl: `http://localhost:${commonEnv.SERVER_PORT}/api`,
 		headers: {
 			[commonEnv.BOT_AUTHENTICATE_HEADER_KEY]: commonEnv.BOT_AUTHENTICATE_HEADER_VALUE,
 		},
