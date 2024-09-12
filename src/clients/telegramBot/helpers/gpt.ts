@@ -1,4 +1,3 @@
-import fs from 'node:fs'
 import OpenAI from 'openai'
 
 export class GPT extends OpenAI {
@@ -33,11 +32,11 @@ export class GPT extends OpenAI {
 		return answer
 	}
 
-	getVoiceTranscription = async (filePath: string) => {
+	getVoiceTranscription = async (file: Response) => {
 		const { text } = await this.audio.transcriptions.create({
 			model: 'whisper-1',
 			language: 'ru',
-			file: fs.createReadStream(filePath),
+			file,
 		})
 
 		return text

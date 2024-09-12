@@ -29,7 +29,7 @@
 		"../../common/**/*.ts",
 		"../../types/**/*.ts",
 		"../api/*.ts",
-		"../../../global.t.ts"
+		"../../../global.d.ts"
 	],
 	"exclude": ["node_modules"]
 }

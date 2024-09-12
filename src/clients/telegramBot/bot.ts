@@ -22,7 +22,7 @@ import {
 } from '~types'
 
 import { Api } from '@api'
-import { FileSystem, GPT } from '@helpers'
+import { GPT } from '@helpers'
 
 import { BotEnv } from './envSchema'
 import { MAIN_PROMPT } from './prompts.json'
@@ -36,7 +36,6 @@ type ConstructorArg = {
 }
 
 export class Bot extends TelegramBot {
-	fs: FileSystem
 	gpt: GPT
 	api: Api
 	env: BotEnv
@@ -50,7 +49,6 @@ export class Bot extends TelegramBot {
 		this.api = api
 		this.env = env
 		this.i18n = i18n
-		this.fs = new FileSystem()
 		this.gpt = new GPT(openAIApiKey)
 	}
 
@@ -145,7 +143,9 @@ export class Bot extends TelegramBot {
 						case 'createEvent': {
 							if (!isEnd) break
 
-							const data = eventBase.omit({ period: true, userId: true }).parse(JSON.parse(dataString))
+							const data = eventBase
+								.pick({ date: true, time: true, text: true, emoji: true })
+								.parse(JSON.parse(dataString))
 
 							const eventDraft = await this.api.eventDrafts.create({ ...data, userId })
 
@@ -237,6 +237,7 @@ export class Bot extends TelegramBot {
 						firstName,
 						lastName,
 						telegramUserId: userId,
+						customization: {},
 					})
 
 					fullName = createdUser.fullName
@@ -275,14 +276,11 @@ export class Bot extends TelegramBot {
 		const { file_id: fileId } = voice
 
 		const fileLink = await this.getFileLink(fileId)
-		const filePath = `./${this.env.VOICES_FOLDER}/${fileId}.ogg`
+		const file = await fetch(fileLink)
 
-		await this.fs.downloadAndSave(fileLink, filePath)
-
-		const transcription = await this.gpt.getVoiceTranscription(filePath)
+		const transcription = await this.gpt.getVoiceTranscription(file)
 
 		await this.sendGPTMessage(transcription, chatId, userId)
-		this.fs.delete(filePath)
 	}
 
 	callbackQueryHandler = async ({ data, message }: TelegramBot.CallbackQuery) => {

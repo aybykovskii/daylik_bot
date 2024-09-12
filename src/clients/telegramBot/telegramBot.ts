@@ -4,7 +4,7 @@ import { Environment } from '~common/environment'
 import { i18n } from '~common/i18n'
 import { Log } from '~common/logger'
 
-import { api } from '@api'
+import { makeApi } from '@api'
 
 import { Bot } from './bot'
 import { botEnvSchema } from './envSchema'
@@ -17,7 +17,7 @@ const botEnv = Environment.get(botEnvSchema, [
 const bot = new Bot({
 	botToken: botEnv.TG_BOT_TOKEN,
 	openAIApiKey: botEnv.OPENAI_API_KEY,
-	api: api,
+	api: makeApi(),
 	env: botEnv,
 	i18n,
 })
