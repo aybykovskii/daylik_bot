@@ -8,6 +8,7 @@ import {
 	Event,
 	ModelId,
 	ParamsRequest,
+	UpdateEventArg,
 	eventBase,
 	modelId,
 } from '~types'
@@ -30,6 +31,25 @@ export class EventsController {
 		const event = await EventModel.create(req.body)
 
 		res.status(201).json(event.asEventInfo())
+	}
+
+	@Route('/:id')
+	@Method('patch')
+	@ValidateParams(z.object({ id: modelId }))
+	updateEvent = async (
+		req: Request<{ id: ModelId }, unknown, UpdateEventArg>,
+		res: Response<Event | ErrorResponse>
+	) => {
+		const event = await EventModel.findByPk(req.params.id)
+
+		if (!event) {
+			res.status(404).send()
+			return
+		}
+
+		const resultEvent = await event.update(req.body)
+
+		res.status(201).json(resultEvent.asEventInfo())
 	}
 
 	@Route('/:id')
