@@ -33,6 +33,9 @@ export class UserModel extends BaseModel<UserModel> implements User {
 	@Attribute(DataTypes.STRING)
 	declare lastName: User['lastName']
 
+	@Attribute(DataTypes.JSONB)
+	declare customization: User['customization']
+
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
 	@Default(0)
@@ -94,6 +97,7 @@ export class UserModel extends BaseModel<UserModel> implements User {
 			telegramUserId: this.telegramUserId,
 			firstName: this.firstName,
 			lastName: this.lastName,
+			customization: this.customization,
 			requestsSent: this.requestsSent,
 			access: this.access,
 			fullName: this.fullName,

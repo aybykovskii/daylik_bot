@@ -11,6 +11,7 @@ import {
 	ParamsRequest,
 	TelegramUserId,
 	User,
+	UserCustomization,
 	UserFullData,
 	modelId,
 	telegramUserId,
@@ -35,7 +36,12 @@ export class UsersController {
 		{ body }: BodyRequest<CreateUserArg>,
 		res: Response<CreateUserResponse | ErrorResponse>
 	) => {
-		const user = await UserModel.create({ ...body, requestsSent: 0, access: 'trial' })
+		const user = await UserModel.create({
+			...body,
+			customization: {},
+			requestsSent: 0,
+			access: 'trial',
+		})
 
 		return res.json(user.asUserInfo())
 	}
@@ -64,6 +70,25 @@ export class UsersController {
 		})
 	}
 
+	@Route('/:id/customization')
+	@Method('patch')
+	@ValidateParams(z.object({ id: modelId }))
+	updateCustomization = async (
+		req: Request<{ id: ModelId }, unknown, UserCustomization>,
+		res: Response<undefined | ErrorResponse>
+	) => {
+		const user = await UserModel.findByPk(req.params.id)
+
+		if (!user) {
+			res.status(404).json({ error: res.t('server.error.users.not_found') })
+			return
+		}
+
+		await user.update({ customization: req.body })
+
+		res.status(200)
+	}
+
 	@Route('/:id/increaseSentRequest')
 	@Method('post')
 	@ValidateParams(z.object({ id: modelId }))
@@ -72,7 +97,6 @@ export class UsersController {
 		res: Response<number | ErrorResponse>
 	) => {
 		const result = await UserModel.findByPk(req.params.id)
-		console.log({ user: result })
 
 		if (!result) {
 			res.status(404).json({ error: res.t('server.error.users.not_found') })
@@ -80,8 +104,6 @@ export class UsersController {
 		}
 
 		const updateResult = await result.increment('requestsSent')
-
-		console.log({ updateResult })
 
 		res.json(updateResult.requestsSent)
 	}
