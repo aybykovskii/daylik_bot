@@ -1,0 +1,10 @@
+{
+	"main": "telegramBot.js",
+	"scripts": {
+		"start": "bun --watch bot.ts"
+	},
+	"dependencies": {
+		"openai": "^4.53.0",
+		"telegraf": "^4.16.3"
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"extends": "../tsconfig.json",
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"baseUrl": "./",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"skipDefaultLibCheck": true,
+		"skipLibCheck": true,
+		"noEmit": true,
+		"moduleResolution": "bundler",
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"paths": {
+			"~logger": ["../logger/index"],
+			"~environment": ["../environment/index.ts"],
+			"~i18n": ["../i18n/index.ts"],
+			"~i18n/*": ["../i18n/*"],
+			"~types": ["../types/index"],
+			"~types/*": ["../types/*"],
+			"~api": ["../api/index"]
+		}
+	},
+	"include": [
+		"./**/*.ts",
+		"../logger/**/*.ts",
+		"../environment/**/*.ts",
+		"../types/**/*.ts",
+		"../api/**/*.ts",
+		"../global.d.ts"
+	],
+	"exclude": ["node_modules"]
+}
