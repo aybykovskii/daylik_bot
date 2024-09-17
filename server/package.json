@@ -1,0 +1,15 @@
+{
+	"main": "server.ts",
+	"scripts": {
+		"start": "bun --watch ./server.ts"
+	},
+	"dependencies": {
+		"@sequelize/core": "7.0.0-alpha.41",
+		"@sequelize/postgres": "7.0.0-alpha.41",
+		"cors": "^2.8.5",
+		"reflect-metadata": "^0.2.2"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.17"
+	}
+}
