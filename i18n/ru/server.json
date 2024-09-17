@@ -1,0 +1,14 @@
+{
+	"no_auth_header": "Отсутствует заголовок авторизации",
+	"invalid_params": "Невалидный параметр пути: {path}.",
+	"invalid_argument": "Невалидный входной аргумент: {path}.",
+	"no_endpoint": "Роут {path} не найден",
+	"error": {
+		"users": {
+			"not_found": "Пользователь не найден"
+		},
+		"payments": {
+			"not_found": "Платеж не найден"
+		}
+	}
+}
