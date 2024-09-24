@@ -1,0 +1,238 @@
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --gray: #dddddd;
+  --primary: #ffa34d;
+  --secondary: #87c5f8;
+  --red: #e94f37;
+
+  --shadow: rgba(0, 0, 0, 0.1);
+
+  --app-color: #f8efea;
+  --accent-color: #e94f37;
+  --text-color: #393e41;
+  --blue: #87c5f8;
+  --green: #44bba4;
+  --border: #f6f6f6;
+
+  --modal-animation-time: 300ms;
+  --swipe-animation-time: 200ms;
+
+  --swipe-animation-exit-percent: 5%;
+  --swipe-animation-enter-percent: 95%;
+
+  --family: 'Rubik', sans-serif;
+  --sizeS: 12px;
+  --sizeM: 16px;
+  --sizeL: 20px;
+  --sizeXL: 24px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100dvh;
+  font-family: var(--family);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: var(--sizeM);
+
+  /* root */
+  .content {
+    height: inherit;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--white);
+
+    & > div {
+      width: 100%;
+    }
+  }
+
+  & * {
+    box-sizing: border-box;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+a,
+button {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button {
+  padding: 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &[data-size='small'] {
+    padding: 6px;
+    border-radius: 10px;
+  }
+
+  &[data-name='primary'] {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+
+  &[data-name='secondary'] {
+    background-color: var(--white);
+    color: var(--text-color);
+  }
+
+  &[data-action='delete'] {
+    color: var(--red);
+    border: 1px solid var(--red);
+  }
+}
+
+input {
+  height: 32px;
+  max-height: 32px;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid var(--gray);
+  color: var(--text-color);
+  background-color: var(--white);
+
+  &:disabled {
+    background-color: var(--shadow);
+  }
+
+  &[type='text'] {
+    min-width: 70px;
+  }
+
+  &[type='date'] {
+    width: 130px;
+  }
+
+  &[type='time'] {
+    min-width: 70px;
+    width: fit-content;
+  }
+
+  &[type='checkbox'] {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Toast */
+.Toastify__toast-container--top-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 100vw;
+  width: 100vw;
+  top: 20px;
+}
+
+.Toastify__toast {
+  width: fit-content;
+  border-radius: 8px;
+  word-wrap: break-word;
+  min-height: 0;
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+.Toastify__spinner {
+  width: var(--sizeM);
+  height: var(--sizeM);
+}
+
+.Toastify__toast-icon {
+  width: var(--sizeM);
+  height: var(--sizeM);
+  margin-inline-end: 5px;
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  font-size: var(--sizeM);
+}
+
+/* Modal */
+.modal-enter {
+  opacity: 0;
+  transform: translateY(15%);
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--modal-animation-time),
+    transform var(--modal-animation-time);
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: translateY(15%);
+  transition:
+    opacity var(--modal-animation-time),
+    transform var(--modal-animation-time);
+}
+
+/* Swipe */
+/* Right */
+.swipe-right-enter {
+  transform: translateX(95%);
+}
+
+.swipe-right-enter-active {
+  transform: translateX(0);
+  transition: transform var(--swipe-animation-time);
+}
+
+.swipe-right-exit {
+  transform: translateX(0);
+}
+
+.swipe-right-exit-active {
+  transform: translateX(-5%);
+  transition: transform var(--swipe-animation-time);
+}
+
+/* Swipe */
+/* Left */
+.swipe-left-enter {
+  transform: translateX(-95%);
+}
+
+.swipe-left-enter-active {
+  transform: translateX(0);
+  transition: transform var(--swipe-animation-time);
+}
+
+.swipe-left-exit {
+  transform: translateX(0);
+}
+
+.swipe-left-exit-active {
+  transform: translateX(5%);
+  transition: transform var(--swipe-animation-time);
+}

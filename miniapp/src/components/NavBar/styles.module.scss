@@ -1,0 +1,45 @@
+.navBar {
+  width: 100%;
+  height: 85px;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 50px 20px;
+
+  .primaryButton {
+    color: var(--primary);
+    padding: 10px;
+
+    svg {
+      width: 64px;
+      height: 64px;
+      transition: all 0.3s;
+    }
+
+    &.active svg {
+      transform: rotate(45deg);
+    }
+  }
+
+  .link {
+    color: var(--black);
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: transparent;
+    }
+
+    &[data-opened='true']::after {
+      background-color: var(--primary);
+    }
+  }
+}

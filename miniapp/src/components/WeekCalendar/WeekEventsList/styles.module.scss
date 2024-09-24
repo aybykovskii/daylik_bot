@@ -1,0 +1,57 @@
+$listPadding: 8px;
+$timeSidePadding: 8px;
+$timePadding: $timeSidePadding $timeSidePadding $timeSidePadding calc(#{$timeSidePadding} - #{$listPadding});
+
+.weekEventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-grow: 2;
+  width: 100%;
+  overflow-y: auto;
+  padding: $listPadding;
+
+  .date {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 8px;
+    gap: 8px;
+
+    .header {
+      display: flex;
+      align-items: center;
+      width: inherit;
+      gap: 5px;
+
+      hr {
+        height: 1px;
+        width: max-content;
+        border: none;
+        flex-grow: 1;
+        background-color: var(--shadow);
+      }
+    }
+
+    .events {
+      width: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      .event {
+        display: flex;
+        align-items: center;
+        width: inherit;
+
+        .time {
+          padding: $timePadding;
+          text-align: center;
+          min-width: 55px;
+        }
+      }
+    }
+  }
+}
