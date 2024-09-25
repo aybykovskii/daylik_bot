@@ -1,9 +1,9 @@
 import { Middleware } from 'telegraf'
 
-import { botLogger } from '~logger'
-import { telegramUserId } from '~types'
+import { botLogger } from 'shared/logger'
+import { telegramUserId } from 'shared/types'
 
-import { TelegrafContext } from 'types'
+import { TelegrafContext } from 'shared/types'
 
 export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => {
 	const userId = ctx.from?.id

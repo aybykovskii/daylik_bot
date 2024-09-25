@@ -2,9 +2,9 @@ import { Context } from 'telegraf'
 import { FmtString } from 'telegraf/format'
 import { Convenience, Message } from 'telegraf/types'
 
-import { makeApi } from '~api'
-import { i18next } from '~i18n'
-import { UserFullData } from '~types'
+import { makeApi } from 'api'
+import { i18next } from 'shared/i18n'
+import { UserFullData } from 'shared/types'
 
 import { GPT } from 'helpers'
 

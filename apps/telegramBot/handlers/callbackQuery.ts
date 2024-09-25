@@ -1,9 +1,9 @@
 import { Middleware } from 'telegraf'
 
-import { modelId } from '~types'
+import { modelId } from 'shared/types'
 
 import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from 'helpers'
-import { TelegrafContext } from 'types'
+import { TelegrafContext } from 'shared/types'
 
 export const callbackQueryHandler: Middleware<TelegrafContext> = async (ctx) => {
 	const cbq = ctx.callbackQuery

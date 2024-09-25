@@ -1,11 +1,13 @@
 import express from 'express'
 import { Telegraf } from 'telegraf'
 
-import { env } from '~environment'
-import { botLogger } from '~logger'
+import { makeApi } from 'api'
+import { env } from 'shared/environment'
+import { botLogger } from 'shared/logger'
 
 import {
 	callbackQueryHandler,
+	getNotificationRouter,
 	helpCommandHandler,
 	messageHandler,
 	startCommandHandler,
@@ -15,9 +17,10 @@ import { contextMiddleware, i18nMiddleware, userMiddleware } from 'middlewares'
 import { TelegrafContext } from 'types'
 
 const bot = new Telegraf<TelegrafContext>(env.TG_BOT_TOKEN)
+const api = makeApi(env)
 
 bot.use(i18nMiddleware)
-bot.use(contextMiddleware)
+bot.use(contextMiddleware(api))
 bot.use(userMiddleware)
 
 // Commands
@@ -37,18 +40,18 @@ bot.launch()
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
-const startBot = async () => {
+const app = express()
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.use('/notifications', getNotificationRouter(bot, api))
+;(async () => {
 	try {
-		const app = express()
-
-		app.use(express.json())
-
 		app.listen(env.BOT_PORT, () => {
 			botLogger.info(`Listening on port ${env.BOT_PORT}`)
 		})
 	} catch (error) {
 		botLogger.error(error)
 	}
-}
-
-startBot()
+})()

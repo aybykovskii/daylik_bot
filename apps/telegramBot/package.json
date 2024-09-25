@@ -1,0 +1,14 @@
+{
+	"name": "telegram_bot",
+	"main": "bot.ts",
+	"scripts": {
+		"start": "bun --watch bot.ts"
+	},
+	"dependencies": {
+		"api": "workspace:^",
+		"http-proxy-middleware": "^3.0.2",
+		"openai": "^4.53.0",
+		"shared": "workspace:^",
+		"telegraf": "^4.16.3"
+	}
+}

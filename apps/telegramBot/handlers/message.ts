@@ -1,7 +1,7 @@
 import { Middleware } from 'telegraf'
 
-import { TelegrafContext } from 'types'
-import { ModelId, UserRequestResult, eventBase, modelId } from '~types'
+import { TelegrafContext } from 'shared/types'
+import { ModelId, UserRequestResult, eventBase, modelId } from 'shared/types'
 
 import dayjs from 'dayjs'
 import {
@@ -11,10 +11,10 @@ import {
 	rejectDeletionCD,
 	userRequestResultCD,
 } from 'helpers'
+import { env } from 'shared/environment'
+import { botLogger } from 'shared/logger'
 import { InlineKeyboardButton } from 'telegraf/types'
 import { z } from 'zod'
-import { env } from '~environment'
-import { botLogger } from '~logger'
 import { MAIN_PROMPT } from '../prompts.json'
 
 const getConfirmCreationKeyboard = (eventId: ModelId): InlineKeyboardButton[][] => [
