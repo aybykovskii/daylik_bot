@@ -1,0 +1,12 @@
+{
+	"name": "api",
+	"version": "1.0.0",
+	"main": "index.ts",
+	"scripts": {
+		"init": "pnpm install --frozen-lockfile"
+	},
+	"dependencies": {
+		"ky": "^1.5.0",
+		"shared": "workspace:^"
+	}
+}
