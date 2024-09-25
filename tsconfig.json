@@ -16,17 +16,8 @@
 		"moduleResolution": "bundler",
 		"isolatedModules": true,
 		"jsx": "preserve",
-		"incremental": true,
-		"paths": {
-			"~common/*": ["src/common/*"],
-			"~types": ["src/types/index"],
-			"~types/*": ["src/types/*"]
-		}
+		"incremental": true
 	},
-	"ts-node": {
-		"ignore": ["(?:^|/)node_modules/"],
-		"require": ["tsconfig-paths/register"]
-	},
-	"include": ["**/*.ts", "**/*.tsx", "global.d.ts"],
+	"include": ["**/*.ts"],
 	"exclude": ["node_modules"]
 }

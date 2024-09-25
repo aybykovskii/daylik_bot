@@ -1,10 +1,10 @@
 node_modules
 **/node_modules
-**/.DS_Store
 
 # IDEs
 .vscode
 .idea
+**/.DS_Store
 
 # env
 .env
@@ -14,5 +14,7 @@ node_modules
 **/*prompts.json
 **/*prompt.md
 
-**/pnpm-lock.yaml
-**/.next
+#logs
+**/logs/*
+
+**/dist

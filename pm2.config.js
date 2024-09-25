@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'server',
-      script: 'bun run server',
+      script: 'bun run server:run',
     },
     {
       name: 'bot',
