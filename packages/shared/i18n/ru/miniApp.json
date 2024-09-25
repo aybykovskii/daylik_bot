@@ -1,0 +1,9 @@
+{
+	"greeting": "Привет, {fullName}!",
+	"loading": "Загрузка...",
+
+	"views": {
+		"month": "Месяц",
+		"week": "Неделя"
+	}
+}

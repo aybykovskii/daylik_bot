@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { Pretty } from '../common'
 import { ModelBase, modelId } from '../postgre'
 
-export const paymentStatus = z.enum(['pending', 'in_progress', 'success', 'failed'])
+export const paymentStatus = z.enum(['pending', 'in_progress', 'success', 'failed', 'canceled'])
 export type PaymentStatus = z.infer<typeof paymentStatus>
 
 export const paymentBase = z.object({
@@ -12,6 +12,8 @@ export const paymentBase = z.object({
 	idempotenceKey: z.string(),
 	amount: z.number(),
 	status: paymentStatus,
+	currency: z.string(),
+	description: z.string(),
 })
 
 export type PaymentBase = z.infer<typeof paymentBase>

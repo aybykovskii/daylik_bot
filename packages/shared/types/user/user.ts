@@ -4,6 +4,10 @@ import { Pretty } from '../common'
 import { Event } from '../event'
 import { Payment } from '../payment'
 import { ModelBase } from '../postgre'
+import { Role } from '../role'
+import { Settings } from '../settings'
+import { Statistics } from '../statistics'
+import { Subscription } from '../subscription'
 
 export const telegramUserId = z.coerce
 	.string()
@@ -26,9 +30,6 @@ export const userBase = z.object({
 	telegramUserId: telegramUserId,
 	firstName: z.string().optional(),
 	lastName: z.string().optional(),
-	requestsSent: z.number(),
-	access: userAccess,
-	customization: userCustomization,
 })
 
 export type UserBase = z.infer<typeof userBase>
@@ -39,7 +40,10 @@ export type UserRequestResult = z.infer<typeof userRequestResult>
 
 export type UserFullData = User & {
 	fullName: string
-	isLimitExceeded: boolean
+	roles: Role[]
+	settings: Settings
+	subscription: Subscription
+	statistics: Statistics
 	events: Event[]
 	eventDraft: Event | null
 	payments: Payment[]
