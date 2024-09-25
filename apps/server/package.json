@@ -1,0 +1,21 @@
+{
+	"name": "server",
+	"main": "server.ts",
+	"scripts": {
+		"init": "pnpm install --frozen-lockfile",
+		"start": "bun --watch ./server.ts"
+	},
+	"dependencies": {
+		"@sequelize/core": "7.0.0-alpha.41",
+		"@sequelize/postgres": "7.0.0-alpha.41",
+		"cors": "^2.8.5",
+		"jsonwebtoken": "8.5.1",
+		"i18next-express-middleware": "^2.0.0",
+		"reflect-metadata": "^0.2.2",
+		"shared": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.17",
+		"@types/jsonwebtoken": "8.5.1"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"@models": ["./models/index"],
+			"@models/*": ["./models/*"],
+			"@router": ["./router/index"],
+			"@router/*": ["./router/*"],
+			"@helpers": ["./helpers/index"]
+		}
+	}
+}
