@@ -1,7 +1,9 @@
 import { z } from 'zod'
 
 import { Pretty } from '../common'
-import { ModelBase } from '../postgre'
+
+import { ModelIntBase } from './postgre'
+import { UserDto } from './user.schema'
 
 export const roleType = z.enum(['user', 'staff', 'admin'])
 
@@ -10,5 +12,11 @@ export const roleSchema = z.object({
 	description: z.string(),
 })
 
+export type RoleType = z.infer<typeof roleType>
+
 export type RoleBase = z.infer<typeof roleSchema>
-export type Role = Pretty<ModelBase & RoleBase>
+export type RoleDto = Pretty<ModelIntBase & RoleBase>
+
+export type RoleFullData = RoleDto & {
+	users: UserDto[]
+}
