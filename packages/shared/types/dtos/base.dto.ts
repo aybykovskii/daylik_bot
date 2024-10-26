@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { intId, uuidId } from './postgre'
+import { intId, uuidId } from '../schemas'
 
 export const withDbDates = z.object({
 	createdAt: z.coerce.date(),
