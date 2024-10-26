@@ -1,31 +1,36 @@
-import { BelongsToGetAssociationMixin, DataTypes, NonAttribute } from '@sequelize/core'
+import {
+	BelongsToGetAssociationMixin,
+	CreationOptional,
+	DataTypes,
+	NonAttribute,
+} from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { UserSettingsDto, UserSettingsFullData } from 'shared'
+import { SettingsDto, SettingsFullData } from 'shared'
 
 import { BaseIntModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'settings', modelName: 'Settings' })
-export class SettingsModel extends BaseIntModel<SettingsModel> implements UserSettingsFullData {
+export class SettingsModel extends BaseIntModel<SettingsModel> implements SettingsFullData {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare userId: UserSettingsFullData['userId']
+	declare userId: SettingsFullData['userId']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
 	@Default('08:00')
-	declare notificationTime: UserSettingsFullData['notificationTime']
+	declare notificationTime: CreationOptional<SettingsFullData['notificationTime']>
 
 	@Attribute(DataTypes.JSONB)
 	@Default({})
-	declare stylization: UserSettingsFullData['stylization']
+	declare stylization: CreationOptional<SettingsFullData['stylization']>
 
 	/** Defined by {@link UserModel.events} */
 	declare user: NonAttribute<UserModel>
 	declare getUser: BelongsToGetAssociationMixin<UserModel>
 
-	asDto(): UserSettingsDto {
+	asDto(): SettingsDto {
 		return {
 			id: this.id,
 			createdAt: this.createdAt,
@@ -36,14 +41,11 @@ export class SettingsModel extends BaseIntModel<SettingsModel> implements UserSe
 		}
 	}
 
-	asFullData(): UserSettingsFullData {
+	asFullData(): SettingsFullData {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			notificationTime: this.notificationTime,
-			stylization: this.stylization,
+			...dto,
 			user: this.user,
 		}
 	}

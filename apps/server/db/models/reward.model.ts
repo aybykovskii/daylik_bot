@@ -30,20 +30,11 @@ export class RewardModel extends BaseIntModel<RewardModel> implements RewardFull
 	}
 
 	asFullData(): RewardFullData {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			name: this.name,
-			description: this.description,
+			...dto,
 			users: this.users,
 		}
 	}
-
-	// @HasMany(() => UserRewardModel, {
-	// 	foreignKey: 'rewardId',
-	// 	inverse: 'reward',
-	// })
-	// declare users: NonAttribute<UserRewardModel[]>
-	// declare getUsers: HasManyGetAssociationsMixin<UserRewardModel>
 }

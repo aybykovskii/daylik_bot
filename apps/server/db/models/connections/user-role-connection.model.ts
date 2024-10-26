@@ -25,12 +25,4 @@ export class UserRoleConnectionModel
 
 	/** Defined by {@link UserModel} */
 	declare user: NonAttribute<UserModel>
-
-	// @HasOne(() => UserModel, {
-	// 	foreignKey: 'id',
-	// 	sourceKey: 'userId',
-	// 	onDelete: 'cascade',
-	// })
-	// declare user: NonAttribute<UserModel>
-	// declare getUser: HasOneGetAssociationMixin<UserModel>
 }

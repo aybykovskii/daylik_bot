@@ -1,4 +1,9 @@
-import { BelongsToGetAssociationMixin, DataTypes, NonAttribute } from '@sequelize/core'
+import {
+	BelongsToGetAssociationMixin,
+	CreationOptional,
+	DataTypes,
+	NonAttribute,
+} from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
 import {
@@ -23,20 +28,22 @@ export class SubscriptionModel
 	@Attribute(DataTypes.ENUM(subscriptionType.options))
 	@NotNull
 	@Default('trial')
-	declare type: SubscriptionFullData['type']
+	declare type: CreationOptional<SubscriptionFullData['type']>
 
 	@Attribute(DataTypes.DATE)
 	@NotNull
-	declare startDate: SubscriptionFullData['startDate']
+	@Default(DataTypes.NOW)
+	declare startDate: CreationOptional<SubscriptionFullData['startDate']>
 
 	@Attribute(DataTypes.DATE)
 	@NotNull
-	declare endDate: SubscriptionFullData['endDate']
+	@Default(DataTypes.NOW)
+	declare endDate: CreationOptional<SubscriptionFullData['endDate']>
 
 	@Attribute(DataTypes.ENUM(subscriptionStatus.options))
 	@NotNull
 	@Default('active')
-	declare status: SubscriptionFullData['status']
+	declare status: CreationOptional<SubscriptionFullData['status']>
 
 	/** Defined by {@link UserModel.subscription} */
 	declare user: NonAttribute<UserModel>
@@ -56,15 +63,10 @@ export class SubscriptionModel
 	}
 
 	asFullData(): SubscriptionFullData {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			type: this.type,
-			startDate: this.startDate,
-			endDate: this.endDate,
-			status: this.status,
+			...dto,
 			user: this.user,
 		}
 	}

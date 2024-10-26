@@ -191,28 +191,32 @@ export class UserModel extends BaseIntModel<UserModel> implements UserFullData {
 		}
 	}
 
-	asFullData(): UserFullData {
+	async asFullData(): Promise<UserFullData> {
+		const dto = this.asDto()
+
+		const statistics = await this.getStatistics()
+		const statisticsDto = await statistics!.asDto()
+		const settings = await this.getSettings()
+		const settingsDto = await settings!.asDto()
+		const subscription = await this.getSubscription()
+		const subscriptionDto = await subscription!.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			telegramUserId: this.telegramUserId,
-			firstName: this.firstName,
-			lastName: this.lastName ?? '',
+			...dto,
 			fullName: this.fullName,
-			roles: this.roles,
-			rewards: this.rewards,
-			settings: this.settings,
-			subscription: this.subscription,
-			statistics: this.statistics,
-			events: this.events,
-			eventDrafts: this.eventDrafts,
-			payments: this.payments,
-			outgoingFriendshipRequests: this.outgoingFriendshipRequests,
-			incomingFriendshipRequests: this.incomingFriendshipRequests,
-			friends: this.friends,
-			outgoingEventShares: this.outgoingEventShares,
-			incomingEventShares: this.incomingEventShares,
+			settings: settingsDto,
+			subscription: subscriptionDto,
+			statistics: statisticsDto,
+			roles: await this.getRoles(),
+			rewards: await this.getRewards(),
+			events: await this.getEvents(),
+			eventDrafts: await this.getEventDrafts(),
+			payments: await this.getPayments(),
+			outgoingFriendshipRequests: await this.getOutgoingFriendshipRequests(),
+			incomingFriendshipRequests: await this.getIncomingFriendshipRequests(),
+			friends: await this.getFriends(),
+			outgoingEventShares: await this.getOutgoingEventShares(),
+			incomingEventShares: await this.getIncomingEventShares(),
 		}
 	}
 }

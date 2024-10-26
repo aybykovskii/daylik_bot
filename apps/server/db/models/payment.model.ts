@@ -66,17 +66,10 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> implements Payment
 	}
 
 	asFullData(): PaymentFullData {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			paymentId: this.paymentId,
-			idempotenceKey: this.idempotenceKey,
-			amount: this.amount,
-			status: this.status,
-			currency: this.currency,
-			description: this.description,
+			...dto,
 			user: this.user,
 		}
 	}

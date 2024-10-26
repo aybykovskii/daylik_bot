@@ -6,7 +6,7 @@ import {
 } from '@sequelize/core'
 import { AllowNull, Attribute, HasMany, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { EventDto, EventFullData } from 'shared/types'
+import { EventFullData, EventFullDataResponseDto, EventDto } from 'shared/types'
 
 import { BaseIntModel } from './base.model'
 import { EventSharingModel } from './event-sharing.model'
@@ -76,18 +76,11 @@ export class EventModel extends BaseIntModel<EventModel> implements EventFullDat
 		}
 	}
 
-	asFullData(): EventFullData {
+	async asFullData(): Promise<EventFullDataResponseDto> {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			date: this.date,
-			time: this.time,
-			text: this.text,
-			emoji: this.emoji,
-			copyFromId: this.copyFromId,
-			user: this.user,
+			...dto,
 			shares: this.shares,
 			copyFrom: this.copyFrom,
 			copies: this.copies,

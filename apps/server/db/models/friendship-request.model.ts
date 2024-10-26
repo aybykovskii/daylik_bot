@@ -1,4 +1,9 @@
-import { BelongsToGetAssociationMixin, DataTypes, NonAttribute } from '@sequelize/core'
+import {
+	BelongsToGetAssociationMixin,
+	CreationOptional,
+	DataTypes,
+	NonAttribute,
+} from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
 import { FriendshipRequestDto, FriendshipRequestFullData, friendshipRequestStatus } from 'shared'
@@ -22,7 +27,7 @@ export class FriendshipRequestModel
 	@Attribute(DataTypes.ENUM(friendshipRequestStatus.options))
 	@NotNull
 	@Default(friendshipRequestStatus.Values.pending)
-	declare status: FriendshipRequestFullData['status']
+	declare status: CreationOptional<FriendshipRequestFullData['status']>
 
 	/** Defined by {@link UserModel} */
 	declare user: NonAttribute<UserModel>
@@ -44,13 +49,10 @@ export class FriendshipRequestModel
 	}
 
 	asFullData(): FriendshipRequestFullData {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			targetUserId: this.targetUserId,
-			status: this.status,
+			...dto,
 			user: this.user,
 			targetUser: this.targetUser,
 		}

@@ -1,7 +1,12 @@
-import { BelongsToGetAssociationMixin, DataTypes, NonAttribute } from '@sequelize/core'
+import {
+	BelongsToGetAssociationMixin,
+	CreationOptional,
+	DataTypes,
+	NonAttribute,
+} from '@sequelize/core'
 import { AllowNull, Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { EventSharingDto, EventSharingFullData } from 'shared'
+import { EventSharingDto, EventSharingFullData, EventSharingFullDataResponseDto } from 'shared'
 
 import { BaseUuidModel } from './base.model'
 import { EventModel } from './event.model'
@@ -22,17 +27,17 @@ export class EventSharingModel
 
 	@Attribute(DataTypes.INTEGER)
 	@AllowNull
-	declare targetUserId: EventSharingFullData['targetUserId']
+	declare targetUserId: CreationOptional<EventSharingFullData['targetUserId']>
 
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
 	@Default(1)
-	declare usageLimit: EventSharingFullData['usageLimit']
+	declare usageLimit: CreationOptional<EventSharingFullData['usageLimit']>
 
 	@Attribute(DataTypes.INTEGER)
 	@AllowNull
 	@Default(0)
-	declare usageAmount: EventSharingFullData['usageAmount']
+	declare usageAmount: CreationOptional<EventSharingFullData['usageAmount']>
 
 	/** Defined by {@link UserModel} */
 	declare user: NonAttribute<UserModel>
@@ -59,16 +64,11 @@ export class EventSharingModel
 		}
 	}
 
-	asFullData(): EventSharingFullData {
+	asFullData(): EventSharingFullDataResponseDto {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			eventId: this.eventId,
-			targetUserId: this.targetUserId,
-			usageLimit: this.usageLimit,
-			usageAmount: this.usageAmount,
+			...dto,
 			user: this.user,
 			event: this.event,
 			targetUser: this.targetUser,

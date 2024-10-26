@@ -31,20 +31,11 @@ export class RoleModel extends BaseIntModel<RoleModel> implements RoleFullData {
 	}
 
 	asFullData(): RoleFullData {
+		const dto = this.asDto()
+
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			type: this.type,
-			description: this.description,
+			...dto,
 			users: this.users,
 		}
 	}
-
-	// @HasMany(() => UserRoleModel, {
-	// 	foreignKey: 'roleId',
-	// 	inverse: 'role',
-	// })
-	// declare users: NonAttribute<UserRoleModel[]>
-	// declare getUsers: HasManyGetAssociationsMixin<UserRoleModel>
 }

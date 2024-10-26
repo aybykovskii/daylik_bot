@@ -44,18 +44,4 @@ export class EventDraftModel extends BaseIntModel<EventDraftModel> implements Ev
 			emoji: this.emoji,
 		}
 	}
-
-	asFullData(): EventDraftFullData {
-		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
-			userId: this.userId,
-			date: this.date,
-			time: this.time,
-			text: this.text,
-			emoji: this.emoji,
-			user: this.user,
-		}
-	}
 }
