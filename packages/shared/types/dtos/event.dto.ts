@@ -6,7 +6,9 @@ import { event } from '../schemas'
 import { withDbId } from './base.dto'
 import { eventSharingResponseDto } from './event-sharing.dto'
 
-export const createEventDto = z.object({ fromDraftId: z.number() }).or(event)
+export const createEventDto = event
+	.omit({ copyFromId: true })
+	.or(z.object({ fromDraftId: z.number() }))
 export type CreateEventDto = PrettyZod<typeof createEventDto>
 
 export const updateEventDto = event.omit({ userId: true, copyFromId: true }).partial()

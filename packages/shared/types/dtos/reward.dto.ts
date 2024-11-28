@@ -15,7 +15,7 @@ export const rewardResponseDto = reward.extend(withDbId.shape)
 export type RewardResponseDto = PrettyZod<typeof rewardResponseDto>
 
 export const rewardFullDataResponseDto = reward.extend({
-	user: user.extend(withDbId.shape),
+	users: user.extend(withDbId.shape).array(),
 })
 export type RewardFullDataResponseDto = PrettyZod<typeof rewardFullDataResponseDto>
 

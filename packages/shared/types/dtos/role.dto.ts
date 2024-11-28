@@ -15,7 +15,7 @@ export const roleResponseDto = role.extend(withDbId.shape)
 export type RoleResponseDto = PrettyZod<typeof roleResponseDto>
 
 export const roleFullDataResponseDto = role.extend({
-	user: user.extend(withDbId.shape),
+	users: user.extend(withDbId.shape).array(),
 })
 export type RoleFullDataResponseDto = PrettyZod<typeof roleFullDataResponseDto>
 

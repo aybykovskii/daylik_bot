@@ -5,11 +5,15 @@ import { payment, user } from '../schemas'
 
 import { withDbId, withDbUuids } from './base.dto'
 
-export const createPaymentDto = payment.omit({
-	paymentId: true,
-	idempotenceKey: true,
-	status: true,
-})
+export const createPaymentDto = payment
+	.omit({
+		paymentId: true,
+		idempotenceKey: true,
+		status: true,
+	})
+	.extend({
+		currency: payment.shape.currency.optional(),
+	})
 export type CreatePaymentDto = PrettyZod<typeof createPaymentDto>
 
 export const updatePaymentDto = payment

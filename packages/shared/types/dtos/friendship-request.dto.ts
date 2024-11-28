@@ -10,9 +10,10 @@ export const createFriendshipRequestDto = friendshipRequest.extend({
 })
 export type CreateFriendshipRequestDto = PrettyZod<typeof createFriendshipRequestDto>
 
-export const updateFriendshipRequestDto = friendshipRequest
-	.omit({ userId: true, targetUserId: true })
-	.partial()
+export const updateFriendshipRequestDto = friendshipRequest.omit({
+	userId: true,
+	targetUserId: true,
+})
 export type UpdateFriendshipRequestDto = PrettyZod<typeof updateFriendshipRequestDto>
 
 export const friendshipRequestResponseDto = friendshipRequest.extend(withDbUuids.shape)
@@ -24,6 +25,11 @@ export const friendshipRequestFullDataResponseDto = friendshipRequest.extend({
 })
 export type FriendshipRequestFullDataResponseDto = PrettyZod<
 	typeof friendshipRequestFullDataResponseDto
+>
+
+export const friendshipRequestsFullDataResponseDto = friendshipRequestFullDataResponseDto.array()
+export type FriendshipRequestsFullDataResponseDto = PrettyZod<
+	typeof friendshipRequestsFullDataResponseDto
 >
 
 export const friendshipRequestsResponseDto = z.array(friendshipRequestResponseDto)

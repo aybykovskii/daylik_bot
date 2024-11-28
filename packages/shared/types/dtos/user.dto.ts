@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 import { PrettyZod } from '../common'
-import { user } from '../schemas'
+import { intId, user } from '../schemas'
 
 import { withDbId } from './base.dto'
 import { eventDraftsResponseDto } from './event-draft.dto'
@@ -25,6 +25,8 @@ export const userResponseDto = user.extend(withDbId.shape)
 export type UserResponseDto = PrettyZod<typeof userResponseDto>
 
 export const userFullDataResponseDto = user.extend({
+	id: intId,
+	fullName: z.string(),
 	roles: rolesResponseDto,
 	settings: settingsResponseDto,
 	statistics: statisticsResponseDto,
