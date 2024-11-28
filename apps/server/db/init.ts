@@ -4,10 +4,12 @@ import { PostgresDialect } from '@sequelize/postgres'
 import { serverLogger } from 'shared'
 import { dbEnv } from './env'
 
+let sql: Sequelize<PostgresDialect>
+
 export const init = async () => {
 	const env = dbEnv.parse(process.env)
 
-	const sql = new Sequelize({
+	sql = new Sequelize({
 		dialect: PostgresDialect,
 		host: env.POSTGRES_HOST,
 		port: env.POSTGRES_PORT,
@@ -36,3 +38,5 @@ export const init = async () => {
 
 	return sql
 }
+
+export const getSequelize = () => sql

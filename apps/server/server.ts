@@ -1,83 +1,121 @@
-import Sequelize from '@sequelize/core'
-import { PostgresDialect } from '@sequelize/postgres'
-import cors from 'cors'
-import express from 'express'
-import i18nextMiddleware from 'i18next-express-middleware'
-
-import { env } from 'shared/environment'
-import { i18next } from 'shared/i18n'
-import { serverLogger } from 'shared/logger'
-
-import { logMiddleware, makeAllRoutesRoutes } from '@helpers'
+import 'zod-openapi/extend'
+import Swagger from '@fastify/swagger'
+import SwaggerUi from '@fastify/swagger-ui'
+import Fastify from 'fastify'
 import {
-	EventDraftModel,
-	EventModel,
-	PaymentModel,
-	RoleModel,
-	SettingsModel,
-	StatisticsModel,
-	SubscriptionModel,
-	UserModel,
-} from '@models'
-import { eventDraftsRouter, eventsRouter, paymentsRouter, rolesRouter, usersRouter } from '@router'
-import { authHeaderMiddleware, authRouter /*authTokenMiddleware*/ } from '@router/auth'
+	fastifyZodOpenApiPlugin,
+	fastifyZodOpenApiTransform,
+	fastifyZodOpenApiTransformObject,
+	serializerCompiler,
+	validatorCompiler,
+} from 'fastify-zod-openapi'
 
-const app = express()
+import { i18next, serverLogger } from 'shared'
 
-const sql = new Sequelize({
-	dialect: PostgresDialect,
-	host: env.POSTGRES_HOST,
-	port: env.POSTGRES_PORT,
-	user: env.POSTGRES_USER,
-	password: env.POSTGRES_PASSWORD,
-	database: env.POSTGRES_DB,
-	models: [
-		RoleModel,
-		UserModel,
-		SettingsModel,
-		StatisticsModel,
-		SubscriptionModel,
-		EventModel,
-		EventDraftModel,
-		PaymentModel,
-	],
-	logging: false,
+import { ServerError, ValidationError, registerControllers } from 'common'
+import {
+	AuthController,
+	EventDraftsController,
+	EventSharesController,
+	EventsController,
+	FriendshipController,
+	PaymentsController,
+	RolesController,
+	UsersController,
+	authTokenHookHandler,
+} from 'modules'
+
+import { init as initDb } from './db'
+
+const server = Fastify({ logger: false })
+
+server.setValidatorCompiler(validatorCompiler)
+server.setSerializerCompiler(serializerCompiler)
+
+await server.register(fastifyZodOpenApiPlugin)
+
+await server.register(Swagger, {
+	openapi: {
+		openapi: '3.0.3',
+		info: {
+			title: 'Daylik',
+			description: 'Daylik API documentation',
+			version: '0.1.0',
+		},
+	},
+	transform: fastifyZodOpenApiTransform,
+	transformObject: fastifyZodOpenApiTransformObject,
+})
+await server.register(SwaggerUi, {
+	routePrefix: '/documentation',
 })
 
-sql
-	.authenticate()
-	.then(() => serverLogger.info('Connected to postgres'))
-	.catch((e) => serverLogger.error(`Catch error while connecting to postgres: ${e}`))
+server.decorateRequest('userId', null)
+server.decorateRequest('t', i18next.t)
 
-sql
-	.sync({ alter: true })
-	.then(() => serverLogger.info('Synced models to postgres'))
-	.catch((e) => serverLogger.error(`Catch error while syncing models to postgres: ${e}`))
+registerControllers(server, {
+	prefix: '/api',
+	controllers: [AuthController],
+})
 
-app.use(cors({ origin: '*', credentials: true }))
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(i18nextMiddleware.handle(i18next))
-app.use(logMiddleware)
-app.use(authHeaderMiddleware(env))
+registerControllers(server, {
+	prefix: '/api/v1',
+	controllers: [
+		UsersController,
+		RolesController,
+		EventsController,
+		EventDraftsController,
+		EventSharesController,
+		FriendshipController,
+		PaymentsController,
+	],
+	handlers: {
+		onRequest: [authTokenHookHandler],
+	},
+})
 
-app.use('/auth', authRouter, makeAllRoutesRoutes(''))
+server.withTypeProvider().route({
+	method: 'GET',
+	url: '/health',
+	handler: async (_, reply) => {
+		return reply.send('ok')
+	},
+})
 
-app.use(
-	'/api',
-	// authTokenMiddleware,
-	rolesRouter,
-	usersRouter,
-	paymentsRouter,
-	eventsRouter,
-	eventDraftsRouter,
-	makeAllRoutesRoutes('')
-)
+server.setErrorHandler<ServerError & ValidationError>((error, req, reply) => {
+	if (error.validation) {
+		serverLogger.error('Occurred validation error', { error })
+		reply.status(400).send({
+			code: 400,
+			error: req.t('server.error.validation', {
+				type: error.validation[0].keyword,
+				path: error.validationContext,
+				expected: error.validation[0].params.issue.expected,
+				received: error.validation[0].params.issue.received,
+			}),
+		})
+	} else {
+		serverLogger.error('Occurred server error', { error })
+		reply.status(error.statusCode || 500).send({
+			code: error.statusCode,
+			error: req.t(error.message as I18nPhrase),
+		})
+	}
+})
 
-app
-	.listen(env.SERVER_PORT, () => {
-		serverLogger.info(`Listening on port ${env.SERVER_PORT}`)
+server.setNotFoundHandler((req, reply) => {
+	reply.status(404).send({
+		code: 404,
+		error: req.t('server.error.routes.not_found', { route: req.url }),
 	})
-	.on('error', (e) => {
-		serverLogger.error(`Catch error while listening on port ${env.SERVER_PORT}: ${e}`)
-	})
+})
+
+server.listen({ port: 8080, host: '0.0.0.0' }, async (err, address) => {
+	if (err) {
+		serverLogger.error(err)
+		process.exit(1)
+	}
+
+	serverLogger.info(`Server listening on ${address}`)
+	await initDb()
+})

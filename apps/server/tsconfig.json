@@ -3,11 +3,9 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"paths": {
-			"@models": ["./models/index"],
-			"@models/*": ["./models/*"],
-			"@router": ["./router/index"],
-			"@router/*": ["./router/*"],
-			"@helpers": ["./helpers/index"]
+			"@db": ["./db/index"],
+			"@common": ["./common/index"],
+			"@modules": ["./modules/index"]
 		}
 	}
 }

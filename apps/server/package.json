@@ -2,20 +2,22 @@
 	"name": "server",
 	"main": "server.ts",
 	"scripts": {
-		"init": "pnpm install --frozen-lockfile",
 		"start": "bun --watch ./server.ts"
 	},
 	"dependencies": {
+		"@fastify/swagger": "^9.3.0",
+		"@fastify/swagger-ui": "^5.1.0",
 		"@sequelize/core": "7.0.0-alpha.41",
 		"@sequelize/postgres": "7.0.0-alpha.41",
-		"cors": "^2.8.5",
+		"fastify": "^5.0.0",
+		"fastify-type-provider-zod": "^3.0.0",
+		"fastify-zod-openapi": "^3.0.4",
 		"jsonwebtoken": "8.5.1",
-		"i18next-express-middleware": "^2.0.0",
 		"reflect-metadata": "^0.2.2",
-		"shared": "workspace:*"
+		"shared": "workspace:*",
+		"zod-openapi": "^4.0.0"
 	},
 	"devDependencies": {
-		"@types/cors": "^2.8.17",
 		"@types/jsonwebtoken": "8.5.1"
 	}
 }
