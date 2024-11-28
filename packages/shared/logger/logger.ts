@@ -6,7 +6,7 @@ type ModuleName = 'server' | 'bot' | 'common' | 'miniapp'
 
 const createModuleLogger = (moduleName: ModuleName) => {
 	const timestamp = format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
-	const dirname = path.resolve(__dirname, './logs')
+	const dirname = path.resolve(__dirname, './logs', moduleName)
 
 	const logger = createLogger({
 		level: 'info',
