@@ -2,9 +2,8 @@ import { Context } from 'telegraf'
 import { FmtString } from 'telegraf/format'
 import { Convenience, Message } from 'telegraf/types'
 
-import { makeApi } from 'api'
+import { Users, api } from 'api'
 import { i18next } from 'shared/i18n'
-import { UserFullData } from 'shared/types'
 
 import { GPT } from 'helpers'
 
@@ -28,8 +27,8 @@ export type I18nReply = (
 ) => Promise<Message.TextMessage>
 
 export interface TelegrafContext extends Context {
-	api: ReturnType<typeof makeApi>
-	user: UserFullData
+	api: typeof api
+	user: Users.Get.ResponseBody
 	t: (phrase: I18nPhrase, tOptions?: TOptions) => string
 	gpt: GPT
 	sendTMessage: I18nSendMessage

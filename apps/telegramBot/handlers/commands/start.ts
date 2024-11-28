@@ -1,7 +1,7 @@
 import { Middleware } from 'telegraf'
-
-import { TelegrafContext } from 'shared/types'
 import { z } from 'zod'
+
+import { TelegrafContext } from 'types'
 
 const commandsList = z.enum(['start', 'info', 'help'])
 

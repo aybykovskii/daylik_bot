@@ -1,6 +1,6 @@
 import { Middleware } from 'telegraf'
 
-import { TelegrafContext } from 'shared/types'
+import { TelegrafContext } from 'types'
 
 export const unknownCommandHandler: Middleware<TelegrafContext> = async (ctx, next) => {
 	if (!ctx.entities('bot_command').length) {

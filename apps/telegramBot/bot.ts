@@ -1,7 +1,7 @@
 import express from 'express'
 import { Telegraf } from 'telegraf'
 
-import { makeApi } from 'api'
+import { api } from 'api'
 import { env } from 'shared/environment'
 import { botLogger } from 'shared/logger'
 
@@ -17,7 +17,7 @@ import { contextMiddleware, i18nMiddleware, userMiddleware } from 'middlewares'
 import { TelegrafContext } from 'types'
 
 const bot = new Telegraf<TelegrafContext>(env.TG_BOT_TOKEN)
-const api = makeApi(env)
+api.baseUrl = `http://server:${env.SERVER_PORT}`
 
 bot.use(i18nMiddleware)
 bot.use(contextMiddleware(api))
@@ -48,7 +48,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/notifications', getNotificationRouter(bot, api))
 ;(async () => {
 	try {
-		app.listen(env.BOT_PORT, () => {
+		app.listen(env.BOT_PORT, async () => {
 			botLogger.info(`Listening on port ${env.BOT_PORT}`)
 		})
 	} catch (error) {

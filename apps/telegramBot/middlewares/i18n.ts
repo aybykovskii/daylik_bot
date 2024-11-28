@@ -2,7 +2,7 @@ import { Middleware } from 'telegraf'
 
 import { i18next } from 'shared/i18n'
 
-import { I18nFmtString, TOptions, TelegrafContext } from 'shared/types'
+import { I18nFmtString, TOptions, TelegrafContext } from 'types'
 
 export const i18nMiddleware: Middleware<TelegrafContext> = (ctx, next) => {
 	const getTranslatedMessage = (msg: I18nPhrase | I18nFmtString, tOptions: TOptions) =>

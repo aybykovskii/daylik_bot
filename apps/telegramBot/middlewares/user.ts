@@ -3,7 +3,7 @@ import { Middleware } from 'telegraf'
 import { botLogger } from 'shared/logger'
 import { telegramUserId } from 'shared/types'
 
-import { TelegrafContext } from 'shared/types'
+import { TelegrafContext } from 'types'
 
 export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => {
 	const userId = ctx.from?.id
@@ -15,6 +15,8 @@ export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => 
 	}
 
 	const id = telegramUserId.parse(userId)
+	ctx.api.auth.loginCreate({ telegramUserId: id })
+
 	let user = await ctx.api.users.get(id)
 
 	if (!user) {

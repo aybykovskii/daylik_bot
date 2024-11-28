@@ -1,6 +1,6 @@
 import { Middleware } from 'telegraf'
 
-import { TelegrafContext } from 'shared/types'
+import { TelegrafContext } from 'types'
 
 export const helpCommandHandler: Middleware<TelegrafContext> = async (ctx) => {
 	const commands = await ctx.telegram.getMyCommands()
