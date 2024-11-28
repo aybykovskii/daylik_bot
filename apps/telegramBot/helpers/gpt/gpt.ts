@@ -1,35 +1,22 @@
 import OpenAI from 'openai'
+import { zodResponseFormat } from 'openai/helpers/zod'
+import { GPTResponse, gptResponse } from 'types/gpt'
 
 export class GPT extends OpenAI {
 	constructor(apiKey: string) {
 		super({ apiKey })
 	}
 
-	sendStreamMessage = async (
-		messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-		callback?: (message: string, isEnd: boolean) => void
-	) => {
-		const stream = this.beta.chat.completions.stream({
+	sendMessage = async (
+		messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]
+	): Promise<GPTResponse> => {
+		const response = await this.beta.chat.completions.parse({
 			model: 'gpt-4o-mini',
 			messages,
-			stream: true,
+			response_format: zodResponseFormat(gptResponse, 'response'),
 		})
 
-		let answer = ''
-		let delta = ''
-
-		for await (const chunk of stream) {
-			const content = chunk.choices[0].delta.content
-			delta += content ?? ''
-
-			if (delta.length >= 50 || !content) {
-				answer += delta || ''
-				delta = ''
-				answer.length && callback?.(answer, !content)
-			}
-		}
-
-		return answer
+		return response.choices[0].message.parsed!
 	}
 
 	getVoiceTranscription = async (file: Response) => {
