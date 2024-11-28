@@ -2,11 +2,13 @@
 	"name": "api",
 	"version": "1.0.0",
 	"main": "index.ts",
+	"type": "module",
 	"scripts": {
-		"init": "pnpm install --frozen-lockfile"
+		"api:generate": "bun ./api.config.ts"
 	},
 	"dependencies": {
 		"ky": "^1.5.0",
-		"shared": "workspace:^"
+		"shared": "workspace:^",
+		"swagger-typescript-api": "^13.0.16"
 	}
 }
