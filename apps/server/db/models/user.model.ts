@@ -1,6 +1,7 @@
 import {
 	BelongsToManyAddAssociationMixin,
 	BelongsToManyGetAssociationsMixin,
+	BelongsToManyRemoveAssociationMixin,
 	DataTypes,
 	HasManyAddAssociationMixin,
 	HasManyGetAssociationsMixin,
@@ -66,6 +67,7 @@ export class UserModel extends BaseIntModel<UserModel> implements UserFullData {
 	declare friends: NonAttribute<UserModel[]>
 	declare getFriends: BelongsToManyGetAssociationsMixin<UserModel>
 	declare addFriend: BelongsToManyAddAssociationMixin<UserModel, UserModel['id']>
+	declare removeFriend: BelongsToManyRemoveAssociationMixin<UserModel, UserModel['id']>
 
 	@BelongsToMany(() => UserModel, {
 		through: 'userFriends',

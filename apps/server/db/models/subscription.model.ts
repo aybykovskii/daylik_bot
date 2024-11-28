@@ -62,12 +62,14 @@ export class SubscriptionModel
 		}
 	}
 
-	asFullData(): SubscriptionFullData {
+	async asFullData(): Promise<SubscriptionFullData> {
 		const dto = this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asFullData()
 
 		return {
 			...dto,
-			user: this.user,
+			user: userDto,
 		}
 	}
 }

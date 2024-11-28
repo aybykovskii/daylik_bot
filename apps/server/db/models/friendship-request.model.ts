@@ -48,13 +48,17 @@ export class FriendshipRequestModel
 		}
 	}
 
-	asFullData(): FriendshipRequestFullData {
+	async asFullData(): Promise<FriendshipRequestFullData> {
 		const dto = this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asDto()
+		const targetUser = await this.getTargetUser()
+		const targetUserDto = await targetUser!.asDto()
 
 		return {
 			...dto,
-			user: this.user,
-			targetUser: this.targetUser,
+			user: userDto,
+			targetUser: targetUserDto,
 		}
 	}
 }

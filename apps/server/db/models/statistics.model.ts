@@ -76,10 +76,12 @@ export class StatisticsModel extends BaseIntModel<StatisticsModel> implements St
 
 	async asFullData(): Promise<StatisticsFullData> {
 		const dto = await this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asFullData()
 
 		return {
 			...dto,
-			user: this.user,
+			user: userDto,
 		}
 	}
 }

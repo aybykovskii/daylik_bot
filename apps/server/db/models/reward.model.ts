@@ -1,4 +1,4 @@
-import { DataTypes, NonAttribute } from '@sequelize/core'
+import { DataTypes, HasManyGetAssociationsMixin, NonAttribute } from '@sequelize/core'
 import { Attribute, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
 import { RewardDto, RewardFullData } from 'shared'
@@ -18,6 +18,7 @@ export class RewardModel extends BaseIntModel<RewardModel> implements RewardFull
 
 	/** Defined by {@link UserModel} */
 	declare users: NonAttribute<UserModel[]>
+	declare getUsers: HasManyGetAssociationsMixin<UserModel>
 
 	asDto(): RewardDto {
 		return {
@@ -29,12 +30,14 @@ export class RewardModel extends BaseIntModel<RewardModel> implements RewardFull
 		}
 	}
 
-	asFullData(): RewardFullData {
+	async asFullData(): Promise<RewardFullData> {
 		const dto = this.asDto()
+		const users = await this.getUsers()
+		const usersDto = await users.map((user) => user.asDto())
 
 		return {
 			...dto,
-			users: this.users,
+			users: usersDto,
 		}
 	}
 }

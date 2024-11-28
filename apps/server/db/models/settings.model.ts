@@ -41,12 +41,14 @@ export class SettingsModel extends BaseIntModel<SettingsModel> implements Settin
 		}
 	}
 
-	asFullData(): SettingsFullData {
+	async asFullData(): Promise<SettingsFullData> {
 		const dto = this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asFullData()
 
 		return {
 			...dto,
-			user: this.user,
+			user: userDto,
 		}
 	}
 }

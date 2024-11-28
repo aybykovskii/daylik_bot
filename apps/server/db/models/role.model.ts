@@ -1,4 +1,4 @@
-import { DataTypes, NonAttribute } from '@sequelize/core'
+import { DataTypes, HasManyGetAssociationsMixin, NonAttribute } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
 import { RoleDto, RoleFullData, roleType } from 'shared/types'
@@ -19,6 +19,7 @@ export class RoleModel extends BaseIntModel<RoleModel> implements RoleFullData {
 
 	/** Defined by {@link UserModel} */
 	declare users: NonAttribute<UserModel[]>
+	declare getUsers: HasManyGetAssociationsMixin<UserModel>
 
 	asDto(): RoleDto {
 		return {
@@ -30,12 +31,14 @@ export class RoleModel extends BaseIntModel<RoleModel> implements RoleFullData {
 		}
 	}
 
-	asFullData(): RoleFullData {
+	async asFullData(): Promise<RoleFullData> {
 		const dto = this.asDto()
+		const users = await this.getUsers()
+		const usersDto = await users.map((user) => user.asDto())
 
 		return {
 			...dto,
-			users: this.users,
+			users: usersDto,
 		}
 	}
 }

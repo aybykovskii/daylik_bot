@@ -40,7 +40,7 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> implements Payment
 	@Attribute(DataTypes.STRING)
 	@NotNull
 	@Default('RUB')
-	declare currency: PaymentFullData['currency']
+	declare currency: CreationOptional<PaymentFullData['currency']>
 
 	@Attribute(DataTypes.STRING)
 	@NotNull

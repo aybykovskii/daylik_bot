@@ -64,14 +64,20 @@ export class EventSharingModel
 		}
 	}
 
-	asFullData(): EventSharingFullDataResponseDto {
+	async asFullData(): Promise<EventSharingFullDataResponseDto> {
 		const dto = this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asFullData()
+		const event = await this.getEvent()
+		const eventDto = await event!.asFullData()
+		const targetUser = await this.getTargetUser()
+		const targetUserDto = await targetUser!.asFullData()
 
 		return {
 			...dto,
-			user: this.user,
-			event: this.event,
-			targetUser: this.targetUser,
+			user: userDto,
+			event: eventDto,
+			targetUser: targetUserDto,
 		}
 	}
 }
