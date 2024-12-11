@@ -31,7 +31,6 @@ generateApi({
 				usage: transformName(routeNameInfo.usage),
 				original: transformName(routeNameInfo.original),
 			}
-			console.log({ result, routeNameInfo, pathTag })
 
 			return result
 		},

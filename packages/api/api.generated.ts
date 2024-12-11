@@ -658,10 +658,37 @@ export namespace Events {
         };
     export type RequestHeaders = {};
     export type ResponseBody = {
+      copies: {
+        copyFromId: number | null;
+        date: string;
+        emoji: string;
+        id: number;
+        text: string;
+        time: string | null;
+        userId: number;
+      }[];
+      copyFrom: {
+        copyFromId: number | null;
+        date: string;
+        emoji: string;
+        id: number;
+        text: string;
+        time: string | null;
+        userId: number;
+      };
       copyFromId: number | null;
       date: string;
       emoji: string;
       id: number;
+      shares: {
+        eventId: number;
+        /** @format uuid */
+        id: string;
+        targetUserId: number | null;
+        usageAmount: number;
+        usageLimit: number;
+        userId: number;
+      }[];
       text: string;
       time: string | null;
       userId: number;
@@ -755,6 +782,62 @@ export namespace Events {
       time: string | null;
       userId: number;
     }[];
+  }
+
+  /**
+   * No description
+   * @tags events
+   * @name Update
+   * @request PATCH:/api/v1/events/{id}
+   */
+  export namespace Update {
+    export type RequestParams = {
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = {
+      date?: string;
+      emoji?: string;
+      text?: string;
+      time?: string | null;
+    };
+    export type RequestHeaders = {};
+    export type ResponseBody = {
+      copies: {
+        copyFromId: number | null;
+        date: string;
+        emoji: string;
+        id: number;
+        text: string;
+        time: string | null;
+        userId: number;
+      }[];
+      copyFrom: {
+        copyFromId: number | null;
+        date: string;
+        emoji: string;
+        id: number;
+        text: string;
+        time: string | null;
+        userId: number;
+      };
+      copyFromId: number | null;
+      date: string;
+      emoji: string;
+      id: number;
+      shares: {
+        eventId: number;
+        /** @format uuid */
+        id: string;
+        targetUserId: number | null;
+        usageAmount: number;
+        usageLimit: number;
+        userId: number;
+      }[];
+      text: string;
+      time: string | null;
+      userId: number;
+    };
   }
 }
 
@@ -2318,10 +2401,37 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     ) =>
       this.request<
         {
+          copies: {
+            copyFromId: number | null;
+            date: string;
+            emoji: string;
+            id: number;
+            text: string;
+            time: string | null;
+            userId: number;
+          }[];
+          copyFrom: {
+            copyFromId: number | null;
+            date: string;
+            emoji: string;
+            id: number;
+            text: string;
+            time: string | null;
+            userId: number;
+          };
           copyFromId: number | null;
           date: string;
           emoji: string;
           id: number;
+          shares: {
+            eventId: number;
+            /** @format uuid */
+            id: string;
+            targetUserId: number | null;
+            usageAmount: number;
+            usageLimit: number;
+            userId: number;
+          }[];
           text: string;
           time: string | null;
           userId: number;
@@ -2425,6 +2535,70 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       >({
         path: `/api/v1/events`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags events
+     * @name Update
+     * @request PATCH:/api/v1/events/{id}
+     */
+    update: (
+      id: number,
+      data: {
+        date?: string;
+        emoji?: string;
+        text?: string;
+        time?: string | null;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        {
+          copies: {
+            copyFromId: number | null;
+            date: string;
+            emoji: string;
+            id: number;
+            text: string;
+            time: string | null;
+            userId: number;
+          }[];
+          copyFrom: {
+            copyFromId: number | null;
+            date: string;
+            emoji: string;
+            id: number;
+            text: string;
+            time: string | null;
+            userId: number;
+          };
+          copyFromId: number | null;
+          date: string;
+          emoji: string;
+          id: number;
+          shares: {
+            eventId: number;
+            /** @format uuid */
+            id: string;
+            targetUserId: number | null;
+            usageAmount: number;
+            usageLimit: number;
+            userId: number;
+          }[];
+          text: string;
+          time: string | null;
+          userId: number;
+        },
+        any
+      >({
+        path: `/api/v1/events/${id}`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

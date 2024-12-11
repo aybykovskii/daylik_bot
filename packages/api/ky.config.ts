@@ -19,15 +19,12 @@ export const api = new Api({
 			hooks: {
 				beforeRequest: [
 					(req) => {
-						console.log('called before request', { req, token: AuthData.getToken() })
-
 						return req.headers.set('Authorization', AuthData.getToken())
 					},
 				],
 				afterResponse: [
 					(_, __, res) => {
 						const token = res.headers.get('Authorization')
-						console.log('called after response', { token })
 
 						if (token && !AuthData.getToken()) {
 							AuthData.setToken(token)
