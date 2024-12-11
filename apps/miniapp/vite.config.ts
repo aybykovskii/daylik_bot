@@ -1,10 +1,9 @@
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
-import dotenv from 'dotenv'
 import { defineConfig } from 'vite'
 import viteEnvironmentPlugin from 'vite-plugin-environment'
 
-dotenv.config({ path: '.env' })
+console.log(process.env)
 
 export default defineConfig({
 	plugins: [react(), viteEnvironmentPlugin('all')],
@@ -28,11 +27,7 @@ export default defineConfig({
 		host: true,
 		proxy: {
 			'/api': {
-				target: `http://localhost:${process.env.SERVER_PORT}`,
-				changeOrigin: true,
-			},
-			'/auth': {
-				target: `http://localhost:${process.env.SERVER_PORT}`,
+				target: `http://server:${process.env.SERVER_PORT}`,
 				changeOrigin: true,
 			},
 		},

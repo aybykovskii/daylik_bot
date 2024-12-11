@@ -1,4 +1,5 @@
 .eventBadge {
+  position: relative;
   background-color: var(--primary);
   color: var(--white);
 
@@ -25,19 +26,23 @@
 
 .tooltip {
   background-color: var(--primary);
+  color: var(--white);
   width: fit-content;
+  padding: 6px;
+  border-radius: 4px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 
-  & > div:first-child > div {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-
-    & button {
-      padding: 4px;
-    }
+  & > svg {
+    fill: var(--primary);
   }
 
-  & > div:last-child {
-    color: var(--primary);
+  & button {
+    padding: 4px;
+
+    svg {
+      color: var(--primary);
+    }
   }
 }

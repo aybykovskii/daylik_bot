@@ -1,4 +1,4 @@
-import { useAppContext } from '@/AppContext'
+import { useUserStore } from '@/store'
 import { Link } from 'react-router-dom'
 
 export const CustomizePage = () => {
@@ -6,7 +6,7 @@ export const CustomizePage = () => {
 		user: {
 			settings: { stylization },
 		},
-	} = useAppContext()
+	} = useUserStore()
 
 	console.log({ stylization })
 

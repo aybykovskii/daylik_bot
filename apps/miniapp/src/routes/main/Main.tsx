@@ -3,71 +3,62 @@ import { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 import { CSSTransition } from 'react-transition-group'
 
-import { Event } from 'shared/types'
+import { Events, api } from 'api'
+import { EventDto } from 'shared/types'
 
-import { useAppContext } from '@/AppContext'
 import { CalendarHeader } from '@/components/CalendarHeader/CalendarHeader'
 import { EventModal } from '@/components/EventModal'
 import { MonthCalendar } from '@/components/MonthCalendar/MonthCalendar'
 import { WeekCalendar } from '@/components/WeekCalendar'
+import { useModalStore, useUiStore, useUserStore } from '@/store'
 
 import styles from './styles.module.scss'
 
 export const MainPage = () => {
+	const { view } = useUiStore()
+	const { eventId: modalEventId, isOpen: isModalOpen, onClose: onCloseModal } = useModalStore()
 	const {
-		user: { events, id: userId },
-		api,
-		view,
-		editingEventId,
-		isModalOpen,
-		onCloseModal,
-		onLoadUser,
-	} = useAppContext()
+		user: { events },
+		user,
+		loadUser,
+	} = useUserStore()
 
-	const editingEvent = events.find((event) => event.id === editingEventId) ?? null
+	const editingEvent = events.find((event) => event.id === modalEventId) ?? null
 
 	const [date, setDate] = useState(dayjs())
 
 	const handleSaveEvent = useCallback(
-		async (eventData: Pick<Event, 'date' | 'time' | 'emoji' | 'text'>) => {
+		async (eventData: Pick<EventDto, 'date' | 'time' | 'emoji' | 'text'>) => {
 			onCloseModal()
 
-
-			if (editingEventId) {
-				await toast.promise(
-					api.events.update(editingEventId, eventData),
-					{
-						success: 'Событие успешно обновлено',
-						error: 'Произошла ошибка при обновлении события',
-					}
-				)
+			if (modalEventId) {
+				await toast.promise(api.events.update(modalEventId, eventData), {
+					success: 'Событие успешно обновлено',
+					error: 'Произошла ошибка при обновлении события',
+				})
 			} else {
-				console.log('create event for user:', userId)
+				console.log('create event for user:', user?.id)
 
-				await toast.promise(
-					api.events .create({ ...eventData, userId, monthDayNumber: 0, weekDayNumber: 0, }),
-					{
-						success: 'Событие успешно создано',
-						error: 'Произошла ошибка при создании события',
-					}
-				)
+				await toast.promise(api.events.create({ ...eventData, userId: user?.id! }), {
+					success: 'Событие успешно создано',
+					error: 'Произошла ошибка при создании события',
+				})
 			}
 
-
-			onLoadUser(userId)
+			loadUser(user?.id ?? 0)
 		},
-		[api, editingEventId, onCloseModal, onLoadUser, userId]
+		[modalEventId, onCloseModal, loadUser, user]
 	)
 
 	const handleDeleteEvent = useCallback(
-		async (eventId: Event['id']) => {
+		async (eventId: Events.List.ResponseBody[number]['id']) => {
 			await api.events.delete(eventId)
 
 			onCloseModal()
 
-			onLoadUser(userId)
+			loadUser(user?.id!)
 		},
-		[api, onCloseModal, onLoadUser, userId]
+		[onCloseModal, loadUser, user]
 	)
 
 	return (

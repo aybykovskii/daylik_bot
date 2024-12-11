@@ -4,14 +4,15 @@ import dayjs from 'dayjs'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 
-import { Event, eventDate } from 'shared/types'
+import { Events } from 'api'
+import { EventDto, eventDate } from 'shared/types'
 
 import styles from './styles.module.scss'
 
 type Props = {
-	event: Event | null
-	onSave: (event: Pick<Event, 'date' | 'time' | 'emoji' | 'text'>) => void
-	onDelete: (id: Event['id']) => void
+	event: Events.List.ResponseBody[number] | null
+	onSave: (event: Pick<EventDto, 'date' | 'time' | 'emoji' | 'text'>) => void
+	onDelete: (id: Events.List.ResponseBody[number]['id']) => void
 }
 
 export const EventModal = ({ event, onSave, onDelete }: Props) => {
@@ -29,7 +30,7 @@ export const EventModal = ({ event, onSave, onDelete }: Props) => {
 	const [text, setText] = useState(event?.text ?? '')
 
 	const handleSave = () => {
-		const updatedEvent: Pick<Event, 'date' | 'time' | 'emoji' | 'text'> = {
+		const updatedEvent: Pick<EventDto, 'date' | 'time' | 'emoji' | 'text'> = {
 			date: eventDate.parse(date.format('MM.DD.YYYY')),
 			time: isAllDay ? null : time,
 			emoji,

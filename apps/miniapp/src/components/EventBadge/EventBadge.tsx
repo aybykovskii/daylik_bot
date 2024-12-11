@@ -1,7 +1,21 @@
-import Tippy from '@tippyjs/react'
+import {
+	FloatingArrow,
+	FloatingPortal,
+	arrow,
+	autoUpdate,
+	flip,
+	offset,
+	shift,
+	useClick,
+	useDismiss,
+	useFloating,
+	useInteractions,
+	useRole,
+} from '@floating-ui/react'
 import cn from 'classnames'
+import { useRef, useState } from 'react'
 
-import { Event } from 'shared/types'
+import { Events } from 'api'
 
 import { Edit } from '../icons'
 
@@ -18,13 +32,16 @@ type WeekBadgeProps = {
 }
 
 type Props = {
-	id: Event['id']
+	id: Events.Get.ResponseBody['id']
 	emoji: string
 	text: string
-	onEdit: (id: Event['id']) => void
+	onEdit: (id: Events.Get.ResponseBody['id']) => void
 } & (MonthBadgeProps | WeekBadgeProps)
 
 export const EventBadge = ({ isBig, id, emoji, text, isTooltipDisabled, onEdit }: Props) => {
+	const arrowRef = useRef(null)
+	const [open, setOpen] = useState(false)
+
 	const handleEdit = () => onEdit(id)
 
 	if (isBig) {
@@ -35,25 +52,47 @@ export const EventBadge = ({ isBig, id, emoji, text, isTooltipDisabled, onEdit }
 		)
 	}
 
+	const { context, refs, floatingStyles } = useFloating<HTMLDivElement>({
+		open,
+		onOpenChange: setOpen,
+		placement: 'top',
+		whileElementsMounted: autoUpdate,
+		middleware: [offset(10), flip(), shift(), arrow({ element: arrowRef })],
+	})
+
+	const click = useClick(context)
+	const dismiss = useDismiss(context)
+	const role = useRole(context, { role: 'tooltip' })
+
+	const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role])
+
 	return (
-		<Tippy
-			touch
-			allowHTML
-			animateFill
-			interactive
-			className={styles.tooltip}
-			appendTo={() => document.body}
-			disabled={isTooltipDisabled}
-			content={
-				<>
-					{text}
-					<button data-name="secondary" onClick={handleEdit}>
-						<Edit />
-					</button>
-				</>
-			}
-		>
-			<div className={styles.eventBadge}>{emoji}</div>
-		</Tippy>
+		<>
+			<div
+				ref={refs.setReference}
+				{...getReferenceProps({
+					className: styles.eventBadge,
+				})}
+			>
+				{emoji}
+			</div>
+			{open && !isTooltipDisabled && (
+				<FloatingPortal>
+					<div
+						ref={refs.setFloating}
+						style={floatingStyles}
+						{...getFloatingProps({ className: styles.tooltip })}
+					>
+						<FloatingArrow ref={arrowRef} context={context} />
+						<>
+							{text}
+							<button data-name="secondary" onClick={handleEdit}>
+								<Edit />
+							</button>
+						</>
+					</div>
+				</FloatingPortal>
+			)}
+		</>
 	)
 }

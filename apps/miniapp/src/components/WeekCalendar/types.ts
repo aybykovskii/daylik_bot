@@ -1,9 +1,10 @@
 import dayjs from 'dayjs'
-import { Event } from 'shared/types'
+
+import { Events } from 'api'
 
 export type WeekDayOption = {
 	date: dayjs.Dayjs
-	dateEvents: Event[]
+	dateEvents: Events.List.ResponseBody
 	dateString: string
 	hasEvents: boolean
 }

@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import dayjs from 'dayjs'
 
-import { Event, ModelId } from 'shared/types'
+import { Events } from 'api'
 
 import { EventBadge } from '@/components/EventBadge'
 import { chunkArray, getSortedDayEvents } from '@/utils'
@@ -10,9 +10,9 @@ import styles from './styles.module.scss'
 
 type Props = {
 	date: dayjs.Dayjs
-	events: Event[]
-	editingEventId: ModelId | null
-	onEditEvent: (eventId: ModelId) => void
+	events: Events.List.ResponseBody
+	editingEventId: number | null
+	onEditEvent: (eventId: number) => void
 }
 
 export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }: Props) => {
@@ -22,6 +22,7 @@ export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }:
 	const daysInMonth = monthEnd.add(1, 'day').diff(monthStart, 'days')
 	const monthDays = Array.from({ length: daysInMonth }, (_, i) => monthStart.add(i, 'day'))
 	const weeks = chunkArray(monthDays, 7)
+	console.log({ isTooltipDisabled, editingEventId })
 
 	return (
 		<tbody>

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import { Event } from 'shared/types'
+import { EventDto } from 'shared/types'
 
 import { EventBadge } from '@/components/EventBadge'
 
@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 
 type Props = {
 	days: WeekDayOption[]
-	onEditEvent: (id: Event['id']) => void
+	onEditEvent: (id: EventDto['id']) => void
 }
 
 export const WeekEventsList = forwardRef<HTMLDivElement, Props>(({ days, onEditEvent }, ref) => (

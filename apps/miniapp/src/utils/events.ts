@@ -1,7 +1,7 @@
+import { Events } from 'api'
 import dayjs from 'dayjs'
-import { Event } from 'shared/types'
 
-export const getSortedDayEvents = (events: Event[], date: dayjs.Dayjs) =>
+export const getSortedDayEvents = (events: Events.List.ResponseBody, date: dayjs.Dayjs) =>
 	events
 		.filter((event) => event.date === date.format('MM.DD.YYYY'))
 		.toSorted((a, b) => {

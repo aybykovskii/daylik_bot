@@ -1,19 +1,17 @@
 import { InitData } from '@telegram-apps/sdk-react'
 import React, { useContext } from 'react'
 
-import { ModelId, UserFullData, ViewType } from 'shared/types'
-import { makeApi } from 'api'
+import { api } from 'api'
+import { ViewType } from 'shared/types'
 
 export type AppContextData = {
-	api: ReturnType<typeof makeApi>
-	user: UserFullData
+	api: typeof api
 	view: ViewType
 	initData: InitData
-	editingEventId: ModelId | null
+	editingEventId: number | null
 	isModalOpen: boolean
-	onOpenModal: (event: ModelId | null) => void
+	onOpenModal: (event: number | null) => void
 	onCloseModal: () => void
-	onLoadUser: (id: number) => void
 }
 
 export const AppContext = React.createContext<AppContextData | null>(null)
