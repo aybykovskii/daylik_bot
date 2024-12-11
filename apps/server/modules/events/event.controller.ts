@@ -6,14 +6,15 @@ import {
 	EventResponseDto,
 	EventsResponseDto,
 	ParamsId,
+	UpdateEventDto,
 	createEventDto,
 	eventFullDataResponseDto,
-	eventResponseDto,
 	eventsResponseDto,
 	paramsId,
+	updateEventDto,
 } from 'shared'
 
-import { Controller, Delete, Get, Post, Validate } from '@common'
+import { Controller, Delete, Get, Patch, Post, Validate } from '@common'
 
 import { EventsService } from './events.service'
 
@@ -31,7 +32,7 @@ export class EventsController {
 	async getEvent({ params }: FastifyRequest<{ Params: ParamsId }>, reply: FastifyReply) {
 		const event = await this.eventsService.get(params.id)
 
-		reply.status(200).send(event)
+		return reply.status(200).send(event)
 	}
 
 	@Get('/')
@@ -43,14 +44,14 @@ export class EventsController {
 	async getEvents(_: FastifyRequest, reply: FastifyReply<{ Body: EventsResponseDto }>) {
 		const events = await this.eventsService.getAll()
 
-		reply.status(200).send(events)
+		return reply.status(200).send(events)
 	}
 
 	@Post('/')
 	@Validate({
 		body: createEventDto,
 		response: {
-			201: eventResponseDto,
+			201: eventFullDataResponseDto,
 		},
 	})
 	async createEvent(
@@ -59,7 +60,24 @@ export class EventsController {
 	) {
 		const createdEvent = await this.eventsService.create(body)
 
-		reply.status(201).send(createdEvent)
+		return reply.status(201).send(createdEvent)
+	}
+
+	@Patch('/:id')
+	@Validate({
+		params: paramsId,
+		body: updateEventDto,
+		response: {
+			200: eventFullDataResponseDto,
+		},
+	})
+	async updateEvent(
+		{ params, body }: FastifyRequest<{ Params: ParamsId; Body: UpdateEventDto }>,
+		reply: FastifyReply
+	) {
+		const updatedEvent = await this.eventsService.update(params.id, body)
+
+		return reply.status(200).send(updatedEvent)
 	}
 
 	@Delete('/:id')
@@ -74,6 +92,6 @@ export class EventsController {
 	async delete({ params }: FastifyRequest<{ Params: ParamsId }>, reply: FastifyReply) {
 		await this.eventsService.delete(params.id)
 
-		reply.status(204).send()
+		return reply.status(204).send()
 	}
 }
