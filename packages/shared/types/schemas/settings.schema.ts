@@ -8,9 +8,12 @@ import { UserDto } from './user.schema'
 export const settings = z.object({
 	userId: intId,
 	notificationTime: z.string(),
-	stylization: z.object({
-		primaryColor: z.string(),
-	}),
+	stylization: z
+		.object({
+			primaryColor: z.string(),
+		})
+		.partial()
+		.default({}),
 })
 
 export type SettingsBase = z.infer<typeof settings>

@@ -1,8 +1,5 @@
 import { z } from 'zod'
 
-export const modelId = z.coerce.number().brand<'modelId'>()
-export type ModelId = z.infer<typeof modelId>
-
 export const uuidId = z.string().uuid().brand<'uuidId'>()
 export type UUIDId = z.infer<typeof uuidId>
 
