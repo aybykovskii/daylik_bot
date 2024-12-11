@@ -4,12 +4,47 @@
 	"invalid_argument": "Невалидный входной аргумент: {{path}}.",
 	"no_endpoint": "Роут {{path}} не найден",
 	"error": {
+		"validation": "Ошибка валидации '{{type}}' в {{path}}: ожидалось '{{expected}}', получено '{{received}}'",
+		"routes": {
+			"not_found": "Роут {{route}} не найден"
+		},
 		"auth": {
 			"no_token": "Отсутствует токен авторизации",
 			"invalid_token": "Невалидный токен авторизации"
 		},
 		"users": {
-			"not_found": "Пользователь не найден"
+			"not_found": "Пользователь не найден",
+			"already_exists": "Пользователь уже существует"
+		},
+		"settings": {
+			"not_found": "Объект настроек не найден",
+			"already_exists": "Объект настроек уже существуют"
+		},
+		"statistics": {
+			"not_found": "Объект статистики не найден",
+			"already_exists": "Объект статистики уже существуют"
+		},
+		"subscriptions": {
+			"not_found": "Объект подписки не найден",
+			"already_exists": "Объект подписки уже существуют"
+		},
+		"events": {
+			"not_found": "Событие не найдено"
+		},
+		"eventDrafts": {
+			"not_found": "Черновик события не найден"
+		},
+		"event_shares": {
+			"not_found": "Объект шаринга события не найден"
+		},
+		"roles": {
+			"not_found": "Роль не найдена",
+			"already_exists": "Роль уже существует"
+		},
+		"friendshipRequests": {
+			"not_found": "Запрос дружбы не найден",
+			"already_exists": "Запрос дружбы уже существует",
+			"not_pending": "Запрос дружбы не в статусе ожидания"
 		},
 		"payments": {
 			"not_found": "Платеж не найден"
