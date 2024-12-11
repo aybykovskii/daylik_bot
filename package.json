@@ -5,8 +5,8 @@
 	"author": "Aleksei Bykovskii<aybykovskii@gamil.com>",
 	"scripts": {
 		"server:init": "cd server && pnpm run init",
-		"server:run": "cd server && pnpm run start",
-		"miniapp": "cd miniapp && pnpm run start",
+		"server:run": "cd apps/server && pnpm run start",
+		"miniapp": "cd apps/miniapp && pnpm run start",
 		"telegramBot": "cd telegramBot && pnpm run start",
 		"check:types": "tsc --noEmit",
 		"check:biome": "biome check .",

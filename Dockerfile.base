@@ -1,0 +1,24 @@
+
+FROM node:18
+
+WORKDIR /app
+
+RUN npm install -g pnpm
+
+ENV BUN_INSTALL="$HOME/.bun"
+ENV PATH="$BUN_INSTALL/bin:$PATH"
+
+RUN curl -fsSL https://bun.sh/install | bash
+
+# Проверяем установку Bun
+RUN bun --version
+
+COPY pnpm-workspace.yaml ./
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+COPY tsconfig.json ./
+
+COPY packages/shared ./packages/shared
+COPY packages/api ./packages/api
+
+RUN pnpm install --filter=shared --filter=api --frozen-lockfile

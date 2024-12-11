@@ -1,3 +1,4 @@
+import { CustomInstanceExtenstions } from 'i18next'
 import bot from './i18n/ru/bot.json'
 import common from './i18n/ru/common.json'
 import miniApp from './i18n/ru/miniApp.json'
@@ -17,6 +18,11 @@ type Phrase = CommonKeys | ServerKeys | BotKeys | MiniAppKeys
 
 declare global {
 	type I18nPhrase = Phrase
+
+	interface i18n extends CustomInstanceExtenstions {
+		t(phrase: Phrase, replace?: Record<string, unknown>): string
+	}
+
 	namespace Express {
 		export interface Request {
 			t(phrase: Phrase, replace?: Record<string, unknown>): string
