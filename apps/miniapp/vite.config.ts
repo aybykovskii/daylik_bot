@@ -3,8 +3,6 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import viteEnvironmentPlugin from 'vite-plugin-environment'
 
-console.log(process.env)
-
 export default defineConfig({
 	plugins: [react(), viteEnvironmentPlugin('all')],
 	css: {
@@ -23,7 +21,7 @@ export default defineConfig({
 		},
 	},
 	server: {
-		port: Number.parseInt(process.env.MINI_APP_PORT!, 10) || 3000,
+		port: Number.parseInt(process.env.MINI_APP_PORT!, 10),
 		host: true,
 		proxy: {
 			'/api': {

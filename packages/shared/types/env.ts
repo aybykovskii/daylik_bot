@@ -4,7 +4,6 @@ export const envSchema = z
 	.object({
 		MODE: z.enum(['development', 'production']),
 
-		DOMAIN: z.string(),
 		SERVER_PORT: z.string(),
 		BOT_PORT: z.string(),
 		MINI_APP_PORT: z.string(),
@@ -16,7 +15,6 @@ export const envSchema = z
 
 		TG_BOT_TOKEN: z.string(),
 		OPENAI_API_KEY: z.string(),
-		MESSAGE_SEPARATOR: z.string(),
 
 		POSTGRES_HOST: z.string(),
 		POSTGRES_PORT: z.coerce.number(),

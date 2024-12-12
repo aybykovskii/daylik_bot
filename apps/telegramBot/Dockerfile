@@ -2,19 +2,31 @@ FROM aybykovskii/daylik-base:latest
 
 WORKDIR /app
 
-COPY apps/telegramBot ./apps/telegramBot
-RUN pnpm install --filter=telegram_bot --frozen-lockfile
-
-ENV NODE_ENV=production
-
+ARG NODE_ENV
 ARG BOT_PORT
 ARG TG_BOT_TOKEN
 ARG OPENAI_API_KEY
 
+ENV NODE_ENV=${NODE_ENV}
 ENV BOT_PORT=${BOT_PORT}
 ENV TG_BOT_TOKEN=${TG_BOT_TOKEN}
 ENV OPENAI_API_KEY=${OPENAI_API_KEY}
 
+COPY apps/telegramBot/bot.ts ./apps/telegramBot/
+COPY apps/telegramBot/global.d.ts ./apps/telegramBot/
+COPY apps/telegramBot/tsconfig.json ./apps/telegramBot/
+COPY apps/telegramBot/package.json ./apps/telegramBot/
+COPY apps/telegramBot/prompts.json ./apps/telegramBot/
+
+RUN pnpm install --filter=telegram_bot --frozen-lockfile
+
+COPY apps/telegramBot/handlers ./apps/telegramBot/handlers
+COPY apps/telegramBot/helpers ./apps/telegramBot/helpers
+COPY apps/telegramBot/middlewares ./apps/telegramBot/middlewares
+COPY apps/telegramBot/types ./apps/telegramBot/types
+
+RUN cd ./apps/telegramBot && ls -la
+
 EXPOSE ${BOT_PORT}
 
-CMD ["bun", "./apps/telegramBot/bot.ts"]
+CMD ["bun", "run", "telegramBot:run"]

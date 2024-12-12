@@ -21,6 +21,7 @@ RUN pnpm install --filter=miniapp --frozen-lockfile
 
 COPY apps/miniapp/src ./apps/miniapp/src
 
-EXPOSE ${MINI_APP_PORT}
+RUN pnpm --filter=miniapp build
 
-CMD ["bun", "run", "miniapp"]
+RUN rm -rf ./apps/miniapp/src
+RUN rm -rf ./apps/miniapp/node-modules

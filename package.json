@@ -4,10 +4,10 @@
 	"description": "Telegram bot for creating and managing events",
 	"author": "Aleksei Bykovskii<aybykovskii@gamil.com>",
 	"scripts": {
-		"server:init": "cd server && pnpm run init",
-		"server:run": "cd apps/server && pnpm run start",
-		"miniapp": "cd apps/miniapp && pnpm run start",
-		"telegramBot": "cd telegramBot && pnpm run start",
+		"miniapp": "cd apps/miniapp && bun run start",
+		"miniapp:build": "cd apps/miniapp && bun run build",
+		"server:run": "cd ./apps/server && bun run server.ts",
+		"telegramBot:run": "cd ./apps/telegramBot && bun run bot.ts",
 		"check:types": "tsc --noEmit",
 		"check:biome": "biome check .",
 		"format:biome": "biome format ."
