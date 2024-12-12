@@ -86,8 +86,6 @@ export class PaymentsController {
 	) {
 		const payment = await this.paymentService.update(params.uuid, body)
 
-		console.log({ payment })
-
 		reply.status(200).send(payment)
 	}
 

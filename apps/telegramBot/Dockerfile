@@ -16,7 +16,7 @@ COPY apps/telegramBot/bot.ts ./apps/telegramBot/
 COPY apps/telegramBot/global.d.ts ./apps/telegramBot/
 COPY apps/telegramBot/tsconfig.json ./apps/telegramBot/
 COPY apps/telegramBot/package.json ./apps/telegramBot/
-COPY apps/telegramBot/prompts.json ./apps/telegramBot/
+COPY ./prompts.json ./apps/telegramBot/
 
 RUN pnpm install --filter=telegram_bot --frozen-lockfile
 
@@ -24,8 +24,6 @@ COPY apps/telegramBot/handlers ./apps/telegramBot/handlers
 COPY apps/telegramBot/helpers ./apps/telegramBot/helpers
 COPY apps/telegramBot/middlewares ./apps/telegramBot/middlewares
 COPY apps/telegramBot/types ./apps/telegramBot/types
-
-RUN cd ./apps/telegramBot && ls -la
 
 EXPOSE ${BOT_PORT}
 

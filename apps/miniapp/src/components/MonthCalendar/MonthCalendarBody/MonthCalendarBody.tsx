@@ -22,7 +22,6 @@ export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }:
 	const daysInMonth = monthEnd.add(1, 'day').diff(monthStart, 'days')
 	const monthDays = Array.from({ length: daysInMonth }, (_, i) => monthStart.add(i, 'day'))
 	const weeks = chunkArray(monthDays, 7)
-	console.log({ isTooltipDisabled, editingEventId })
 
 	return (
 		<tbody>

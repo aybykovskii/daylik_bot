@@ -54,11 +54,7 @@ export const EventModal = ({ event, onSave, onDelete }: Props) => {
 							min={dayjs().format('YYYY-MM-DD')}
 							max={dayjs().endOf('year').format('YYYY-MM-DD')}
 							value={date.format('YYYY-MM-DD')}
-							onChange={(e) => {
-								console.log('date selected', e.target.value)
-
-								setDate(dayjs(e.target.value))
-							}}
+							onChange={(e) => setDate(dayjs(e.target.value))}
 						/>
 					</label>
 					<label>

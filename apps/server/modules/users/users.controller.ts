@@ -64,7 +64,7 @@ export class UsersController {
 		await this.subscriptionsService.create({ userId: userDto.id })
 
 		const user = await this.usersService.get(userDto.id)
-		console.log({ user })
+
 		return reply.status(201).send(user)
 	}
 

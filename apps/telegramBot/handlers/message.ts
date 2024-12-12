@@ -5,7 +5,6 @@ import { TelegrafContext } from 'types'
 
 import dayjs from 'dayjs'
 import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from 'helpers'
-import { env } from 'shared/environment'
 import { botLogger } from 'shared/logger'
 import { InlineKeyboardButton } from 'telegraf/types'
 import { GPTResponse } from 'types/gpt'
@@ -31,8 +30,6 @@ export const messageHandler: Middleware<TelegrafContext> = async (ctx) => {
 		user: { telegramUserId },
 		api,
 	} = ctx
-
-	console.log('called message handler', { telegramUserId })
 
 	const gptMessageHandler = async ({
 		response,
@@ -92,8 +89,6 @@ export const messageHandler: Middleware<TelegrafContext> = async (ctx) => {
 	}
 
 	const sendGPTMessage = async (text: string, chatId: string | undefined) => {
-		console.log('called sendGPTMessage', { text, chatId })
-
 		const message = await ctx.replyT('bot.generation_pending')
 		const filteredEvents = ctx.user.events.filter(
 			(event) => dayjs(event.date).isSame(dayjs(), 'day') || dayjs(event.date).isAfter(dayjs(), 'day')
@@ -106,7 +101,6 @@ export const messageHandler: Middleware<TelegrafContext> = async (ctx) => {
 				role: 'system',
 				content: MAIN_PROMPT.replaceAll('{TODAY}', dayjs().format('MM.DD.YYYY'))
 					.replaceAll('{TOMORROW}', dayjs().add(1, 'day').format('MM.DD.YYYY'))
-					.replaceAll('{SEPARATOR}', env.MESSAGE_SEPARATOR)
 					.replaceAll('{EVENTS}', JSON.stringify(filteredEvents)),
 			},
 			{ role: 'user', content: text },

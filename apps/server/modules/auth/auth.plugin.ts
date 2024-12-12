@@ -14,19 +14,7 @@ export const authTokenHookHandler: onRequestHookHandler = async (req) => {
 	try {
 		const decoded = verify(token, env.JWT_SECRET) as { userId: number }
 		req.userId = decoded.userId
-		const params = req.params
-
-		console.log({ params, userId: req.userId })
 	} catch (_) {
 		throw new UnauthorizedError('server.error.auth.invalid_token')
 	}
 }
-
-// export const authHeaderMiddleware =
-// 	(env: Env) => (req: Request, res: Response<ErrorResponse>, next: NextFunction) => {
-// 		if (req.headers[env.AUTHENTICATE_HEADER_KEY] !== env.AUTHENTICATE_HEADER_VALUE) {
-// 			res.status(401).send({ error: req.t('server.no_auth_header') })
-// 		} else {
-// 			next()
-// 		}
-// 	}

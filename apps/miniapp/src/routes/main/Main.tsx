@@ -37,8 +37,6 @@ export const MainPage = () => {
 					error: 'Произошла ошибка при обновлении события',
 				})
 			} else {
-				console.log('create event for user:', user?.id)
-
 				await toast.promise(api.events.create({ ...eventData, userId: user?.id! }), {
 					success: 'Событие успешно создано',
 					error: 'Произошла ошибка при создании события',

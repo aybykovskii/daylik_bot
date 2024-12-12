@@ -15,7 +15,7 @@ export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => 
 	}
 
 	const id = telegramUserId.parse(userId)
-	ctx.api.auth.loginCreate({ telegramUserId: id })
+	await ctx.api.auth.loginCreate({ telegramUserId: id })
 
 	let user = await ctx.api.users.get(id)
 
