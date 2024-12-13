@@ -28,6 +28,6 @@ export class AuthController {
 		const user = await this.usersService.get(req.body.telegramUserId)
 		const token = await this.authService.login(user.id)
 
-		reply.header('Authorization', `Bearer ${token}`).status(201).send({ token })
+		return reply.header('Authorization', `Bearer ${token}`).status(201).send({ token })
 	}
 }
