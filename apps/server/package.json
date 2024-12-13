@@ -18,6 +18,8 @@
 		"zod-openapi": "^4.0.0"
 	},
 	"devDependencies": {
-		"@types/jsonwebtoken": "8.5.1"
+		"@types/jsonwebtoken": "8.5.1",
+		"sequelize": "7.0.0-alpha.9",
+		"sequelize-cli": "^6.6.2"
 	}
 }

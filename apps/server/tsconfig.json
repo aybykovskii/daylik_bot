@@ -2,6 +2,7 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"baseUrl": "./",
+		"allowJs": true,
 		"paths": {
 			"@db": ["./db/index"],
 			"@common": ["./common/index"],

@@ -1,21 +1,24 @@
 import Sequelize, { importModels } from '@sequelize/core'
 import { PostgresDialect } from '@sequelize/postgres'
 
-import { serverLogger } from 'shared'
-import { dbEnv } from './env'
+import { env, serverLogger } from 'shared'
+
+import config from './config/config'
 
 let sql: Sequelize<PostgresDialect>
 
 export const init = async () => {
-	const env = dbEnv.parse(process.env)
+	const envConfig = config[env.MODE]
+
+	serverLogger.info('initializing sequelize connection with env', envConfig)
 
 	sql = new Sequelize({
 		dialect: PostgresDialect,
-		host: env.POSTGRES_HOST,
-		port: env.POSTGRES_PORT,
-		user: env.POSTGRES_USER,
-		password: env.POSTGRES_PASSWORD,
-		database: env.POSTGRES_DB,
+		host: envConfig.host,
+		port: envConfig.port,
+		user: envConfig.username,
+		password: envConfig.password,
+		database: envConfig.database,
 		models: await importModels(`${__dirname}/models/*.model.ts`),
 		logging: false,
 	})

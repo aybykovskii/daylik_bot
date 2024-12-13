@@ -7,6 +7,7 @@
 		"miniapp": "cd apps/miniapp && bun run start",
 		"miniapp:build": "cd apps/miniapp && bun run build",
 		"server:run": "cd ./apps/server && bun run server.ts",
+		"server:seed": "cd ./apps/server && pnpx sequelize-cli db:seed:all",
 		"telegramBot:run": "cd ./apps/telegramBot && bun run bot.ts",
 		"check:types": "tsc --noEmit",
 		"check:biome": "biome check .",

@@ -14,7 +14,7 @@ export const envSchema = z
 		OPENAI_API_KEY: z.string(),
 
 		POSTGRES_HOST: z.string(),
-		POSTGRES_PORT: z.coerce.number(),
+		POSTGRES_PORT: z.coerce.number().default(5432),
 		POSTGRES_USER: z.string(),
 		POSTGRES_PASSWORD: z.string(),
 		POSTGRES_DB: z.string(),

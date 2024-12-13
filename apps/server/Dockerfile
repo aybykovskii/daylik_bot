@@ -24,6 +24,7 @@ COPY apps/server/global.d.ts ./apps/server/
 COPY apps/server/server.ts ./apps/server/
 COPY apps/server/tsconfig.json ./apps/server/
 COPY apps/server/package.json ./apps/server/
+COPY apps/server/.sequelizerc ./apps/server/
 
 RUN pnpm install --filter=server --frozen-lockfile
 

@@ -3,6 +3,7 @@ import { Middleware } from 'telegraf'
 import { botLogger } from 'shared/logger'
 import { telegramUserId } from 'shared/types'
 
+import { Users } from 'api'
 import { TelegrafContext } from 'types'
 
 export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => {
@@ -15,16 +16,22 @@ export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => 
 	}
 
 	const id = telegramUserId.parse(userId)
-	await ctx.api.auth.loginCreate({ telegramUserId: id })
+	let user: Users.Get.ResponseBody
 
-	let user = await ctx.api.users.get(id)
+	try {
+		await ctx.api.auth.loginCreate({ telegramUserId: id })
 
-	if (!user) {
+		user = await ctx.api.users.get(id)
+	} catch (_) {
+		botLogger.error(`User not found. Creating new user. Id: ${id}`)
+
 		user = await ctx.api.users.create({
 			firstName: ctx?.from?.first_name,
 			lastName: ctx?.from?.last_name,
 			telegramUserId: id,
 		})
+
+		await ctx.api.auth.loginCreate({ telegramUserId: user.telegramUserId })
 	}
 
 	ctx.user = user
