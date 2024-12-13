@@ -8,9 +8,6 @@ export const envSchema = z
 		BOT_PORT: z.string(),
 		MINI_APP_PORT: z.string(),
 
-		AUTHENTICATE_HEADER_KEY: z.string(),
-		AUTHENTICATE_HEADER_VALUE: z.string(),
-
 		JWT_SECRET: z.string(),
 
 		TG_BOT_TOKEN: z.string(),
