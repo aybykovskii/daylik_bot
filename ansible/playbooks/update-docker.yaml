@@ -1,0 +1,48 @@
+- name: Обновление Docker
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  tasks:
+    - name: Установка необходимых пакетов для Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+
+    - name: Добавление ключа GPG для официального репозитория Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Добавление официального репозитория Docker
+      apt_repository:
+        repo: "deb https://download.docker.com/linux/ubuntu focal stable"
+        state: present
+
+    - name: Установка Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Добавление пользователя в группу docker
+      user:
+        name: "{{ user }}"
+        groups: docker
+        append: yes
+
+    - name: Install docker-compose
+      remote_user: ubuntu
+      get_url: 
+        url : https://github.com/docker/compose/releases/download/v2.31.0/docker-compose-linux-aarch64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+
+    - name: Запуск службы Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes

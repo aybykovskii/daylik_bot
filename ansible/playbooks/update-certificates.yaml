@@ -1,0 +1,32 @@
+- name: Генерация SSL сертификатов
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  vars:
+    domains:
+      - daylik.fun
+      - bot.telegram.daylik.fun
+
+  tasks:
+    - name: Проверка наличия необходимых пакетов
+      apt:
+        name: certbot
+        state: present
+
+    - name: Остановка службы Nginx
+      service:
+        name: nginx
+        state: stopped
+
+    - name: Генерация ssl сертификатов
+      command: sudo certbot certonly --standalone -d {{ item }} --email {{ email }} --agree-tos --keep-until-expiring
+      loop: "{{ domains }}"
+
+    - name: Добавления хука автогенерации сертификата
+      command: sudo /usr/bin/certbot renew --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx"
+
+    - name: Перезапуск службы Nginx
+      service:
+        name: nginx
+        state: restarted

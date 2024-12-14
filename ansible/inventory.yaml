@@ -1,0 +1,9 @@
+servers:
+  hosts:
+    kz:
+      ansible_host: 31.130.152.50
+      ansible_user: root
+
+all_servers:
+  children:
+    servers:

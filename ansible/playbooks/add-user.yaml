@@ -1,0 +1,46 @@
+- name: Создание пользователя с доступом по паролю и SSH ключу
+  hosts: servers
+  become: yes
+  vars_files:
+    - env.yaml
+  vars:
+    pass_hash: "{{ password | password_hash('sha512') }}"
+
+  tasks:
+    - name: "Создать пользователя {{ user }}"
+      ansible.builtin.user:
+        name: "{{ user }}"
+        password: "{{ pass_hash }}"
+        shell: /bin/bash
+        create_home: yes
+        groups: 
+        - sudo
+
+    - name: Создать директорию .ssh для нового пользователя
+      ansible.builtin.file:
+        path: "/home/{{ user }}/.ssh"
+        state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0700'
+
+    - name: Копировать локальный публичный ключ в authorized_keys
+      ansible.builtin.copy:
+        src: "{{ public_ssh_key_path }}"
+        dest: "/home/{{ user }}/.ssh/authorized_keys"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: '0600'
+
+    - name: Убедиться, что SSH доступ разрешен
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication yes'
+      notify: Restart SSH
+
+  handlers:
+    - name: Restart SSH
+      ansible.builtin.service:
+        name: sshd
+        state: restarted

@@ -1,0 +1,45 @@
+- name: Установка пакетов 
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  become_user: "{{ user }}"
+
+  tasks:    
+    - name: Добавить NodeSource GPG ключ
+      apt_key:
+        url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+        state: present
+      become_user: root
+
+    - name: Добавить NodeSource репозиторий для Node.js 20.x
+      apt_repository:
+        repo: 'deb https://deb.nodesource.com/node_20.x {{ ansible_distribution_release }} main'
+        update_cache: yes
+        state: present
+      become_user: root
+
+    - name: Обновить кэш apt
+      apt:
+        update_cache: yes
+      become_user: root
+
+    - name: Fix broken dependencies
+      apt:
+        state: present
+        upgrade: dist
+        autoremove: yes
+        autoclean: yes
+      become_user: root
+
+    - name: Установка необходимых пакетов
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - nodejs
+        state: present
+      become_user: root

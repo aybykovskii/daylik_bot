@@ -1,0 +1,74 @@
+- name: Обновление Nginx
+  hosts: servers
+  become: true
+
+  vars_files:
+    - env.yaml
+
+  vars:
+    services:
+      - daylik-prod
+
+  tasks:
+    - name: Установка пакетов
+      apt:
+        name: nginx
+        state: present
+
+    - name: "Добавить www-data в группу {{ user }}"
+      user:
+        name: www-data
+        append: yes
+        groups:
+        - sudo
+        - "{{ user }}"
+
+    - name: Даем доступ Nginx к директории статики
+      file:
+        path: /home/{{ user }}/static
+        owner: www-data
+        group: www-data
+        mode: 0755
+        recurse: yes
+
+    - name: Запуск службы Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Отключение default Nginx конфига
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Конфигурация Nginx для HTTP сервера
+      template:
+        src: ../packages/nginx/configs/{{ item }}.conf
+        dest: /etc/nginx/sites-available/{{ item }}
+      loop: "{{ services }}"
+
+    - name: Включение сервисов в sites-available директорию
+      file:
+        src: /etc/nginx/sites-available/{{ item }}
+        dest: /etc/nginx/sites-enabled/{{ item }}
+        state: link
+      loop: "{{ services }}"
+      notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Test Nginx configuration
+      command: nginx -t
+      register: nginx_test
+      ignore_errors: yes
+
+    - name: Display Nginx test results
+      debug:
+        var: nginx_test
+      when: nginx_test.rc != 0
+      notify: Restart Nginx

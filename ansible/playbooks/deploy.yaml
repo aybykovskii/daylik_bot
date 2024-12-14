@@ -1,0 +1,72 @@
+- name: Деплой проекта
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  become_user: "{{ user }}"
+  vars:
+    github_repo_path: "https://github.com/{{ github_username }}/{{ github_repo }}.git"
+    docker_compose_path: "/home/{{ user }}/{{ github_repo }}/docker-compose.production.yml"
+
+  tasks:
+  - name: Клонируем репозиторий
+    git:
+      repo: "{{ github_repo_path }}"
+      dest: "/home/{{ user }}/{{ github_repo }}"
+      accept_hostkey: yes
+      force: yes
+    become_user: "{{ user }}"
+
+  - name: Копируем env файл
+    copy:
+      src: "../../.production.env"
+      dest: "/home/{{ user }}/{{ github_repo }}/.env"
+      force: yes
+    become_user: "{{ user }}"
+
+  - name: Копируем prompts файл
+    copy:
+      src: "../../prompts.json"
+      dest: "/home/{{ user }}/{{ github_repo }}/prompts.json"
+      force: yes
+    become_user: "{{ user }}"
+
+  - name: Собираем docker образы
+    command: "docker compose -f {{ docker_compose_path }} build"
+
+  - name: Проверяем запущен ли docker compose
+    shell: "docker compose -f {{ docker_compose_path }} ps -q"
+    register: docker_compose_status
+
+  - name: Перезапускаем docker compose с новыми образами
+    command: "docker compose -f {{ docker_compose_path }} down"
+    when: docker_compose_status.stdout != ''
+
+  - name: Запускаем docker compose
+    command: "docker compose -f {{ docker_compose_path }} up -d"
+
+  - name: Создаем контейнер miniapp без запуска
+    docker_container:
+      name: "{{ miniapp_name }}"
+      image: daylik_bot-miniapp
+      state: present
+
+  - name: Добавляем сиды в базу данных
+    command: "docker compose -f {{ docker_compose_path }} exec server pnpm run server:seed"
+    become_user: root
+
+  - name: Копируем статику miniapp
+    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist /home/{{ user }}/static"
+    become_user: root
+
+  - name: Копируем favicon
+    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/favicon.ico /home/{{ user }}/static"
+    become_user: root
+
+  - name: Удаляем контейнер miniapp
+    docker_container:
+      name: "{{ miniapp_name }}"
+      state: absent
+
+  - name: Удаляем старые образы
+    command: "docker image prune -f"
