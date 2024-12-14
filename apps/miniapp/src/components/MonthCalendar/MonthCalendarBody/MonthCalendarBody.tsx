@@ -45,6 +45,7 @@ export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }:
 											key={event.id}
 											emoji={event.emoji}
 											text={event.text}
+											time={event.time}
 											onEdit={() => onEditEvent(event.id)}
 											isTooltipDisabled={isTooltipDisabled}
 										/>

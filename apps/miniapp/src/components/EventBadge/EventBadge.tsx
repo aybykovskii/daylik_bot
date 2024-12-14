@@ -35,10 +35,11 @@ type Props = {
 	id: Events.Get.ResponseBody['id']
 	emoji: string
 	text: string
+	time?: string | null
 	onEdit: (id: Events.Get.ResponseBody['id']) => void
 } & (MonthBadgeProps | WeekBadgeProps)
 
-export const EventBadge = ({ isBig, id, emoji, text, isTooltipDisabled, onEdit }: Props) => {
+export const EventBadge = ({ isBig, id, emoji, time, text, isTooltipDisabled, onEdit }: Props) => {
 	const arrowRef = useRef(null)
 	const [open, setOpen] = useState(false)
 
@@ -68,12 +69,7 @@ export const EventBadge = ({ isBig, id, emoji, text, isTooltipDisabled, onEdit }
 
 	return (
 		<>
-			<div
-				ref={refs.setReference}
-				{...getReferenceProps({
-					className: styles.eventBadge,
-				})}
-			>
+			<div ref={refs.setReference} {...getReferenceProps({ className: styles.eventBadge })}>
 				{emoji}
 			</div>
 			{open && !isTooltipDisabled && (
@@ -85,7 +81,7 @@ export const EventBadge = ({ isBig, id, emoji, text, isTooltipDisabled, onEdit }
 					>
 						<FloatingArrow ref={arrowRef} context={context} />
 						<>
-							{text}
+							{`${time ? `${time} ` : ''}${text}`}
 							<button data-name="secondary" onClick={handleEdit}>
 								<Edit />
 							</button>
