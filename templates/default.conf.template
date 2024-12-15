@@ -23,7 +23,7 @@ server {
     error_page 403 500 502 503 /50x.html;
 
     # # Proxy API and Admin requests to the server
-    location ~ ^/api/ {
+    location /api/ {
         gzip off;
 
         proxy_pass http://server:${SERVER_PORT};
@@ -35,19 +35,19 @@ server {
 
     # 404 error page
     location = /404.html {
-        root /usr/share/nginx/public/;
+        root /usr/share/nginx/html/;
         internal;
     }
 
     # 500x errors pages
     location = /50x.html {
-        root /usr/share/nginx/public/;
+        root /usr/share/nginx/html/;
         internal;
     }
 
     # other
     location / {
-        root /usr/share/nginx;
+        root /usr/share/nginx/html/;
         try_files $uri $uri/ /index.html;
     }
 
