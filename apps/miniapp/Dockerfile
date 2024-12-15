@@ -10,16 +10,7 @@ ENV NODE_ENV=${NODE_ENV}
 ENV VITE_ENV=${VITE_ENV}
 ENV MINI_APP_PORT=${MINI_APP_PORT}
 
-COPY apps/miniapp/favicon.ico ./apps/miniapp/
-COPY apps/miniapp/global.d.ts ./apps/miniapp/
-COPY apps/miniapp/index.html ./apps/miniapp/
-COPY apps/miniapp/tsconfig.json ./apps/miniapp/
-COPY apps/miniapp/package.json ./apps/miniapp/
-COPY apps/miniapp/vite.config.ts ./apps/miniapp/
-
-RUN pnpm install --filter=miniapp --frozen-lockfile
-
-COPY apps/miniapp/src ./apps/miniapp/src
+COPY apps/miniapp/ ./apps/miniapp/
 
 EXPOSE ${MINI_APP_PORT}
 

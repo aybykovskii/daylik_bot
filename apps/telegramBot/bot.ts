@@ -35,6 +35,11 @@ bot.on('message', messageHandler)
 // Callback query
 bot.on('callback_query', callbackQueryHandler)
 
+// Error handling
+bot.catch((error) => {
+	botLogger.error('Occurred bot error', error)
+})
+
 bot.launch()
 
 process.once('SIGINT', () => bot.stop('SIGINT'))

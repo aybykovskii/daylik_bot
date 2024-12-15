@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import viteEnvironmentPlugin from 'vite-plugin-environment'
 
 export default defineConfig({
+	publicDir: './public',
 	plugins: [react(), viteEnvironmentPlugin('all')],
 	css: {
 		modules: {

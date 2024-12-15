@@ -11,7 +11,6 @@ import {
 	eventDraftResponseDto,
 	eventDraftsResponseDto,
 	paramsId,
-	serverLogger,
 	updateEventDraftDto,
 } from 'shared'
 
@@ -47,7 +46,7 @@ export class EventDraftsController {
 		reply: FastifyReply<{ Body: EventDraftResponseDto }>
 	) {
 		const createdDraft = await this.eventDraftsService.create(req.body)
-		serverLogger.info({ createdDraft })
+
 		reply.status(201).send(createdDraft)
 	}
 

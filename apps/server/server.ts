@@ -84,23 +84,25 @@ server.withTypeProvider().route({
 
 server.setErrorHandler<ServerError & ValidationError>((error, req, reply) => {
 	if (error.validation) {
-		serverLogger.error('Occurred validation error', { error })
-		reply.status(400).send({
-			code: 400,
-			error: req.t('server.error.validation', {
-				type: error.validation[0].keyword,
-				path: error.validationContext,
-				expected: error.validation[0].params.issue.expected,
-				received: error.validation[0].params.issue.received,
-			}),
+		const { validation, validationContext } = error
+		const message = req.t('server.error.validation', {
+			type: validation[0].keyword,
+			path: validationContext,
+			expected: validation[0].params.issue.expected,
+			received: validation[0].params.issue.received,
 		})
-	} else {
-		serverLogger.error('Occurred server error', { error })
-		reply.status(error.statusCode || 500).send({
-			code: error.statusCode,
-			error: req.t(error.message as I18nPhrase),
-		})
+
+		return reply.status(400).send({ code: 400, message, error: message })
 	}
+
+	const { message, statusCode } = error
+	const errorMessage = req.t(message)
+
+	return reply.status(error.statusCode || 500).send({
+		code: statusCode,
+		error: errorMessage,
+		message: errorMessage,
+	})
 })
 
 server.setNotFoundHandler((req, reply) => {

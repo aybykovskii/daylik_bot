@@ -25,7 +25,6 @@ export class Environment {
 			throw result.error
 		}
 
-		commonLogger.info('Starting with environment:', { env: result.data })
 		this.value = result.data
 	}
 }

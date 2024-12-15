@@ -10,8 +10,6 @@ let sql: Sequelize<PostgresDialect>
 export const init = async () => {
 	const envConfig = config[env.MODE]
 
-	serverLogger.info('initializing sequelize connection with env', envConfig)
-
 	sql = new Sequelize({
 		dialect: PostgresDialect,
 		host: envConfig.host,
@@ -22,8 +20,6 @@ export const init = async () => {
 		models: await importModels(`${__dirname}/models/*.model.ts`),
 		logging: false,
 	})
-
-	serverLogger.info('creating sequelize connection with env:', env)
 
 	try {
 		await sql.authenticate()

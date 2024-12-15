@@ -1,0 +1,19 @@
+networks:
+  daylik:
+    external: true
+
+services:
+  nginx:
+    container_name: daylik-nginx
+    image: nginx-alpine
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - "./static:/usr/share/nginx/html"
+      - /etc/letsencrypt:/etc/letsencrypt
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - daylik
