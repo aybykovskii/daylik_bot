@@ -13,6 +13,7 @@ ENV TG_BOT_TOKEN=${TG_BOT_TOKEN}
 ENV OPENAI_API_KEY=${OPENAI_API_KEY}
 
 COPY apps/telegramBot/ ./apps/telegramBot/
+COPY ./prompts.json ./apps/telegramBot/
 
 EXPOSE ${BOT_PORT}
 
