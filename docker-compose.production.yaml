@@ -91,6 +91,26 @@ services:
     volumes:
       - ./packages/shared/logger/logs/miniapp:/app/packages/shared/logger/logs/miniapp
 
+  nginx:
+    container_name: daylik-nginx
+    image: nginx:stable-alpine
+    volumes:
+      - ./templates:/etc/nginx/templates
+      - "./static:/usr/share/nginx/html"
+      - /etc/letsencrypt:/etc/letsencrypt
+    environment:
+      SERVER_NAME: ${SERVER_NAME}
+      BOT_PORT: ${BOT_PORT}
+      SERVER_PORT: ${SERVER_PORT}
+    depends_on:
+      - server
+      - telegram_bot
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - daylik
+
 networks:
   daylik:
     external: true

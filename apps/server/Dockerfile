@@ -20,7 +20,15 @@ ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 ENV POSTGRES_DB=${POSTGRES_DB}
 ENV JWT_SECRET=${JWT_SECRET}
 
-COPY apps/server/ ./apps/server/
+COPY apps/server/global.d.ts ./apps/server/
+COPY apps/server/server.ts ./apps/server/
+COPY apps/server/tsconfig.json ./apps/server/
+COPY apps/server/package.json ./apps/server/
+COPY apps/server/.sequelizerc ./apps/server/
+
+COPY apps/server/db ./apps/server/db
+COPY apps/server/common ./apps/server/common
+COPY apps/server/modules ./apps/server/modules
 
 EXPOSE ${SERVER_PORT}
 
