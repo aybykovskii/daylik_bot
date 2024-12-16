@@ -29,7 +29,7 @@ services:
       SERVER_PORT: ${SERVER_PORT}
       JWT_SECRET: ${JWT_SECRET}
     ports:
-      - '${SERVER_PORT}:8080'
+      - '8080:${SERVER_PORT}'
     networks:
       - daylik
     depends_on:
@@ -65,7 +65,7 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       SERVER_PORT: ${SERVER_PORT}
     ports:
-      - '${BOT_PORT}:3030'
+      - '3030:${BOT_PORT}'
     networks:
       - daylik
     restart: unless-stopped
@@ -92,7 +92,7 @@ services:
       MINI_APP_PORT: ${MINI_APP_PORT}
       SERVER_PORT: ${SERVER_PORT}
     ports:
-      - '${MINI_APP_PORT}:3000'
+      - '3000:${MINI_APP_PORT}'
     networks:
       - daylik
     volumes:
