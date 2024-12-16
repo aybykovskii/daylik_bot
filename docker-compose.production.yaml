@@ -11,7 +11,6 @@ services:
     image: aybykovskii/daylik-base:latest
 
   server:
-    container_name: daylik-server
     build:
       context: .
       dockerfile: ./apps/server/Dockerfile
@@ -45,7 +44,6 @@ services:
       - ./packages/shared/logger/logs/server:/app/packages/shared/logger/logs/server
 
   telegram_bot:
-    container_name: daylik-bot
     build:
       context: .
       dockerfile: ./apps/telegramBot/Dockerfile
@@ -73,7 +71,6 @@ services:
       - ./packages/shared/logger/logs/bot:/app/packages/shared/logger/logs/bot
 
   miniapp:
-    container_name: daylik-miniapp
     build:
       context: .
       dockerfile: ./apps/miniapp/Dockerfile.production
@@ -92,7 +89,6 @@ services:
       - ./packages/shared/logger/logs/miniapp:/app/packages/shared/logger/logs/miniapp
 
   nginx:
-    container_name: daylik-nginx
     image: nginx:stable-alpine
     volumes:
       - ./templates:/etc/nginx/templates
