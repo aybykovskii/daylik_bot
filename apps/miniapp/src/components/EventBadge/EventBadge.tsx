@@ -66,7 +66,7 @@ export const EventBadge = ({ isBig, id, emoji, time, text, isTooltipDisabled, on
 	const role = useRole(context, { role: 'tooltip' })
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role])
-
+	console.log('event badge', { time, text, tooltipContent: `${time ? `${time} ` : ''}${text}` })
 	return (
 		<>
 			<div ref={refs.setReference} {...getReferenceProps({ className: styles.eventBadge })}>

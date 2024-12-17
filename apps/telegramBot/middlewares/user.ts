@@ -9,10 +9,10 @@ import { TelegrafContext } from 'types'
 export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => {
 	const userId = ctx.from?.id
 
-	botLogger.info('called user check', { userId, user: ctx.user ?? 'user is undefined' })
+	botLogger.info('called user check', { userId })
 
 	if (!userId) {
-		botLogger.error('User id is not defined')
+		throw new Error('User id is not defined')
 	}
 
 	const id = telegramUserId.parse(userId)
@@ -22,6 +22,8 @@ export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => 
 		await ctx.api.auth.loginCreate({ telegramUserId: id })
 
 		user = await ctx.api.users.get(id)
+
+		botLogger.info(`User found`, { telegramUserId: userId, id: user.id, fullName: user.fullName })
 	} catch (_) {
 		botLogger.error(`User not found. Creating new user. Id: ${id}`)
 

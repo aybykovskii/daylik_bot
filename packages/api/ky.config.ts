@@ -1,6 +1,5 @@
 import ky from 'ky'
 
-import { commonLogger } from 'shared/logger'
 import { Api } from './api.generated'
 
 class AuthData {
@@ -32,7 +31,7 @@ export const api = new Api({
 						if (status >= 400) {
 							const { message } = (await res.json()) as { message: string }
 
-							commonLogger.error(`Request to ${method} ${url} failed with status ${status}: ${message}`)
+							console.error(`Request to ${method} ${url} failed with status ${status}: ${message}`)
 						}
 
 						const token = res.headers.get('Authorization')
