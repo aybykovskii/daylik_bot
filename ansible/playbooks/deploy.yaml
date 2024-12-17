@@ -45,7 +45,6 @@
 
   - name: Запускаем db docker compose
     community.docker.docker_compose_v2:
-      project_name: db
       project_src: "{{ repo_path }}"
       files: 
       - docker-compose.db.yaml
@@ -58,16 +57,9 @@
     shell: "docker compose -f {{ docker_compose_apps_path }} ps -q"
     register: docker_compose_status
 
-  - name: Останавливаем apps docker compose с новыми образами
+  - name: Останавливаем apps docker compose со старыми образами
     command: "docker compose -f {{ docker_compose_apps_path }} down"
     when: docker_compose_status.stdout != ''
-
-  - name: Запускаем apps docker compose
-    command: "docker compose -f {{ docker_compose_apps_path }} up -d"
-
-  - name: Добавляем сиды в базу данных
-    command: "docker compose -f {{ docker_compose_apps_path }} exec server pnpm run server:seed"
-    become_user: root
 
   - name: Создаем контейнер miniapp без запуска
     docker_container:
@@ -75,8 +67,19 @@
       image: daylik_bot-miniapp
       state: present
 
+  - name: Удаляем старую статику
+    command: "rm -rf {{ repo_path }}/static"
+    become_user: root
+
   - name: Копируем статику miniapp
-    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist ./static"
+    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist {{ repo_path }}/static"
+    become_user: root
+
+  - name: Запускаем apps docker compose с новыми образами
+    command: "docker compose -f {{ docker_compose_apps_path }} up -d"
+
+  - name: Добавляем сиды в базу данных
+    command: "docker compose -f {{ docker_compose_apps_path }} exec server pnpm run server:seed"
     become_user: root
 
   - name: Удаляем контейнер miniapp
