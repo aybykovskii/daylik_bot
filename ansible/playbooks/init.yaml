@@ -3,6 +3,5 @@
 
 - import_playbook: ./add-user.yaml
 - import_playbook: ./install-packages.yaml
-- import_playbook: ./update-nginx.yaml
 - import_playbook: ./update-certificates.yaml
 - import_playbook: ./update-docker.yaml

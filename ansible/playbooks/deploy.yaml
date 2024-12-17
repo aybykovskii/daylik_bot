@@ -6,7 +6,9 @@
   become_user: "{{ user }}"
   vars:
     github_repo_path: "https://github.com/{{ github_username }}/{{ github_repo }}.git"
-    docker_compose_path: "/home/{{ user }}/{{ github_repo }}/docker-compose.production.yml"
+    repo_path: "/home/{{ user }}/{{ github_repo }}"
+    docker_compose_apps_path: "{{ repo_path }}/docker-compose.production.yaml"
+    docker_compose_db_path: "{{ repo_path }}/docker-compose.db.yaml"
 
   tasks:
   - name: Клонируем репозиторий
@@ -31,19 +33,41 @@
       force: yes
     become_user: "{{ user }}"
 
-  - name: Собираем docker образы
-    command: "docker compose -f {{ docker_compose_path }} build"
+  - name:  Создаем daylik network
+    docker_network:
+      name: daylik
+      state: present
 
-  - name: Проверяем запущен ли docker compose
-    shell: "docker compose -f {{ docker_compose_path }} ps -q"
+  - name: Логин в Docker Registry
+    docker_login:
+      username: "{{ docker_user }}"
+      password: "{{ docker_password }}"
+
+  - name: Запускаем db docker compose
+    community.docker.docker_compose_v2:
+      project_name: db
+      project_src: "{{ repo_path }}"
+      files: 
+      - docker-compose.db.yaml
+      state: present
+
+  - name: Собираем apps docker образы
+    command: "docker compose -f {{ docker_compose_apps_path }} build"
+
+  - name: Проверяем запущен ли apps docker compose
+    shell: "docker compose -f {{ docker_compose_apps_path }} ps -q"
     register: docker_compose_status
 
-  - name: Перезапускаем docker compose с новыми образами
-    command: "docker compose -f {{ docker_compose_path }} down"
+  - name: Останавливаем apps docker compose с новыми образами
+    command: "docker compose -f {{ docker_compose_apps_path }} down"
     when: docker_compose_status.stdout != ''
 
-  - name: Запускаем docker compose
-    command: "docker compose -f {{ docker_compose_path }} up -d"
+  - name: Запускаем apps docker compose
+    command: "docker compose -f {{ docker_compose_apps_path }} up -d"
+
+  - name: Добавляем сиды в базу данных
+    command: "docker compose -f {{ docker_compose_apps_path }} exec server pnpm run server:seed"
+    become_user: root
 
   - name: Создаем контейнер miniapp без запуска
     docker_container:
@@ -51,16 +75,8 @@
       image: daylik_bot-miniapp
       state: present
 
-  - name: Добавляем сиды в базу данных
-    command: "docker compose -f {{ docker_compose_path }} exec server pnpm run server:seed"
-    become_user: root
-
   - name: Копируем статику miniapp
-    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist /home/{{ user }}/static"
-    become_user: root
-
-  - name: Копируем favicon
-    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/favicon.ico /home/{{ user }}/static"
+    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist ./static"
     become_user: root
 
   - name: Удаляем контейнер miniapp

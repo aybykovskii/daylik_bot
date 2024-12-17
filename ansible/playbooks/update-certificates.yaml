@@ -7,6 +7,9 @@
     domains:
       - daylik.fun
       - bot.telegram.daylik.fun
+      - admin.daylik.fun
+    repo_path: "/home/{{ user }}/{{ github_repo }}"
+    docker_compose_apps_path: "{{ repo_path }}/docker-compose.production.yml"
 
   tasks:
     - name: Проверка наличия необходимых пакетов
@@ -14,19 +17,9 @@
         name: certbot
         state: present
 
-    - name: Остановка службы Nginx
-      service:
-        name: nginx
-        state: stopped
-
     - name: Генерация ssl сертификатов
       command: sudo certbot certonly --standalone -d {{ item }} --email {{ email }} --agree-tos --keep-until-expiring
       loop: "{{ domains }}"
 
     - name: Добавления хука автогенерации сертификата
-      command: sudo /usr/bin/certbot renew --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx"
-
-    - name: Перезапуск службы Nginx
-      service:
-        name: nginx
-        state: restarted
+      command: sudo /usr/bin/certbot renew
