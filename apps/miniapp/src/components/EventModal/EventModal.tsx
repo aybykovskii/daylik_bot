@@ -24,7 +24,7 @@ export const EventModal = ({ event, onSave, onDelete }: Props) => {
 
 	const [date, setDate] = useState(dayjs(event?.date ? new Date(Y, M - 1, D) : undefined))
 	const [time, setTime] = useState(event?.time ?? '12:00')
-	const [isAllDay, setIsAllDay] = useState(!event?.time || false)
+	const [isAllDay, setIsAllDay] = useState(event ? !event?.time : false)
 	const [emoji, setEmoji] = useState(event?.emoji ?? '😀')
 	const [isEmojiSelectorOpen, setIsEmojiSelectorOpen] = useState(false)
 	const [text, setText] = useState(event?.text ?? '')
