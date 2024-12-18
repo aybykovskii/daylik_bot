@@ -51,6 +51,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/notifications', getNotificationRouter(bot, api))
+
+app.get('/health', (_, res) => {
+	res.send('ok')
+})
 ;(async () => {
 	try {
 		app.listen(env.BOT_PORT, async () => {

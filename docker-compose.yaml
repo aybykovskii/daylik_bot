@@ -68,6 +68,11 @@ services:
       - '3030:${BOT_PORT}'
     networks:
       - daylik
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', 'http://localhost:${BOT_PORT}/health' ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
     volumes:
       - ./packages/shared/logger/logs/bot:/app/packages/shared/logger/logs/bot
