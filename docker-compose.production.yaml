@@ -1,6 +1,5 @@
 services:
   postgres:
-    containxer_name: daylik-db
     image: postgres:15
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -19,7 +18,6 @@ services:
       retries: 5
 
   pgadmin:
-    container_name: daylik-pgadmin
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
