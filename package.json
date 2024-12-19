@@ -12,7 +12,8 @@
 		"check:types": "tsc --noEmit",
 		"check:biome": "biome check .",
 		"format:biome": "biome format .",
-		"ansible:deploy": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/deploy.yaml"
+		"ansible:deploy": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/deploy.yaml",
+		"ansible:seed:db": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/seed-db.yaml"
 	},
 	"license": "ISC",
 	"dependencies": {

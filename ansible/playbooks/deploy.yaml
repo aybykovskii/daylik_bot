@@ -8,7 +8,6 @@
     github_repo_path: "https://github.com/{{ github_username }}/{{ github_repo }}.git"
     repo_path: "/home/{{ user }}/{{ github_repo }}"
     docker_compose_apps_path: "{{ repo_path }}/docker-compose.production.yaml"
-    docker_compose_db_path: "{{ repo_path }}/docker-compose.db.yaml"
 
   tasks:
   - name: Клонируем репозиторий
@@ -33,59 +32,61 @@
       force: yes
     become_user: "{{ user }}"
 
-  - name:  Создаем daylik network
-    docker_network:
-      name: daylik
-      state: present
-
   - name: Логин в Docker Registry
     docker_login:
       username: "{{ docker_user }}"
       password: "{{ docker_password }}"
 
-  - name: Запускаем db docker compose
+  - name: Останавливаем apps docker compose
     community.docker.docker_compose_v2:
       project_src: "{{ repo_path }}"
       files: 
-      - docker-compose.db.yaml
+      - docker-compose.production.yaml
+      state: absent
+
+  - name: Запускаем apps docker compose
+    community.docker.docker_compose_v2:
+      project_src: "{{ repo_path }}"
+      files: 
+      - docker-compose.production.yaml
+      build: always
       state: present
+    register: apps_compose
 
-  - name: Собираем apps docker образы
-    command: "docker compose -f {{ docker_compose_apps_path }} build"
+  - name: Результаты apps docker compose
+    debug:
+      var: apps_compose
 
-  - name: Проверяем запущен ли apps docker compose
-    shell: "docker compose -f {{ docker_compose_apps_path }} ps -q"
-    register: docker_compose_status
-
-  - name: Останавливаем apps docker compose со старыми образами
-    command: "docker compose -f {{ docker_compose_apps_path }} down"
-    when: docker_compose_status.stdout != ''
-
-  - name: Создаем контейнер miniapp без запуска
-    docker_container:
+  - name: Создаем контейнер miniapp
+    community.docker.docker_container:
       name: "{{ miniapp_name }}"
       image: daylik_bot-miniapp
       state: present
 
   - name: Удаляем старую статику
-    command: "rm -rf {{ repo_path }}/static"
+    file:
+      path: "{{ repo_path }}/static/"
+      state: absent
     become_user: root
 
   - name: Копируем статику miniapp
     command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist {{ repo_path }}/static"
     become_user: root
 
-  - name: Запускаем apps docker compose с новыми образами
-    command: "docker compose -f {{ docker_compose_apps_path }} up -d"
-
-  - name: Добавляем сиды в базу данных
-    command: "docker compose -f {{ docker_compose_apps_path }} exec server pnpm run server:seed"
-    become_user: root
-
   - name: Удаляем контейнер miniapp
-    docker_container:
+    community.docker.docker_container:
       name: "{{ miniapp_name }}"
+      image: daylik_bot-miniapp
       state: absent
 
-  - name: Удаляем старые образы
-    command: "docker image prune -f"
+  - name: Перезапускаем apps docker compose
+    community.docker.docker_compose_v2:
+      project_src: "{{ repo_path }}"
+      files: 
+      - docker-compose.production.yaml
+      state: restarted
+
+  - name: Удаляем старые образы и контейнеры
+    community.docker.docker_prune:
+      containers: true
+      images: true

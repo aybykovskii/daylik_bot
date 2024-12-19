@@ -1,0 +1,14 @@
+- name: Добавляем сиды в базу данных
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  become_user: "{{ user }}"
+  vars:
+    repo_path: "/home/{{ user }}/{{ github_repo }}"
+    docker_compose_apps_path: "{{ repo_path }}/docker-compose.production.yaml"
+
+  tasks:
+  - name: Добавляем сиды
+    command: "docker compose -f {{ docker_compose_apps_path }} exec server pnpm run server:seed"
+    become_user: root
