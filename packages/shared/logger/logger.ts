@@ -2,13 +2,13 @@ import { createLogger, format, transports } from 'winston'
 import 'winston-daily-rotate-file'
 import path from 'node:path'
 
-type ModuleName = 'server' | 'bot' | 'common' | 'miniapp'
+type ModuleName = 'server' | 'bot' | 'common' | 'db'
 
 const createModuleLogger = (moduleName: ModuleName) => {
 	const timestamp = format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
 	const dirname = path.resolve(__dirname, './logs', moduleName)
 
-	const logger = createLogger({
+	return createLogger({
 		level: 'info',
 		defaultMeta: { _module: moduleName },
 		format: format.combine(
@@ -18,6 +18,9 @@ const createModuleLogger = (moduleName: ModuleName) => {
 			format.json({ space: 2 })
 		),
 		transports: [
+			new transports.Console({
+				format: format.combine(format.json({ space: 2 })),
+			}),
 			new transports.DailyRotateFile({
 				dirname,
 				filename: `${moduleName}-%DATE%-error.log`,
@@ -36,19 +39,9 @@ const createModuleLogger = (moduleName: ModuleName) => {
 			}),
 		],
 	})
-
-	if (process.env.MODE !== 'production') {
-		logger.add(
-			new transports.Console({
-				format: format.combine(format.json({ space: 2 })),
-			})
-		)
-	}
-
-	return logger
 }
 
 export const commonLogger = createModuleLogger('common')
 export const serverLogger = createModuleLogger('server')
 export const botLogger = createModuleLogger('bot')
-export const miniappLogger = createModuleLogger('bot')
+export const dbLogger = createModuleLogger('db')
