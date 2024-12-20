@@ -142,6 +142,7 @@ services:
     depends_on:
       - server
       - telegram_bot
+      - pgadmin
     ports:
       - '80:80'
       - '443:443'
