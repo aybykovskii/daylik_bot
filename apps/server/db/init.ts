@@ -3,22 +3,18 @@ import { PostgresDialect } from '@sequelize/postgres'
 
 import { dbLogger, env, serverLogger } from 'shared'
 
-import config from './config/config'
-
 let sql: Sequelize<PostgresDialect>
 
 export const init = async () => {
-	const envConfig = config[env.MODE]
-
 	sql = new Sequelize({
 		dialect: PostgresDialect,
-		host: envConfig.host,
-		port: envConfig.port,
-		user: envConfig.username,
-		password: envConfig.password,
-		database: envConfig.database,
+		host: env.POSTGRES_HOST,
+		port: env.POSTGRES_PORT,
+		user: env.POSTGRES_USER,
+		password: env.POSTGRES_PASSWORD,
+		database: env.POSTGRES_DB,
 		models: await importModels(`${__dirname}/models/*.model.ts`),
-		logging: (sql, timing) => dbLogger.debug(sql, { timing }),
+		logging: (sql, timing) => dbLogger.info(sql, { timing }),
 	})
 
 	try {

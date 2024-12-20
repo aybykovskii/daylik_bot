@@ -7,13 +7,11 @@
 		"miniapp": "cd apps/miniapp && bun run start",
 		"miniapp:build": "cd apps/miniapp && bun run build",
 		"server:run": "cd ./apps/server && bun run start",
-		"server:seed": "cd ./apps/server && pnpx sequelize-cli --env production db:seed:all",
 		"telegramBot:run": "cd ./apps/telegramBot && bun run bot.ts",
 		"check:types": "tsc --noEmit",
 		"check:biome": "biome check .",
 		"format:biome": "biome format .",
-		"ansible:deploy": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/deploy.yaml",
-		"ansible:seed:db": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/seed-db.yaml"
+		"ansible:deploy": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/deploy.yaml"
 	},
 	"license": "ISC",
 	"dependencies": {
