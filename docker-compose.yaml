@@ -26,6 +26,8 @@ services:
       - '5050:80'
     networks:
       - daylik
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
 
@@ -134,6 +136,7 @@ services:
 
 volumes:
   postgres_data:
+  pgadmin-data:
 
 
 networks:
