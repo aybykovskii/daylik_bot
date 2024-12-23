@@ -1,7 +1,7 @@
 import Sequelize, { importModels } from '@sequelize/core'
 import { PostgresDialect } from '@sequelize/postgres'
 
-import { dbLogger, env, serverLogger } from 'shared'
+import { env, serverLogger } from 'shared'
 
 import config from './config/config'
 
@@ -18,7 +18,7 @@ export const init = async () => {
 		password: envConfig.password,
 		database: envConfig.database,
 		models: await importModels(`${__dirname}/models/*.model.ts`),
-		logging: (sql, timing) => dbLogger.debug(sql, { timing }),
+		logging: false,
 	})
 
 	try {

@@ -1,34 +1,4 @@
 services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - '5432:5432'
-    networks:
-      - daylik
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: [ 'CMD-SHELL', 'pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}' ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    ports:
-      - '5050:80'
-    networks:
-      - daylik
-    depends_on:
-      - postgres
-
   base:
     build:
       context: .
@@ -62,8 +32,6 @@ services:
     networks:
       - daylik
     depends_on:
-      postgres:
-        condition: service_healthy
       base:
         condition: service_started
     healthcheck:
@@ -132,10 +100,6 @@ services:
     volumes:
       - ./packages/shared/logger/logs/miniapp:/app/packages/shared/logger/logs/miniapp
 
-volumes:
-  postgres_data:
-
-
 networks:
   daylik:
-    driver: bridge
+    external: true
