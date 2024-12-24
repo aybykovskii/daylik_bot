@@ -1,0 +1,48 @@
+- name: Обновление политик фаервола UFW
+  hosts: servers
+  become: true
+
+  tasks:
+  - name: Проверка наличия UFW
+    apt:
+      name: ufw
+      state: present
+
+  - name: Запрещение всего входящего трафика
+    ufw:
+      default: deny
+      direction: incoming
+
+  - name: Разрешение всего исходящего трафика
+    ufw:
+      default: allow
+      direction: outgoing
+
+  - name: Разрешение SSH
+    ufw:
+      rule: allow
+      port: 22
+
+  - name: Разрешение HTTP
+    ufw:
+      rule: allow
+      port: 80
+      proto: tcp
+
+  - name: Разрешение HTTPS
+    ufw:
+      rule: allow
+      port: 443
+      proto: tcp
+
+  - name: Включение UFW
+    ufw:
+      state: enabled
+
+  - name: Статус UFW
+    command: sudo ufw status
+    register: ufw_status_result
+
+  - name: Вывод статуса UFW
+    debug:
+      var: ufw_status_result.stdout_lines
