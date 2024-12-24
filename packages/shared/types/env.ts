@@ -18,6 +18,9 @@ export const envSchema = z
 		POSTGRES_USER: z.string(),
 		POSTGRES_PASSWORD: z.string(),
 		POSTGRES_DB: z.string(),
+
+		AUTH_HEADER_KEY: z.string(),
+		AUTH_HEADER_VALUE: z.string(),
 	})
 	.passthrough()
 

@@ -5,8 +5,7 @@ import { verify } from 'jsonwebtoken'
 import { env } from 'shared'
 
 export const authTokenHookHandler: onRequestHookHandler = (req, _, done) => {
-	// TODO: Refactor this
-	if (req.url === '/api/v1/users' && req.method === 'POST') {
+	if (req.headers[env.AUTH_HEADER_KEY] === env.AUTH_HEADER_VALUE) {
 		return done()
 	}
 

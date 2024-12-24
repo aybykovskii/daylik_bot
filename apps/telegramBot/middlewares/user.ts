@@ -19,8 +19,6 @@ export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => 
 	let user: Users.Get.ResponseBody
 
 	try {
-		await ctx.api.auth.loginCreate({ telegramUserId: id })
-
 		user = await ctx.api.users.get(id)
 
 		botLogger.info(`User found`, { telegramUserId: userId, id: user.id, fullName: user.fullName })
@@ -32,8 +30,6 @@ export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => 
 			lastName: ctx?.from?.last_name,
 			telegramUserId: id,
 		})
-
-		await ctx.api.auth.loginCreate({ telegramUserId: user.telegramUserId })
 	}
 
 	ctx.user = user

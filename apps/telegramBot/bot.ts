@@ -1,7 +1,7 @@
 import express from 'express'
 import { Telegraf } from 'telegraf'
 
-import { api } from 'api'
+import { createApi } from 'api'
 import { env } from 'shared/environment'
 import { botLogger } from 'shared/logger'
 
@@ -17,6 +17,11 @@ import { contextMiddleware, i18nMiddleware, userMiddleware } from 'middlewares'
 import { TelegrafContext } from 'types'
 
 const bot = new Telegraf<TelegrafContext>(env.TG_BOT_TOKEN)
+const api = createApi({
+	headers: {
+		[env.AUTH_HEADER_KEY]: env.AUTH_HEADER_VALUE,
+	},
+})
 api.baseUrl = `http://server:${env.SERVER_PORT}`
 
 bot.use(i18nMiddleware)
