@@ -7,7 +7,9 @@
   vars:
     github_repo_path: "https://github.com/{{ github_username }}/{{ github_repo }}.git"
     repo_path: "/home/{{ user }}/{{ github_repo }}"
-    docker_compose_apps_path: "{{ repo_path }}/docker-compose.production.yaml"
+    db_compose: "docker-compose.db.yaml"
+    apps_compose: "docker-compose.production.yaml"
+    nginx_compose: "docker-compose.nginx.yaml"
 
   tasks:
   - name: Клонируем репозиторий
@@ -37,25 +39,42 @@
       username: "{{ docker_user }}"
       password: "{{ docker_password }}"
 
+  - name: Создаем сеть daylik
+    community.docker.docker_network:
+      name: daylik
+      state: present
+
+  - name: Запускаем db docker compose
+    community.docker.docker_compose_v2:
+      project_src: "{{ repo_path }}"
+      files: 
+      - "{{ db_compose }}"
+      state: present
+    register: db_compose_result
+  
+  - name: Результаты db docker compose
+    debug:
+      var: db_compose_result
+
   - name: Останавливаем apps docker compose
     community.docker.docker_compose_v2:
       project_src: "{{ repo_path }}"
       files: 
-      - docker-compose.production.yaml
+      - "{{ apps_compose }}"
       state: absent
 
   - name: Запускаем apps docker compose
     community.docker.docker_compose_v2:
       project_src: "{{ repo_path }}"
       files: 
-      - docker-compose.production.yaml
+      - "{{ apps_compose }}"
       build: always
       state: present
-    register: apps_compose
+    register: apps_compose_result
 
   - name: Результаты apps docker compose
     debug:
-      var: apps_compose
+      var: apps_compose_result
 
   - name: Создаем контейнер miniapp
     community.docker.docker_container:
@@ -79,14 +98,19 @@
       image: daylik_bot-miniapp
       state: absent
 
-  - name: Перезапускаем apps docker compose
+  - name: Перезапускаем nginx docker compose
     community.docker.docker_compose_v2:
       project_src: "{{ repo_path }}"
       files: 
-      - docker-compose.production.yaml
+      - "{{ nginx_compose }}"
       state: restarted
+    register: nginx_compose_result
+
+  - name: Результаты nginx docker compose
+    debug:
+      var: nginx_compose_result
 
   - name: Удаляем старые образы и контейнеры
     community.docker.docker_prune:
-      containers: true
+      containers: false
       images: true
