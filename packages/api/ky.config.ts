@@ -19,10 +19,6 @@ const customFetch = (input: RequestInfo | URL, init?: RequestInit) =>
 		hooks: {
 			beforeRequest: [
 				(req) => {
-					console.log(
-						'beforeRequest',
-						AuthData.getToken() ? `with token ${AuthData.getToken()}` : 'without token'
-					)
 					return req.headers.set('Authorization', AuthData.getToken())
 				},
 			],
