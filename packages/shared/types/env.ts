@@ -21,6 +21,8 @@ export const envSchema = z
 
 		AUTH_HEADER_KEY: z.string(),
 		AUTH_HEADER_VALUE: z.string(),
+
+		WEB_APP_URL: z.string(),
 	})
 	.passthrough()
 
