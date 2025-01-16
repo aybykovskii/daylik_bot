@@ -1469,6 +1469,62 @@ export namespace Payments {
   }
 }
 
+export namespace Settings {
+  /**
+   * No description
+   * @tags settings
+   * @name Get
+   * @request GET:/api/v1/settings/{id}
+   */
+  export namespace Get {
+    export type RequestParams = {
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = {
+      id: number;
+      notificationTime: string;
+      /** @default {} */
+      stylization: {
+        primaryColor?: string;
+      };
+      userId: number;
+    };
+  }
+
+  /**
+   * No description
+   * @tags settings
+   * @name Update
+   * @request PATCH:/api/v1/settings/{id}
+   */
+  export namespace Update {
+    export type RequestParams = {
+      id: number;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = {
+      notificationTime?: string;
+      /** @default {} */
+      stylization?: {
+        primaryColor?: string;
+      };
+    };
+    export type RequestHeaders = {};
+    export type ResponseBody = {
+      id: number;
+      notificationTime: string;
+      /** @default {} */
+      stylization: {
+        primaryColor?: string;
+      };
+      userId: number;
+    };
+  }
+}
+
 export namespace Health {
   /**
    * No description
@@ -3292,6 +3348,71 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       >({
         path: `/api/v1/payments/users/${id}`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+  };
+  settings = {
+    /**
+     * No description
+     *
+     * @tags settings
+     * @name Get
+     * @request GET:/api/v1/settings/{id}
+     */
+    get: (id: number, params: RequestParams = {}) =>
+      this.request<
+        {
+          id: number;
+          notificationTime: string;
+          /** @default {} */
+          stylization: {
+            primaryColor?: string;
+          };
+          userId: number;
+        },
+        any
+      >({
+        path: `/api/v1/settings/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags settings
+     * @name Update
+     * @request PATCH:/api/v1/settings/{id}
+     */
+    update: (
+      id: number,
+      data: {
+        notificationTime?: string;
+        /** @default {} */
+        stylization?: {
+          primaryColor?: string;
+        };
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<
+        {
+          id: number;
+          notificationTime: string;
+          /** @default {} */
+          stylization: {
+            primaryColor?: string;
+          };
+          userId: number;
+        },
+        any
+      >({
+        path: `/api/v1/settings/${id}`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),

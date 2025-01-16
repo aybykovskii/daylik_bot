@@ -21,6 +21,7 @@ import {
 	FriendshipController,
 	PaymentsController,
 	RolesController,
+	SettingsController,
 	UsersController,
 	authTokenHookHandler,
 } from 'modules'
@@ -68,6 +69,7 @@ registerControllers(server, {
 		EventSharesController,
 		FriendshipController,
 		PaymentsController,
+		SettingsController,
 	],
 	handlers: {
 		onRequest: [authTokenHookHandler],
