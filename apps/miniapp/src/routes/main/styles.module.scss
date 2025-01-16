@@ -20,7 +20,7 @@ $text: var(--text-color);
       gap: 1rem;
 
       & > div {
-        background-color: white;
+        background-color: var(--white);
         flex-grow: 1;
         min-width: 40%;
         min-height: 20%;

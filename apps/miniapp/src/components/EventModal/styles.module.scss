@@ -1,7 +1,7 @@
 .secondaryButton {
   background-color: var(--white);
   color: var(--text-color);
-  border: 1px solid var(--gray);
+  border: 1px solid var(--border);
   font-weight: bold;
   padding: 5px 10px;
   border-radius: 0.75rem;
@@ -28,7 +28,7 @@
     background: var(--white);
     padding: 20px 15px;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px 5px var(--shadow);
+    box-shadow: 0px 0px 2px 2px var(--shadow);
 
     label {
       display: flex;

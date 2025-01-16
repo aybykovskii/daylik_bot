@@ -24,6 +24,7 @@ $timePadding: $timeSidePadding $timeSidePadding $timeSidePadding calc(#{$timeSid
       align-items: center;
       width: inherit;
       gap: 5px;
+      color: var(--text-color);
 
       hr {
         height: 1px;

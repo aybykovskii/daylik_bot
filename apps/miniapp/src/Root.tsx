@@ -9,6 +9,8 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 import { ErrorPage } from './components/ErrorPage'
 import './mockEnv'
 import './styles/global.css'
+import './styles/animations.css'
+import './styles/toasts.css'
 
 createRoot(document.getElementById('root')!).render(
 	<ErrorBoundary fallback={ErrorPage}>

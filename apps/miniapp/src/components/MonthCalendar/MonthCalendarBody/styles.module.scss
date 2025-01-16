@@ -17,9 +17,10 @@
 
       span:first-child {
         text-align: end;
+        color: var(--black);
 
         &.anotherMonth {
-          color: var(--gray);
+          color: var(--shadow);
         }
 
         &.today {

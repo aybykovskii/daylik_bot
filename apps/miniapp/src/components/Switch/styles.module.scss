@@ -1,5 +1,4 @@
 .switch {
-  // background-color: #f2f2f2;
   background-color: var(--primary);
   border-radius: 0.7rem;
   padding: 2px;
@@ -8,17 +7,16 @@
   button {
     border-radius: inherit;
     padding: 0.2rem 1.5rem;
-    font-size: 1rem;
     flex-grow: 1;
     transition: all 0.3s ease-in-out;
 
     &:not(&[data-active='true']) {
       background-color: inherit;
-      color: white;
+      color: var(--white);
     }
 
     &[data-active='true'] {
-      background-color: white;
+      background-color: var(--white);
       color: var(--primary);
     }
   }

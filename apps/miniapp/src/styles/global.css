@@ -1,34 +1,40 @@
 :root {
-  --white: #ffffff;
-  --black: #000000;
-  --gray: #dddddd;
-  --primary: #ffa34d;
-  --secondary: #87c5f8;
-  --red: #e94f37;
+  --primary: hsl(28, 100%, 70%);
+  --danger: hsl(8, 77%, 50%);
 
-  --shadow: rgba(0, 0, 0, 0.1);
+  --whiteLightness: 100%;
+  --blackLightness: 15%;
+  --textLightness: calc(var(--blackLightness) + 25%);
+  --borderLightness: calc(var(--blackLightness) + 75%);
 
-  --app-color: #f8efea;
-  --accent-color: #e94f37;
-  --text-color: #393e41;
-  --blue: #87c5f8;
-  --green: #44bba4;
-  --border: #f6f6f6;
+  --white: hsl(0, 0%, var(--whiteLightness));
+  --black: hsl(0, 0%, var(--blackLightness));
+  --shadow: hsla(0, 0%, var(--blackLightness), 0.1);
+  --text-color: hsl(0, 0%, var(--textLightness));
+  --border: hsl(0, 0%, var(--borderLightness));
 
   --modal-animation-time: 300ms;
-  --swipe-animation-time: 200ms;
+  --swipe-animation-time: 300ms;
 
   --swipe-animation-exit-percent: 5%;
   --swipe-animation-enter-percent: 95%;
 
   --family: 'Rubik', sans-serif;
-  --sizeS: 12px;
   --sizeM: 16px;
   --sizeL: 20px;
-  --sizeXL: 24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --whiteLightness: 10%;
+    --blackLightness: 100%;
+    --textLightness: calc(var(--blackLightness) - 25%);
+    --borderLightness: calc(var(--blackLightness) - 75%);
+  }
 }
 
 body {
+  color-scheme: light dark;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -95,8 +101,8 @@ button {
   }
 
   &[data-action='delete'] {
-    color: var(--red);
-    border: 1px solid var(--red);
+    color: var(--danger);
+    border: 1px solid var(--danger);
   }
 }
 
@@ -105,9 +111,9 @@ input {
   max-height: 32px;
   padding: 10px;
   border-radius: 12px;
-  font-size: 16px;
+  font-size: var(--sizeM);
   outline: none;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--border);
   color: var(--text-color);
   background-color: var(--white);
 
@@ -132,107 +138,4 @@ input {
     width: 32px;
     height: 32px;
   }
-}
-
-/* Toast */
-.Toastify__toast-container--top-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  max-width: 100vw;
-  width: 100vw;
-  top: 20px;
-}
-
-.Toastify__toast {
-  width: fit-content;
-  border-radius: 8px;
-  word-wrap: break-word;
-  min-height: 0;
-  margin-bottom: 0;
-  padding: 8px;
-}
-
-.Toastify__spinner {
-  width: var(--sizeM);
-  height: var(--sizeM);
-}
-
-.Toastify__toast-icon {
-  width: var(--sizeM);
-  height: var(--sizeM);
-  margin-inline-end: 5px;
-}
-
-.Toastify__toast-body {
-  padding: 0;
-  font-size: var(--sizeM);
-}
-
-/* Modal */
-.modal-enter {
-  opacity: 0;
-  transform: translateY(15%);
-}
-
-.modal-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity var(--modal-animation-time),
-    transform var(--modal-animation-time);
-}
-
-.modal-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.modal-exit-active {
-  opacity: 0;
-  transform: translateY(15%);
-  transition:
-    opacity var(--modal-animation-time),
-    transform var(--modal-animation-time);
-}
-
-/* Swipe */
-/* Right */
-.swipe-right-enter {
-  transform: translateX(95%);
-}
-
-.swipe-right-enter-active {
-  transform: translateX(0);
-  transition: transform var(--swipe-animation-time);
-}
-
-.swipe-right-exit {
-  transform: translateX(0);
-}
-
-.swipe-right-exit-active {
-  transform: translateX(-5%);
-  transition: transform var(--swipe-animation-time);
-}
-
-/* Swipe */
-/* Left */
-.swipe-left-enter {
-  transform: translateX(-95%);
-}
-
-.swipe-left-enter-active {
-  transform: translateX(0);
-  transition: transform var(--swipe-animation-time);
-}
-
-.swipe-left-exit {
-  transform: translateX(0);
-}
-
-.swipe-left-exit-active {
-  transform: translateX(5%);
-  transition: transform var(--swipe-animation-time);
 }

@@ -1,0 +1,69 @@
+/* Modal */
+.modal-enter {
+  opacity: 0;
+  transform: translateY(15%);
+  will-change: opacity, transform;
+}
+
+.modal-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--modal-animation-time),
+    transform var(--modal-animation-time);
+}
+
+.modal-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.modal-exit-active {
+  opacity: 0;
+  transform: translateY(15%);
+  transition:
+    opacity var(--modal-animation-time),
+    transform var(--modal-animation-time);
+}
+
+/* Swipe */
+/* Right */
+.swipe-right-enter {
+  transform: translateX(95%);
+  will-change: transform;
+}
+
+.swipe-right-enter-active {
+  transform: translateX(0);
+  transition: transform var(--swipe-animation-time);
+}
+
+.swipe-right-exit {
+  transform: translateX(0);
+}
+
+.swipe-right-exit-active {
+  transform: translateX(-5%);
+  transition: transform var(--swipe-animation-time);
+}
+
+/* Swipe */
+/* Left */
+.swipe-left-enter {
+  transform: translateX(-95%);
+  will-change: transform;
+}
+
+.swipe-left-enter-active {
+  transform: translateX(0);
+  transition: transform var(--swipe-animation-time);
+}
+
+.swipe-left-exit {
+  transform: translateX(0);
+}
+
+.swipe-left-exit-active {
+  transform: translateX(5%);
+  transition: transform var(--swipe-animation-time);
+}
