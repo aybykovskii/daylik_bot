@@ -27,35 +27,6 @@
 }
 
 /* Swipe */
-.swipe-right-entered,
-.swipe-left-entered {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Left swipe */
-.swipe-left-entering {
-  opacity: 0;
-  transform: translateX(5%);
-}
-
-.swipe-left-exiting {
-  opacity: 0;
-  transform: translateX(-5%);
-}
-
-/* Right swipe */
-.swipe-right-entering {
-  opacity: 0;
-  transform: translateX(-5%);
-}
-
-.swipe-right-exiting {
-  opacity: 0;
-  transform: translateX(5%);
-}
-
-/* Swipe */
 /* Right */
 .swipe-right-enter {
   transform: translateX(95%);

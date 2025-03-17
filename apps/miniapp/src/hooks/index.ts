@@ -1,1 +1,1 @@
-export * from './useTransitionSwipe'
+export * from './useSwipe'

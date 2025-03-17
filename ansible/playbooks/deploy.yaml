@@ -18,7 +18,7 @@
       dest: "/home/{{ user }}/{{ github_repo }}"
       accept_hostkey: yes
       force: yes
-    become_user: "{{ user }}"
+    become_user: "root"
 
   - name: Копируем env файл
     copy:

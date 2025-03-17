@@ -14,7 +14,7 @@
   --border: hsl(0, 0%, var(--borderLightness));
 
   --modal-animation-time: 300ms;
-  --swipe-animation-time: 300ms;
+  --swipe-animation-time: 200ms;
 
   --swipe-animation-exit-percent: 5%;
   --swipe-animation-enter-percent: 95%;

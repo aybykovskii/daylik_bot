@@ -7,7 +7,7 @@
 	"dependencies": {
 		"api": "workspace:^",
 		"http-proxy-middleware": "^3.0.2",
-		"openai": "^4.53.0",
+		"openai": "^4.87.3",
 		"shared": "workspace:^",
 		"telegraf": "^4.16.3"
 	}
