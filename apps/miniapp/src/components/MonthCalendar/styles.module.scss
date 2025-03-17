@@ -14,10 +14,10 @@
     }
   }
 
-  tbody {
-    transition:
-      transform 300ms linear,
-      opacity 150ms linear;
-    will-change: transform, opacity;
-  }
+  // tbody {
+  //   transition:
+  //     transform 300ms linear,
+  //     opacity 150ms linear;
+  //   will-change: transform, opacity;
+  // }
 }

@@ -1,8 +1,9 @@
 import dayjs from 'dayjs'
+import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 import { Events } from 'api'
 
-import { useTransitionSwipe } from '@/hooks'
+import { useSwipe } from '@/hooks'
 import { useModalStore } from '@/store'
 
 import { MonthCalendarBody } from './MonthCalendarBody'
@@ -17,7 +18,7 @@ type Props = {
 export const MonthCalendar = ({ date, setDate, events }: Props) => {
 	const { onOpen, eventId: modalEventId } = useModalStore()
 
-	const { ref, direction, status } = useTransitionSwipe({
+	const { ref, direction, time } = useSwipe({
 		onLeft: () => setDate(date.add(1, 'month')),
 		onRight: () => setDate(date.subtract(1, 'month')),
 	})
@@ -36,14 +37,16 @@ export const MonthCalendar = ({ date, setDate, events }: Props) => {
 					))}
 				</tr>
 			</thead>
-			<tbody className={`swipe-${direction}-${status}`}>
-				<MonthCalendarBody
-					date={date}
-					events={events}
-					editingEventId={modalEventId}
-					onEditEvent={onOpen}
-				/>
-			</tbody>
+			<SwitchTransition mode="out-in">
+				<CSSTransition key={date.format('YYYY-MM')} classNames={`swipe-${direction}`} timeout={time}>
+					<MonthCalendarBody
+						date={date}
+						events={events}
+						editingEventId={modalEventId}
+						onEditEvent={onOpen}
+					/>
+				</CSSTransition>
+			</SwitchTransition>
 		</table>
 	)
 }

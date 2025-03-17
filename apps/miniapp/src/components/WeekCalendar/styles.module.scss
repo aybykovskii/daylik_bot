@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   background-color: var(--white);
-  transition:
-    transform 300ms linear,
-    opacity 150ms linear;
-  will-change: transform, opacity;
+  // transition:
+  //   transform 300ms linear,
+  //   opacity 150ms linear;
+  // will-change: transform, opacity;
 }

@@ -46,6 +46,12 @@ export const App = () => {
 		})
 	}, [telegramUserId, loadUser])
 
+	useEffect(() => {
+		if (!user || !user.settings.stylization?.primaryColor) return
+
+		// document.documentElement.style.setProperty('--primary', user.settings.stylization.primaryColor)
+	}, [user])
+
 	const handlePrimaryButtonClick = useCallback(() => {
 		setIsModalOpen(!isModalOpen)
 		isModalOpen && setEventId(null)
