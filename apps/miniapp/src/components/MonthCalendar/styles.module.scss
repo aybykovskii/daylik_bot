@@ -13,4 +13,11 @@
       font-weight: 300;
     }
   }
+
+  tbody {
+    transition:
+      transform var(--swipe-animation-time) linear,
+      opacity calc(var(--swipe-animation-time) * 0.5) linear;
+    will-change: transform, opacity;
+  }
 }

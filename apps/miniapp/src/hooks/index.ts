@@ -1,2 +1,1 @@
-export * from './useSwipe'
-export * from './useInitMiniApp'
+export * from './useTransitionSwipe'

@@ -1,12 +1,13 @@
+import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { useRef } from 'react'
-import { CSSTransition, SwitchTransition } from 'react-transition-group'
 
 import { Events } from 'api'
 
-import { useSwipe } from '@/hooks'
+import { useTransitionSwipe } from '@/hooks'
 import { useModalStore } from '@/store'
 import { getSortedDayEvents } from '@/utils/events'
+
 import { WeekEventsList } from './WeekEventsList'
 import { WeekHeader } from './WeekHeader'
 import styles from './styles.module.scss'
@@ -23,7 +24,7 @@ export const WeekCalendar = ({ date, setDate, events }: Props) => {
 
 	const { onOpen } = useModalStore()
 
-	const { ref, direction, time } = useSwipe({
+	const { ref, direction, status } = useTransitionSwipe({
 		onLeft: () => setDate(date.add(1, 'week')),
 		onRight: () => setDate(date.subtract(1, 'week')),
 	})
@@ -51,13 +52,9 @@ export const WeekCalendar = ({ date, setDate, events }: Props) => {
 	}
 
 	return (
-		<SwitchTransition mode="out-in">
-			<CSSTransition key={date.format('MM-DD-YYYY')} classNames={`swipe-${direction}`} timeout={time}>
-				<div ref={ref} className={styles.weekCalendar}>
-					<WeekHeader days={weekdays} onDayClick={handleDateClick} />
-					<WeekEventsList days={weekdays} onEditEvent={onOpen} />
-				</div>
-			</CSSTransition>
-		</SwitchTransition>
+		<div ref={ref} className={classNames(styles.weekCalendar, `swipe-${direction}-${status}`)}>
+			<WeekHeader days={weekdays} onDayClick={handleDateClick} />
+			<WeekEventsList days={weekdays} onEditEvent={onOpen} />
+		</div>
 	)
 }

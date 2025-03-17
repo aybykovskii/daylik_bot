@@ -24,7 +24,7 @@ export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }:
 	const weeks = chunkArray(monthDays, 7)
 
 	return (
-		<tbody>
+		<>
 			{weeks.map((weekdays) => (
 				<tr key={`week-${weekdays[0].format('DD.MM')}`} className={styles.monthWeek}>
 					{weekdays.map((day) => (
@@ -56,6 +56,6 @@ export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }:
 					))}
 				</tr>
 			))}
-		</tbody>
+		</>
 	)
 }

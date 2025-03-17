@@ -1,5 +1,5 @@
 import path from 'node:path'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react-swc'
 import { defineConfig } from 'vite'
 import viteEnvironmentPlugin from 'vite-plugin-environment'
 
@@ -8,12 +8,8 @@ export default defineConfig({
 	plugins: [react(), viteEnvironmentPlugin('all')],
 	css: {
 		modules: {
-			scopeBehaviour: 'local',
-		},
-		preprocessorOptions: {
-			scss: {
-				additionalData: `@import "./src/styles/mixins.scss";`,
-			},
+			localsConvention: 'camelCase',
+			generateScopedName: '[local]_[hash:base64:5]',
 		},
 	},
 	resolve: {

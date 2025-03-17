@@ -1,19 +1,19 @@
-'use client'
+import {
+	LaunchParams,
+	mockTelegramEnv,
+	retrieveLaunchParams,
+} from '@telegram-apps/sdk-react'
 
-import { mockTelegramEnv, parseInitData, retrieveLaunchParams } from '@telegram-apps/sdk-react'
+if (import.meta.env.DEV) {
+	;(() => {
+		let launchParams: LaunchParams | undefined
 
-if (process.env.NODE_ENV === 'development') {
-	let shouldMock: boolean
-
-	try {
-		retrieveLaunchParams()
-		shouldMock = !!sessionStorage.getItem('____mocked')
-	} catch (_) {
-		shouldMock = true
-	}
-
-	if (shouldMock) {
-		const initDataRaw = new URLSearchParams([
+		try {
+			launchParams = retrieveLaunchParams()
+		} catch (e) {
+			console.error('Error retrieving launch params', e)
+		}
+		const webAppData = new URLSearchParams([
 			[
 				'user',
 				JSON.stringify({
@@ -31,17 +31,23 @@ if (process.env.NODE_ENV === 'development') {
 			['start_param', 'debug'],
 			['chat_type', 'sender'],
 			['chat_instance', '8428209589180549439'],
+			['signature', '6fbdaab833d39f54518bd5c3eb3f511d035e68cb'],
 		]).toString()
 
 		mockTelegramEnv({
-			themeParams: {},
-			initData: parseInitData(initDataRaw),
-			initDataRaw,
-			version: '7.2',
-			platform: 'tdesktop',
+			launchParams: launchParams
+				? {
+						...launchParams,
+						tgWebAppData: webAppData,
+					}
+				: {
+						tgWebAppPlatform: 'desktop',
+						tgWebAppThemeParams: {},
+						tgWebAppVersion: '8',
+					},
 		})
-		sessionStorage.setItem('____mocked', '1')
-
-		console.info('Mocked environment')
-	}
+		console.warn(
+			'⚠️ As long as the current environment was not considered as the Telegram-based one, it was mocked. Take a note, that you should not do it in production and current behavior is only specific to the development process. Environment mocking is also applied only in development mode. So, after building the application, you will not see this behavior and related warning, leading to crashing the application outside Telegram.'
+		)
+	})()
 }

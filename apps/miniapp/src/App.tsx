@@ -1,11 +1,11 @@
-import { useInitData } from '@telegram-apps/sdk-react'
+import { initData, useSignal } from '@telegram-apps/sdk-react'
 import dayjs from 'dayjs'
 import ru from 'dayjs/locale/ru'
 import localeData from 'dayjs/plugin/localeData'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import timezone from 'dayjs/plugin/timezone'
 import { useCallback, useEffect } from 'react'
-import { Navigate, Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, } from 'react-router-dom'
 
 import { api } from 'api'
 import { i18next } from 'shared/i18n'
@@ -15,7 +15,6 @@ import { Header } from './components/Header'
 import { InDevelopment } from './components/InDevelopment'
 import { Loader } from './components/Loader'
 import { NavBar } from './components/NavBar'
-import { useInitMiniApp } from './hooks'
 import { MainPage } from './routes/main'
 import { useModalStore, useUiStore, useUserStore } from './store'
 
@@ -30,11 +29,9 @@ export const App = () => {
 		{ type: 'week', title: i18next.t('miniApp.views.week') },
 	]
 
-	const initData = useInitData()
-	const { location, reactNavigator } = useInitMiniApp()
-
-	const telegramUserId = initData?.user?.id
-	const username = initData?.user?.username
+	const initUser = useSignal(initData.user)
+	const telegramUserId = initUser?.id
+	const username = initUser?.username
 	const isMainRoute = location.pathname === '/'
 
 	const { loadUser, user, isLoaded } = useUserStore()
@@ -50,20 +47,16 @@ export const App = () => {
 	}, [telegramUserId, loadUser])
 
 	const handlePrimaryButtonClick = useCallback(() => {
-		if (!isMainRoute) {
-			reactNavigator.push('/')
-			return
-		}
 		setIsModalOpen(!isModalOpen)
 		isModalOpen && setEventId(null)
-	}, [isModalOpen, isMainRoute, reactNavigator, setEventId, setIsModalOpen])
+	}, [isModalOpen, setEventId, setIsModalOpen])
 
 	if (!isLoaded || !user) {
 		return <Loader />
 	}
 
 	return (
-		<Router location={location} navigator={reactNavigator}>
+		<BrowserRouter>
 			<Header
 				username={username}
 				onViewChange={setView}
@@ -79,6 +72,6 @@ export const App = () => {
 			</Routes>
 
 			<NavBar isButtonActivated={isModalOpen} onClick={handlePrimaryButtonClick} />
-		</Router>
+		</BrowserRouter>
 	)
 }

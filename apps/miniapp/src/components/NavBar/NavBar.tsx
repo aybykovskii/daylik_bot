@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Explore, Home, Plus, User } from '@/components/icons'
 
@@ -14,6 +14,15 @@ type Props = {
 
 export const NavBar = ({ isButtonActivated, onClick }: Props) => {
 	const { pathname } = useLocation()
+	const navigate = useNavigate()
+	
+	const handleClick = () => {
+		if (pathname !== '/') {
+			navigate('/')
+			return
+		}
+		onClick()
+	}
 
 	return (
 		<div className={styles.navBar}>
@@ -22,7 +31,7 @@ export const NavBar = ({ isButtonActivated, onClick }: Props) => {
 			</ExtendedLink>
 			<button
 				className={cn(styles.primaryButton, isButtonActivated && styles.active)}
-				onClick={onClick}
+				onClick={handleClick}
 			>
 				{pathname === '/' ? <Plus /> : <Home />}
 			</button>

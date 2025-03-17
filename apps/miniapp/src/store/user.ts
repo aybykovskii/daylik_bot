@@ -32,6 +32,7 @@ export const useUserStore = create<UserStore>((set) => ({
 			startDate: '',
 			endDate: '',
 		},
+		settings: {},
 	} as unknown as Users.Get.ResponseBody,
 	isLoaded: false,
 	isError: false,
