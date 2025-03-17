@@ -10,10 +10,12 @@ type Arg = {
 export const useTransitionSwipe = ({ onLeft, onRight }: Arg) => {
 	const [direction, setDirection] = useState<'left' | 'right'>('left')
 
-	const time = Number.parseInt(
-		getComputedStyle(document.documentElement).getPropertyValue('--swipe-animation-time'),
-		10
-	)
+	// const time = Number.parseInt(
+	// 	getComputedStyle(document.documentElement).getPropertyValue('--swipe-animation-time'),
+	// 	10
+	// )
+
+	const time = 300
 
 	const [{ status }, toggle] = useTransitionState({
 		timeout: time,

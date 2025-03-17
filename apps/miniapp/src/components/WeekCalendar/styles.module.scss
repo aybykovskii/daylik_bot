@@ -5,7 +5,7 @@
   flex-direction: column;
   background-color: var(--white);
   transition:
-    transform var(--swipe-animation-time) linear,
-    opacity calc(var(--swipe-animation-time) * 0.5) linear;
+    transform 300ms linear,
+    opacity 150ms linear;
   will-change: transform, opacity;
 }
