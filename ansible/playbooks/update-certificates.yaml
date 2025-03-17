@@ -8,8 +8,6 @@
       - daylik.fun
       - bot.telegram.daylik.fun
       - admin.daylik.fun
-    repo_path: "/home/{{ user }}/{{ github_repo }}"
-    docker_compose_apps_path: "{{ repo_path }}/docker-compose.production.yml"
 
   tasks:
     - name: Проверка наличия необходимых пакетов
