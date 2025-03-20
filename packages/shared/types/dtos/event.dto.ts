@@ -7,11 +7,11 @@ import { withDbId } from './base.dto'
 import { eventSharingResponseDto } from './event-sharing.dto'
 
 export const createEventDto = event
-	.omit({ copyFromId: true })
+	.omit({ copyFromId: true, datetime: true, notificationDatetime: true })
 	.or(z.object({ fromDraftId: z.number() }))
 export type CreateEventDto = PrettyZod<typeof createEventDto>
 
-export const updateEventDto = event.omit({ userId: true, copyFromId: true }).partial()
+export const updateEventDto = event.omit({ userId: true, copyFromId: true, datetime: true, notificationDatetime: true }).partial()
 export type UpdateEventDto = z.infer<typeof updateEventDto>
 
 export const eventResponseDto = event.extend(withDbId.shape)

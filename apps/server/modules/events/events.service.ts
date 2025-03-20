@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 import { NotFoundError, Service } from '@common'
 
 import {
@@ -29,6 +31,15 @@ export class EventsService
 		private readonly eventDraftsService: EventDraftsService
 	) {}
 
+	private getTimestamps(date: string, time: string | null) {
+		const datetime = dayjs(`${date} ${time ?? '00:00'}`)
+
+		return {
+			datetime: datetime.toISOString(),
+			notificationDatetime: datetime.subtract(1, 'hour').toISOString(),
+		}
+	}
+
 	async _find<
 		IsInternal extends boolean,
 		Result = IsInternal extends true ? DbService['EventModel'] : EventResponseDto,
@@ -55,10 +66,16 @@ export class EventsService
 
 		if ('fromDraftId' in dto) {
 			const { id: _, ...eventDraft } = await this.eventDraftsService.get(dto.fromDraftId)
-			event = await this.dbService.event.create(eventDraft)
+			event = await this.dbService.event.create({
+				...eventDraft,
+				...this.getTimestamps(eventDraft.date, eventDraft.time),
+			})
 			await this.eventDraftsService.delete(dto.fromDraftId)
 		} else {
-			event = await this.dbService.event.create(dto)
+			event = await this.dbService.event.create({
+				...dto,
+				...this.getTimestamps(dto.date, dto.time),
+			})
 		}
 
 		return event.asFullData()

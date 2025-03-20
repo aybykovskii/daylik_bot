@@ -16,6 +16,8 @@ export const event = z.object({
 	text: z.string(),
 	emoji: z.string(),
 	copyFromId: intId.nullable(),
+	datetime: z.string().datetime(),
+	notificationDatetime: z.string().datetime(),
 })
 export type EventBase = z.infer<typeof event>
 

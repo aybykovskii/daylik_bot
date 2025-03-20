@@ -8,6 +8,8 @@
 		"miniapp:build": "cd apps/miniapp && bun run build",
 		"server:run": "cd ./apps/server && bun run start",
 		"server:seed": "cd ./apps/server && pnpx sequelize-cli --env production db:seed:all",
+		"server:migrate": "cd ./apps/server && pnpx sequelize-cli db:migrate",
+		"server:migrate:rollback": "cd ./apps/server && pnpx sequelize-cli db:migrate:undo",
 		"telegramBot:run": "cd ./apps/telegramBot && bun run bot.ts",
 		"check:types": "tsc --noEmit",
 		"check:biome": "biome check .",

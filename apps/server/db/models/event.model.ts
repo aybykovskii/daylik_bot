@@ -26,6 +26,12 @@ export class EventModel extends BaseIntModel<EventModel> implements EventFullDat
 	@AllowNull
 	declare time: EventFullData['time']
 
+	@Attribute(DataTypes.DATE)
+	declare datetime: EventFullData['datetime']
+
+	@Attribute(DataTypes.DATE)
+	declare notificationDatetime: EventFullData['notificationDatetime']
+
 	@Attribute(DataTypes.TEXT)
 	@NotNull
 	declare emoji: EventFullData['emoji']
@@ -70,6 +76,8 @@ export class EventModel extends BaseIntModel<EventModel> implements EventFullDat
 			userId: this.userId,
 			date: this.date,
 			time: this.time,
+			datetime: this.datetime,
+			notificationDatetime: this.notificationDatetime,
 			text: this.text,
 			emoji: this.emoji,
 			copyFromId: this.copyFromId,
