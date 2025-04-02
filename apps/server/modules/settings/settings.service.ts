@@ -1,53 +1,65 @@
-import { BadRequestError, NotFoundError, Service } from 'common'
+import { Ok, Result, err, ok } from 'neverthrow'
 
-import { SettingsDto, SettingsFullData, CreateSettingsDto, UpdateSettingsDto } from 'shared'
+import { SettingsModel } from '@/db'
+import { SettingsDto } from '@/types/settings'
 
-import { DbService } from '../db'
+import { CreateSettingsDto, SettingsError, UpdateSettingsDto } from './settings.types'
 
-@Service({ name: 'settingsService', services: [DbService] })
 export class SettingsService {
-	constructor(private readonly dbService: DbService) {}
+  model = SettingsModel
 
-	async find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['SettingsModel'] : SettingsFullData,
-	>(id: number, isInternal?: IsInternal): Promise<Result> {
-		const settings = await this.dbService.settings.findByPk(id)
+  readAll = async (): Promise<Ok<SettingsDto[], never>> => {
+    const settings = await this.model.findAll()
 
-		if (!settings) {
-			throw new NotFoundError('server.error.settings.not_found')
-		}
+    return ok(settings.map((setting) => setting.asDto()))
+  }
 
-		return (isInternal ? settings : settings.asFullData()) as Result
-	}
+  read = async (id: number): Promise<Result<SettingsDto, SettingsError>> => {
+    const settings = await this.model.findByPk(id)
 
-	get = async (id: number): Promise<SettingsFullData> => this.find(id)
+    if (!settings) {
+      return err('ERR_SETTINGS_DOES_NOT_EXIST')
+    }
 
-	create = async (dto: CreateSettingsDto): Promise<SettingsDto> => {
-		const settings = await this.dbService.settings.findOne({
-			where: { userId: dto.userId },
-		})
+    return ok(settings.asDto())
+  }
 
-		if (settings) {
-			throw new BadRequestError('server.error.settings.already_exists')
-		}
+  create = async (dto: CreateSettingsDto): Promise<Result<SettingsDto, SettingsError>> => {
+    const [settings, created] = await this.model.findOrCreate({
+      where: { userId: dto.userId },
+      defaults: dto,
+    })
 
-		const newSettings = await this.dbService.settings.create(dto)
+    if (!created) {
+      return err('ERR_SETTINGS_ALREADY_EXISTS')
+    }
 
-		return newSettings.asDto()
-	}
+    return ok(settings.asDto())
+  }
 
-	update = async (id: number, dto: UpdateSettingsDto): Promise<SettingsFullData> => {
-		const settings = await this.find(id, true)
+  update = async (id: number, dto: UpdateSettingsDto): Promise<Result<SettingsDto, SettingsError>> => {
+    const settings = await this.model.findByPk(id)
 
-		await settings.update(dto)
+    if (!settings) {
+      return err('ERR_SETTINGS_DOES_NOT_EXIST')
+    }
 
-		return settings.asFullData()
-	}
+    await settings.update(dto)
 
-	delete = async (id: number): Promise<void> => {
-		const settings = await this.find(id, true)
+    return ok(settings.asDto())
+  }
 
-		await settings.destroy()
-	}
+  delete = async (id: number): Promise<Result<void, SettingsError>> => {
+    const settings = await this.model.findByPk(id)
+
+    if (!settings) {
+      return err('ERR_SETTINGS_DOES_NOT_EXIST')
+    }
+
+    await settings.destroy()
+
+    return ok()
+  }
 }
+
+export const settingsService = new SettingsService()

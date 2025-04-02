@@ -1,99 +1,116 @@
-import { DbService, UsersService } from '@modules'
+import { Ok, Result, err, ok } from 'neverthrow'
+
+import { FriendshipRequestModel } from '@/db'
+import { FriendshipRequestDto } from '@/types/friendship-requests'
+import { Transaction } from '@sequelize/core'
+
+import { usersService } from '../users'
 
 import {
-	CreateFriendshipRequestDto,
-	FriendshipRequestFullData,
-	UpdateFriendshipRequestDto,
-} from 'shared'
+  CreateFriendshipRequestDto,
+  FriendshipError,
+  FriendshipRequestFullData,
+  ReadAllFriendshipRequestsArg,
+  UpdateFriendshipRequestDto,
+} from './friendship.types'
 
-import { BadRequestError, NotFoundError, Service } from '@common'
-
-@Service({ name: 'friendshipService', services: [DbService, UsersService] })
 export class FriendshipService {
-	constructor(
-		private readonly dbService: DbService,
-		private readonly usersService: UsersService
-	) {}
+  model = FriendshipRequestModel
 
-	async find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true
-			? DbService['FriendshipRequestModel']
-			: FriendshipRequestFullData,
-	>(id: string, isInternal?: IsInternal): Promise<Result> {
-		const request = await this.dbService.friendshipRequest.findByPk(id)
+  readAll = async (arg: ReadAllFriendshipRequestsArg): Promise<Ok<FriendshipRequestDto[], never>> => {
+    const requests = await this.model.findAll({ where: { userId: arg.userId } })
 
-		if (!request) {
-			throw new NotFoundError('server.error.friendshipRequests.not_found')
-		}
+    return ok(requests.map((request) => request.asDto()))
+  }
 
-		return (isInternal ? request : request.asFullData()) as Result
-	}
+  read = async (id: string): Promise<Result<FriendshipRequestFullData, FriendshipError>> => {
+    const request = await this.model.findByPk(id)
 
-	findOne = async (id: string): Promise<FriendshipRequestFullData> => this.find(id)
+    if (!request) {
+      return err('ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST')
+    }
 
-	findAllByUserId = async (userId: number): Promise<FriendshipRequestFullData[]> => {
-		const requests = await this.dbService.friendshipRequest.findAll({ where: { userId } })
+    return ok(await request.asFullData())
+  }
 
-		const fullDataRequests = await Promise.all(requests.map((request) => request.asFullData()))
+  create = async (dto: CreateFriendshipRequestDto): Promise<Result<FriendshipRequestFullData, FriendshipError>> => {
+    const [request, created] = await this.model.findOrCreate({
+      where: {
+        targetUserId: dto.targetUserId,
+        userId: dto.userId,
+      },
+    })
 
-		return fullDataRequests
-	}
+    if (!created) {
+      return err('ERR_FRIENDSHIP_REQUEST_ALREADY_EXISTS')
+    }
 
-	create = async (dto: CreateFriendshipRequestDto): Promise<FriendshipRequestFullData> => {
-		const sameRequest = await this.dbService.friendshipRequest.findOne({
-			where: {
-				targetUserId: dto.targetUserId,
-				userId: dto.userId,
-			},
-		})
+    return ok(await request.asFullData())
+  }
 
-		if (sameRequest) {
-			throw new BadRequestError('server.error.friendshipRequests.already_exists')
-		}
+  update = async (
+    id: string,
+    { status }: UpdateFriendshipRequestDto
+  ): Promise<Result<FriendshipRequestFullData, FriendshipError>> => {
+    const request = await this.model.findByPk(id)
 
-		const request = await this.dbService.friendshipRequest.create(dto)
+    if (!request) {
+      return err('ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST')
+    }
 
-		return request.asFullData()
-	}
+    if (request.status !== 'pending') {
+      return err('ERR_FRIENDSHIP_REQUEST_NOT_PENDING')
+    }
 
-	update = async (
-		id: string,
-		{ status }: UpdateFriendshipRequestDto
-	): Promise<FriendshipRequestFullData> => {
-		const friendshipRequest = await this.find(id, true)
+    const updatedRequest = await this.model.sequelize.transaction(async (transaction) => {
+      const updatedRequest = await request.update({ status }, { transaction })
 
-		if (friendshipRequest.status !== 'pending') {
-			throw new BadRequestError('server.error.friendshipRequests.not_pending')
-		}
+      if (status === 'accepted') {
+        const result = await this.acceptFriendshipRequest(updatedRequest, transaction)
 
-		const updatedRequest = await this.dbService.sequelize.transaction(async (transaction) => {
-			const updatedRequest = await friendshipRequest.update({ status }, { transaction })
+        if (result.isErr()) {
+          transaction.rollback()
+          return err(result.error)
+        }
+      }
 
-			if (status === 'accepted') {
-				await this.acceptFriendshipRequest(updatedRequest)
-			}
+      return ok(updatedRequest)
+    })
 
-			return updatedRequest
-		})
+    if (updatedRequest.isErr()) {
+      return err(updatedRequest.error)
+    }
 
-		return updatedRequest.asFullData()
-	}
+    return ok(await updatedRequest.value.asFullData())
+  }
 
-	private async acceptFriendshipRequest(request: DbService['FriendshipRequestModel']) {
-		const user = await this.usersService.getOneInternal(request.userId, true)
-		const targetUser = await this.dbService.user.findByPk(request.targetUserId)
+  private async acceptFriendshipRequest(
+    request: FriendshipRequestModel,
+    transaction?: Transaction
+  ): Promise<Result<void, FriendshipError>> {
+    const user = await usersService._read(request.userId)
+    const targetUser = await usersService._read(request.targetUserId)
 
-		if (!user || !targetUser) {
-			throw new NotFoundError('server.error.users.not_found')
-		}
+    if (!user || !targetUser) {
+      return err('ERR_FRIENDSHIP_REQUEST_USER_DOES_NOT_EXIST')
+    }
 
-		await user.addFriend(request.targetUserId)
-	}
+    await user.addFriend(targetUser, { transaction })
 
-	delete = async (id: string): Promise<void> => {
-		const friendshipRequest = await this.find(id, true)
+    return ok()
+  }
 
-		await friendshipRequest.destroy()
-	}
+  delete = async (id: string): Promise<Result<void, FriendshipError>> => {
+    const request = await this.model.findByPk(id)
+
+    if (!request) {
+      return err('ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST')
+    }
+
+    await request.destroy()
+
+    return ok()
+  }
 }
+
+export const friendshipService = new FriendshipService()

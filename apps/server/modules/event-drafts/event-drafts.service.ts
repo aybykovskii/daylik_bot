@@ -1,56 +1,63 @@
-import {
-	CreateEventDraftDto,
-	EventDraftResponseDto,
-	EventDraftsResponseDto,
-	UpdateEventDraftDto,
-} from 'shared'
+import { Ok, Result, err, ok } from 'neverthrow'
 
-import { NotFoundError, Service } from '@common'
+import { EventDraftModel } from '@/db'
+import { EventDraftDto, EventDraftFullData } from '@/types/event-drafts'
+import { Transaction } from '@sequelize/core'
 
-import { DbService } from '../db'
+import { CreateEventDraftDto, EventDraftsError, UpdateEventDraftDto } from './event-drafts.types'
 
-@Service({ name: 'eventDraftsService', services: [DbService] })
 export class EventDraftsService {
-	constructor(private readonly dbService: DbService) {}
+  model = EventDraftModel
 
-	async find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['EventDraftModel'] : EventDraftResponseDto,
-	>(id: number, isInternal?: IsInternal): Promise<Result> {
-		const draft = await this.dbService.eventDraft.findByPk(id)
+  readAll = async (): Promise<Ok<EventDraftDto[], never>> => {
+    const drafts = await this.model.findAll()
 
-		if (!draft) {
-			throw new NotFoundError('server.error.eventDrafts.not_found')
-		}
+    return ok(drafts.map((draft) => draft.asDto()))
+  }
 
-		return (isInternal ? draft : draft.asDto()) as Result
-	}
+  read = async (id: number): Promise<Result<EventDraftFullData, EventDraftsError>> => {
+    const draft = await this.model.findByPk(id)
 
-	getAll = async (): Promise<EventDraftsResponseDto> => {
-		const drafts = await this.dbService.eventDraft.findAll()
+    if (!draft) {
+      return err('ERR_EVENT_DRAFT_DOES_NOT_EXIST')
+    }
 
-		return drafts.map((draft) => draft.asDto())
-	}
+    return ok(await draft.asFullData())
+  }
 
-	get = async (id: number): Promise<EventDraftResponseDto> => this.find(id)
+  create = async (dto: CreateEventDraftDto): Promise<Result<EventDraftFullData, EventDraftsError>> => {
+    const [draft, created] = await this.model.findOrCreate({ where: { userId: dto.userId }, defaults: dto })
 
-	create = async (dto: CreateEventDraftDto): Promise<EventDraftResponseDto> => {
-		const draft = await this.dbService.eventDraft.create(dto)
+    if (!created) {
+      return err('ERR_EVENT_DRAFT_ALREADY_EXISTS')
+    }
 
-		return draft.asDto()
-	}
+    return ok(await draft.asFullData())
+  }
 
-	update = async (id: number, dto: UpdateEventDraftDto): Promise<EventDraftResponseDto> => {
-		const draft = await this.find(id, true)
+  update = async (id: number, dto: UpdateEventDraftDto): Promise<Result<EventDraftFullData, EventDraftsError>> => {
+    const draft = await this.model.findByPk(id)
 
-		await draft.update(dto)
+    if (!draft) {
+      return err('ERR_EVENT_DRAFT_DOES_NOT_EXIST')
+    }
 
-		return draft.asDto()
-	}
+    await draft.update(dto)
 
-	delete = async (id: number): Promise<void> => {
-		const draft = await this.find(id, true)
+    return ok(await draft.asFullData())
+  }
 
-		await draft.destroy()
-	}
+  delete = async (id: number, transaction?: Transaction): Promise<Result<void, EventDraftsError>> => {
+    const draft = await this.model.findByPk(id, { transaction })
+
+    if (!draft) {
+      return err('ERR_EVENT_DRAFT_DOES_NOT_EXIST')
+    }
+
+    await draft.destroy()
+
+    return ok()
+  }
 }
+
+export const eventDraftsService = new EventDraftsService()

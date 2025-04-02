@@ -6,28 +6,26 @@ import {
 } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { FriendshipRequestDto, FriendshipRequestFullData, friendshipRequestStatus } from 'shared'
+import { typeToArray } from 'common/validation'
+import { FriendshipRequestDto, FriendshipRequestFullData, friendshipRequestStatus } from 'types/friendship-requests'
 
 import { BaseUuidModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'friendshipRequests', modelName: 'FriendshipRequest' })
-export class FriendshipRequestModel
-	extends BaseUuidModel<FriendshipRequestModel>
-	implements FriendshipRequestFullData
-{
+export class FriendshipRequestModel extends BaseUuidModel<FriendshipRequestModel> {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare userId: FriendshipRequestFullData['userId']
+	declare userId: FriendshipRequestDto['userId']
 
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare targetUserId: FriendshipRequestFullData['targetUserId']
+	declare targetUserId: FriendshipRequestDto['targetUserId']
 
-	@Attribute(DataTypes.ENUM(friendshipRequestStatus.options))
+	@Attribute(DataTypes.ENUM(typeToArray(friendshipRequestStatus)))
 	@NotNull
-	@Default(friendshipRequestStatus.Values.pending)
-	declare status: CreationOptional<FriendshipRequestFullData['status']>
+	@Default('pending' satisfies FriendshipRequestDto['status'])
+	declare status: CreationOptional<FriendshipRequestDto['status']>
 
 	/** Defined by {@link UserModel} */
 	declare user: NonAttribute<UserModel>
@@ -39,9 +37,7 @@ export class FriendshipRequestModel
 
 	asDto(): FriendshipRequestDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			userId: this.userId,
 			targetUserId: this.targetUserId,
 			status: this.status,

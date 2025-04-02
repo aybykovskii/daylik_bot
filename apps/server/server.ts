@@ -1,125 +1,56 @@
-import 'zod-openapi/extend'
-import Swagger from '@fastify/swagger'
-import SwaggerUi from '@fastify/swagger-ui'
-import Fastify from 'fastify'
+import { Hono } from 'hono'
+import { openAPISpecs } from 'hono-openapi'
+import { RegExpRouter } from 'hono/router/reg-exp-router'
+import { serverLogger } from 'shared'
+
+import { OpenApiConfig } from '@/common/docs'
 import {
-	fastifyZodOpenApiPlugin,
-	fastifyZodOpenApiTransform,
-	fastifyZodOpenApiTransformObject,
-	serializerCompiler,
-	validatorCompiler,
-} from 'fastify-zod-openapi'
+  eventDraftsRouter,
+  eventSharesRouter,
+  eventsRouter,
+  friendshipRouter,
+  paymentsRouter,
+  settingsRouter,
+  usersRouter,
+} from '@/modules'
+import { init as initDB } from '@db'
+import { swaggerUI } from '@hono/swagger-ui'
+import { authMiddleware, authRouter } from '@modules/auth'
 
-import { i18next, serverLogger } from 'shared'
+const server = new Hono({ router: new RegExpRouter() })
+const v1 = new Hono({ router: new RegExpRouter() })
 
-import { ServerError, ValidationError, registerControllers } from 'common'
-import {
-	AuthController,
-	EventDraftsController,
-	EventSharesController,
-	EventsController,
-	FriendshipController,
-	PaymentsController,
-	RolesController,
-	SettingsController,
-	UsersController,
-	authTokenHookHandler,
-} from 'modules'
+v1.use(authMiddleware)
+v1.route('/auth', authRouter)
+v1.route('/settings', settingsRouter)
+v1.route('/event_drafts', eventDraftsRouter)
+v1.route('/event_shares', eventSharesRouter)
+v1.route('/events', eventsRouter)
+v1.route('/payments', paymentsRouter)
+v1.route('/users', usersRouter)
+v1.route('/friendship', friendshipRouter)
 
-import { init as initDb } from './db'
+server.route('/api/v1', v1)
 
-const server = Fastify({ logger: false })
+// Swagger Docs
+server.get('/api/docs', openAPISpecs(server, OpenApiConfig))
+server.get('/api/docs/ui', swaggerUI({ url: '/api/docs' }))
 
-server.setValidatorCompiler(validatorCompiler)
-server.setSerializerCompiler(serializerCompiler)
+// Health check
+server.get('/health', (c) => c.json({ status: 'ok' }))
 
-await server.register(fastifyZodOpenApiPlugin)
-
-await server.register(Swagger, {
-	openapi: {
-		openapi: '3.0.3',
-		info: {
-			title: 'Daylik',
-			description: 'Daylik API documentation',
-			version: '0.1.0',
-		},
-	},
-	transform: fastifyZodOpenApiTransform,
-	transformObject: fastifyZodOpenApiTransformObject,
-})
-await server.register(SwaggerUi, {
-	routePrefix: '/documentation',
+// Error handler
+server.onError((err, c) => {
+  serverLogger.error('Occurred internal server error', err.message)
+  return c.json({ error: 'ERR_INTERNAL_SERVER_ERROR', details: err.message }, 500)
 })
 
-server.decorateRequest('userId', null)
-server.decorateRequest('t', i18next.t)
+// Not found handler
+server.notFound((c) => c.json({ error: 'ERR_ROUTE_NOT_FOUND' }, 404))
 
-registerControllers(server, {
-	prefix: '/api',
-	controllers: [AuthController],
-})
+await initDB()
 
-registerControllers(server, {
-	prefix: '/api/v1',
-	controllers: [
-		UsersController,
-		RolesController,
-		EventsController,
-		EventDraftsController,
-		EventSharesController,
-		FriendshipController,
-		PaymentsController,
-		SettingsController,
-	],
-	handlers: {
-		onRequest: [authTokenHookHandler],
-	},
-})
-
-server.withTypeProvider().route({
-	method: 'GET',
-	url: '/health',
-	handler: async (_, reply) => {
-		return reply.send('ok')
-	},
-})
-
-server.setErrorHandler<ServerError & ValidationError>((error, req, reply) => {
-	if (error.validation) {
-		const { validation, validationContext } = error
-		const message = req.t('server.error.validation', {
-			type: validation[0].keyword,
-			path: validationContext,
-			expected: validation[0].params.issue.expected,
-			received: validation[0].params.issue.received,
-		})
-
-		return reply.status(400).send({ code: 400, message, error: message })
-	}
-
-	const { message, statusCode } = error
-	const errorMessage = req.t(message)
-
-	return reply.status(error.statusCode || 500).send({
-		code: statusCode,
-		error: errorMessage,
-		message: errorMessage,
-	})
-})
-
-server.setNotFoundHandler((req, reply) => {
-	reply.status(404).send({
-		code: 404,
-		error: req.t('server.error.routes.not_found', { route: req.url }),
-	})
-})
-
-server.listen({ port: 8080, host: '0.0.0.0' }, async (err, address) => {
-	if (err) {
-		serverLogger.error(err)
-		process.exit(1)
-	}
-
-	serverLogger.info(`Server listening on ${address}`)
-	await initDb()
-})
+export default {
+  port: 8080,
+  fetch: server.fetch,
+}

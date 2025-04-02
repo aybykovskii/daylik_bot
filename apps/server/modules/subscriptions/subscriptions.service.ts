@@ -1,56 +1,68 @@
-import { BadRequestError, NotFoundError, Service } from '@common'
+import { Result, ResultAsync, ok } from 'neverthrow'
+import { err } from 'neverthrow'
 
-import {
-	CreateSubscriptionDto,
-	SubscriptionDto,
-	SubscriptionFullData,
-	UpdateSubscriptionDto,
-} from 'shared'
+import { SubscriptionModel } from '@/db'
+import { SubscriptionFullData } from '@/types/subscriptions'
 
-import { DbService } from '../db'
+import { CreateSubscriptionDto, SubscriptionError, UpdateSubscriptionDto } from './subscription.types'
 
-@Service({ name: 'subscriptionsService', services: [DbService] })
 export class SubscriptionsService {
-	constructor(private readonly dbService: DbService) {}
+  model = SubscriptionModel
 
-	async find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['SubscriptionModel'] : SubscriptionFullData,
-	>(id: number, isInternal?: IsInternal): Promise<Result> {
-		const subscription = await this.dbService.statistics.findByPk(id)
+  read = async (id: number): Promise<Result<SubscriptionFullData, SubscriptionError>> => {
+    const subscription = await this.model.findByPk(id)
 
-		if (!subscription) {
-			throw new NotFoundError('server.error.subscriptions.not_found')
-		}
+    if (!subscription) {
+      return err('ERR_SUBSCRIPTION_DOES_NOT_EXIST')
+    }
 
-		return (isInternal ? subscription : subscription.asFullData()) as Result
-	}
+    return ok(await subscription.asFullData())
+  }
 
-	get = async (id: number): Promise<SubscriptionFullData> => this.find(id)
+  create = async ({ userId }: CreateSubscriptionDto): Promise<Result<SubscriptionFullData, SubscriptionError>> => {
+    const [subscription, created] = await this.model.findOrCreate({ where: { userId }, defaults: { userId } })
 
-	create = async ({ userId }: CreateSubscriptionDto): Promise<SubscriptionDto> => {
-		const subscription = await this.dbService.subscription.findOne({ where: { userId } })
+    if (!created) {
+      return err('ERR_SUBSCRIPTION_ALREADY_EXISTS')
+    }
 
-		if (subscription) {
-			throw new BadRequestError('server.error.subscriptions.already_exists')
-		}
+    return ok(await subscription.asFullData())
+  }
 
-		const newSubscription = await this.dbService.subscription.create({ userId })
+  update = async (id: number, dto: UpdateSubscriptionDto): Promise<Result<SubscriptionFullData, SubscriptionError>> => {
+    const subscription = await this.model.findByPk(id)
 
-		return newSubscription.asDto()
-	}
+    if (!subscription) {
+      return err('ERR_SUBSCRIPTION_DOES_NOT_EXIST')
+    }
 
-	update = async (id: number, dto: UpdateSubscriptionDto): Promise<SubscriptionFullData> => {
-		const subscription = await this.find(id, true)
+    const updatedSubscription = await ResultAsync.fromPromise(
+      subscription.update({
+        ...dto,
+        startDate: dto.startDate ? new Date(dto.startDate) : undefined,
+        endDate: dto.endDate ? new Date(dto.endDate) : undefined,
+      }),
+      (err) => err
+    )
 
-		await subscription.update(dto)
+    if (updatedSubscription.isErr()) {
+      return err('ERR_SUBSCRIPTION_UPDATE_FAILED')
+    }
 
-		return subscription.asFullData()
-	}
+    return ok(await subscription.asFullData())
+  }
 
-	delete = async (id: number): Promise<void> => {
-		const subscription = await this.find(id, true)
+  delete = async (id: number): Promise<Result<void, SubscriptionError>> => {
+    const subscription = await this.model.findByPk(id)
 
-		await subscription.destroy()
-	}
+    if (!subscription) {
+      return err('ERR_SUBSCRIPTION_DOES_NOT_EXIST')
+    }
+
+    await subscription.destroy()
+
+    return ok()
+  }
 }
+
+export const subscriptionsService = new SubscriptionsService()

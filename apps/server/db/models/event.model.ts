@@ -6,43 +6,43 @@ import {
 } from '@sequelize/core'
 import { AllowNull, Attribute, HasMany, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { EventDto, EventFullData, EventFullDataResponseDto } from 'shared/types'
+import { EventDto, EventFullData } from 'types/events'
 
 import { BaseIntModel } from './base.model'
 import { EventSharingModel } from './event-sharing.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'events', modelName: 'Event' })
-export class EventModel extends BaseIntModel<EventModel> implements EventFullData {
+export class EventModel extends BaseIntModel<EventModel> {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare userId: EventFullData['userId']
+	declare userId: EventDto['userId']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
-	declare date: EventFullData['date']
+	declare date: EventDto['date']
 
 	@Attribute(DataTypes.STRING)
 	@AllowNull
-	declare time: EventFullData['time']
+	declare time: EventDto['time']
 
 	@Attribute(DataTypes.DATE)
-	declare datetime: EventFullData['datetime']
+	declare datetime: EventDto['datetime']
 
 	@Attribute(DataTypes.DATE)
-	declare notificationDatetime: EventFullData['notificationDatetime']
+	declare notificationDatetime: EventDto['notificationDatetime']
 
 	@Attribute(DataTypes.TEXT)
 	@NotNull
-	declare emoji: EventFullData['emoji']
+	declare emoji: EventDto['emoji']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
-	declare text: EventFullData['text']
+	declare text: EventDto['text']
 
 	@Attribute(DataTypes.INTEGER)
 	@AllowNull
-	declare copyFromId: EventFullData['copyFromId']
+	declare copyFromId: EventDto['copyFromId']
 
 	@HasMany(() => EventSharingModel, {
 		foreignKey: 'eventId',
@@ -70,9 +70,7 @@ export class EventModel extends BaseIntModel<EventModel> implements EventFullDat
 
 	asDto(): EventDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			userId: this.userId,
 			date: this.date,
 			time: this.time,
@@ -84,8 +82,10 @@ export class EventModel extends BaseIntModel<EventModel> implements EventFullDat
 		}
 	}
 
-	async asFullData(): Promise<EventFullDataResponseDto> {
+	async asFullData(): Promise<EventFullData> {
 		const dto = this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asDto()
 		const shares = await this.getShares()
 		const sharesDto = await shares.map((share) => share.asDto())
 		const copyFrom = await this.getCopyFrom()
@@ -95,6 +95,7 @@ export class EventModel extends BaseIntModel<EventModel> implements EventFullDat
 
 		return {
 			...dto,
+			user: userDto,
 			shares: sharesDto,
 			copyFrom: copyFromDto,
 			copies: copiesDto,

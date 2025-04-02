@@ -1,2 +1,2 @@
 export * from './payments.service'
-export * from './payment.controller'
+export * from './payment.router'

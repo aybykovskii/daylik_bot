@@ -6,26 +6,26 @@ import {
 } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { StatisticsBase, StatisticsDto, StatisticsFullData } from 'shared'
+import { StatisticsDto, StatisticsFullData } from 'types/statistics'
 
 import { BaseIntModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'statistics', modelName: 'Statistics' })
-export class StatisticsModel extends BaseIntModel<StatisticsModel> implements StatisticsBase {
+export class StatisticsModel extends BaseIntModel<StatisticsModel> {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull()
-	declare userId: StatisticsFullData['userId']
+	declare userId: StatisticsDto['userId']
 
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
 	@Default(0)
-	declare sentRequestsCount: CreationOptional<StatisticsFullData['sentRequestsCount']>
+	declare sentRequestsCount: CreationOptional<StatisticsDto['sentRequestsCount']>
 
 	@Attribute(DataTypes.FLOAT)
 	@NotNull
 	@Default(0.0)
-	declare activityRating: CreationOptional<StatisticsFullData['activityRating']>
+	declare activityRating: CreationOptional<StatisticsDto['activityRating']>
 
 	/** Defined by {@link UserModel.events} */
 	declare user: NonAttribute<UserModel>
@@ -64,9 +64,7 @@ export class StatisticsModel extends BaseIntModel<StatisticsModel> implements St
 		const calculatedData = await this.getCalculatedData()
 
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			userId: this.userId,
 			sentRequestsCount: this.sentRequestsCount,
 			activityRating: this.activityRating,
@@ -77,7 +75,7 @@ export class StatisticsModel extends BaseIntModel<StatisticsModel> implements St
 	async asFullData(): Promise<StatisticsFullData> {
 		const dto = await this.asDto()
 		const user = await this.getUser()
-		const userDto = await user!.asFullData()
+		const userDto = await user!.asDto()
 
 		return {
 			...dto,

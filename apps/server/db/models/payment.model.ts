@@ -7,44 +7,45 @@ import {
 } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table, Unique } from '@sequelize/core/decorators-legacy'
 
-import { PaymentDto, PaymentFullData, paymentStatus } from 'shared/types'
+import { typeToArray } from 'common/validation'
+import { PaymentDto, PaymentFullData, paymentStatus } from 'types/payments'
 
 import { BaseUuidModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'payments', modelName: 'Payment' })
-export class PaymentModel extends BaseUuidModel<PaymentModel> implements PaymentFullData {
+export class PaymentModel extends BaseUuidModel<PaymentModel> {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare userId: PaymentFullData['userId']
+	declare userId: PaymentDto['userId']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
 	@Unique
 	@Default(sql.uuidV4)
-	declare paymentId: CreationOptional<PaymentFullData['paymentId']>
+	declare paymentId: CreationOptional<PaymentDto['paymentId']>
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
 	@Unique
 	@Default(sql.uuidV4)
-	declare idempotenceKey: CreationOptional<PaymentFullData['idempotenceKey']>
+	declare idempotenceKey: CreationOptional<PaymentDto['idempotenceKey']>
 
 	@Attribute(DataTypes.INTEGER)
-	declare amount: PaymentFullData['amount']
+	declare amount: PaymentDto['amount']
 
-	@Attribute(DataTypes.ENUM(paymentStatus.options))
-	@Default(paymentStatus.Values.pending)
-	declare status: CreationOptional<PaymentFullData['status']>
+	@Attribute(DataTypes.ENUM(typeToArray(paymentStatus)))
+	@Default('pending' satisfies PaymentDto['status'])
+	declare status: CreationOptional<PaymentDto['status']>
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
 	@Default('RUB')
-	declare currency: CreationOptional<PaymentFullData['currency']>
+	declare currency: CreationOptional<PaymentDto['currency']>
 
 	@Attribute(DataTypes.STRING)
 	@NotNull
-	declare description: PaymentFullData['description']
+	declare description: PaymentDto['description']
 
 	/** Defined by {@link UserModel} */
 	declare user: NonAttribute<UserModel>
@@ -52,9 +53,7 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> implements Payment
 
 	asDto(): PaymentDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			userId: this.userId,
 			paymentId: this.paymentId,
 			idempotenceKey: this.idempotenceKey,
@@ -65,12 +64,14 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> implements Payment
 		}
 	}
 
-	asFullData(): PaymentFullData {
+	async asFullData(): Promise<PaymentFullData> {
 		const dto = this.asDto()
+		const user = await this.getUser()
+		const userDto = await user!.asDto()
 
 		return {
 			...dto,
-			user: this.user,
+			user: userDto,
 		}
 	}
 }

@@ -1,97 +1,107 @@
 import dayjs from 'dayjs'
+import { Ok, Result, err, ok } from 'neverthrow'
 
-import { NotFoundError, Service } from '@common'
+import { EventModel } from '@/db'
+import { eventDraftsService } from '@/modules/event-drafts'
+import { EventDto } from '@/types/events'
 
-import {
-	CreateEventDto,
-	EventFullDataResponseDto,
-	EventResponseDto,
-	EventsResponseDto,
-	UpdateEventDto,
-} from 'shared'
+import { CreateEventDto, EventFullData, EventsError, UpdateEventDto } from './events.types'
 
-import { ServiceType } from 'modules/types'
-import { DbService } from '../db'
-import { EventDraftsService } from '../event-drafts'
+export class EventsService {
+  model = EventModel
 
-@Service({ name: 'eventsService', services: [DbService, EventDraftsService] })
-export class EventsService
-	implements
-		ServiceType<
-			DbService['EventModel'],
-			false,
-			EventResponseDto,
-			EventFullDataResponseDto,
-			CreateEventDto,
-			UpdateEventDto
-		>
-{
-	constructor(
-		private readonly dbService: DbService,
-		private readonly eventDraftsService: EventDraftsService
-	) {}
+  private getTimestamps(date: string, time: string | null) {
+    const datetime = dayjs(`${date} ${time ?? '00:00'}`)
 
-	private getTimestamps(date: string, time: string | null) {
-		const datetime = dayjs(`${date} ${time ?? '00:00'}`)
+    return {
+      datetime: datetime.toISOString(),
+      notificationDatetime: datetime.subtract(1, 'hour').toISOString(),
+    }
+  }
 
-		return {
-			datetime: datetime.toISOString(),
-			notificationDatetime: datetime.subtract(1, 'hour').toISOString(),
-		}
-	}
+  readAll = async (): Promise<Ok<EventDto[], never>> => {
+    const events = await this.model.findAll()
 
-	async _find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['EventModel'] : EventResponseDto,
-	>(id: number, isInternal?: IsInternal): Promise<Result> {
-		const event = await this.dbService.event.findByPk(id)
+    return ok(events.map((event) => event.asDto()))
+  }
 
-		if (!event) {
-			throw new NotFoundError('server.error.events.not_found')
-		}
+  read = async (id: number): Promise<Result<EventFullData, EventsError>> => {
+    const event = await this.model.findByPk(id)
 
-		return (isInternal ? event : event.asFullData()) as Result
-	}
+    if (!event) {
+      return err('ERR_EVENT_DOES_NOT_EXIST')
+    }
 
-	getAll = async (): Promise<EventsResponseDto> => {
-		const events = await this.dbService.event.findAll()
+    return ok(await event.asFullData())
+  }
 
-		return events.map((event) => event.asDto())
-	}
+  create = async (dto: CreateEventDto): Promise<Result<EventFullData, EventsError>> => {
+    if ('copyFromId' in dto) {
+      const eventDraft = await eventDraftsService.read(dto.copyFromId)
 
-	get = async (id: number): Promise<EventFullDataResponseDto> => this._find(id)
+      if (eventDraft.isErr()) {
+        return err('ERR_EVENT_DRAFT_DOES_NOT_EXIST')
+      }
 
-	create = async (dto: CreateEventDto): Promise<EventFullDataResponseDto> => {
-		let event: DbService['EventModel']
+      const { id: _, ...data } = eventDraft.value
 
-		if ('fromDraftId' in dto) {
-			const { id: _, ...eventDraft } = await this.eventDraftsService.get(dto.fromDraftId)
-			event = await this.dbService.event.create({
-				...eventDraft,
-				...this.getTimestamps(eventDraft.date, eventDraft.time),
-			})
-			await this.eventDraftsService.delete(dto.fromDraftId)
-		} else {
-			event = await this.dbService.event.create({
-				...dto,
-				...this.getTimestamps(dto.date, dto.time),
-			})
-		}
+      const event = await this.model.sequelize.transaction(async (transaction) => {
+        const event = await this.model.create(
+          {
+            ...data,
+            ...this.getTimestamps(data.date, data.time),
+          },
+          { transaction }
+        )
 
-		return event.asFullData()
-	}
+        const result = await eventDraftsService.delete(dto.copyFromId, transaction)
 
-	update = async (id: number, dto: UpdateEventDto): Promise<EventFullDataResponseDto> => {
-		const event = await this._find(id, true)
+        if (result.isErr()) {
+          transaction.rollback()
+          return err(result.error)
+        }
 
-		await event.update(dto)
+        return ok(event)
+      })
 
-		return event.asFullData()
-	}
+      if (event.isErr()) {
+        return err('ERR_EVENT_DRAFT_DOES_NOT_EXIST')
+      }
 
-	delete = async (id: number): Promise<void> => {
-		const event = await this._find(id, true)
+      return ok(await event.value.asFullData())
+    }
 
-		await event.destroy()
-	}
+    const event = await this.model.create({
+      ...dto,
+      ...this.getTimestamps(dto.date, dto.time),
+    })
+
+    return ok(await event.asFullData())
+  }
+
+  update = async (id: number, dto: UpdateEventDto): Promise<Result<EventFullData, EventsError>> => {
+    const event = await this.model.findByPk(id)
+
+    if (!event) {
+      return err('ERR_EVENT_DOES_NOT_EXIST')
+    }
+
+    await event.update(dto)
+
+    return ok(await event.asFullData())
+  }
+
+  delete = async (id: number): Promise<Result<void, EventsError>> => {
+    const event = await this.model.findByPk(id)
+
+    if (!event) {
+      return err('ERR_EVENT_DOES_NOT_EXIST')
+    }
+
+    await event.destroy()
+
+    return ok()
+  }
 }
+
+export const eventsService = new EventsService()

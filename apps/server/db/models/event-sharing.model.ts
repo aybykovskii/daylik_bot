@@ -6,38 +6,35 @@ import {
 } from '@sequelize/core'
 import { AllowNull, Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { EventSharingDto, EventSharingFullData, EventSharingFullDataResponseDto } from 'shared'
+import { EventSharingDto, EventSharingFullData } from 'types/event-shares'
 
 import { BaseUuidModel } from './base.model'
 import { EventModel } from './event.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'eventShares', modelName: 'EventSharing' })
-export class EventSharingModel
-	extends BaseUuidModel<EventSharingModel>
-	implements EventSharingFullData
-{
+export class EventSharingModel extends BaseUuidModel<EventSharingModel> {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare userId: EventSharingFullData['userId']
+	declare userId: EventSharingDto['userId']
 
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare eventId: EventSharingFullData['eventId']
+	declare eventId: EventSharingDto['eventId']
 
 	@Attribute(DataTypes.INTEGER)
 	@AllowNull
-	declare targetUserId: CreationOptional<EventSharingFullData['targetUserId']>
+	declare targetUserId: CreationOptional<EventSharingDto['targetUserId']>
 
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
 	@Default(1)
-	declare usageLimit: CreationOptional<EventSharingFullData['usageLimit']>
+	declare usageLimit: CreationOptional<EventSharingDto['usageLimit']>
 
 	@Attribute(DataTypes.INTEGER)
 	@AllowNull
 	@Default(0)
-	declare usageAmount: CreationOptional<EventSharingFullData['usageAmount']>
+	declare usageAmount: CreationOptional<EventSharingDto['usageAmount']>
 
 	/** Defined by {@link UserModel} */
 	declare user: NonAttribute<UserModel>
@@ -53,9 +50,7 @@ export class EventSharingModel
 
 	asDto(): EventSharingDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			userId: this.userId,
 			eventId: this.eventId,
 			targetUserId: this.targetUserId,
@@ -64,14 +59,14 @@ export class EventSharingModel
 		}
 	}
 
-	async asFullData(): Promise<EventSharingFullDataResponseDto> {
+	async asFullData(): Promise<EventSharingFullData> {
 		const dto = this.asDto()
 		const user = await this.getUser()
-		const userDto = await user!.asFullData()
+		const userDto = await user!.asDto()
 		const event = await this.getEvent()
-		const eventDto = await event!.asFullData()
+		const eventDto = await event!.asDto()
 		const targetUser = await this.getTargetUser()
-		const targetUserDto = await targetUser!.asFullData()
+		const targetUserDto = await targetUser!.asDto()
 
 		return {
 			...dto,

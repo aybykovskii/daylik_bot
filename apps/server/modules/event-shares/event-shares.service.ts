@@ -1,68 +1,65 @@
-import { NotFoundError, Service } from '@common'
-import { DbService } from '@modules'
-import { ServiceType } from 'modules/types'
-import {
-	CreateEventSharingDto,
-	EventSharingFullDataResponseDto,
-	EventSharingResponseDto,
-	UUIDId,
-	UpdateEventSharingDto,
-} from 'shared'
+import { Ok, Result, ResultAsync, err, ok } from 'neverthrow'
 
-@Service({ name: 'eventShares', services: [DbService] })
-export class EventSharesService
-	implements
-		ServiceType<
-			DbService['EventSharingModel'],
-			true,
-			EventSharingResponseDto,
-			EventSharingFullDataResponseDto,
-			CreateEventSharingDto,
-			UpdateEventSharingDto
-		>
-{
-	constructor(private dbService: DbService) {}
+import { EventSharingModel } from '@/db'
+import { EventSharingDto, EventSharingFullData } from '@/types/event-shares'
 
-	async _find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['EventSharingModel'] : EventSharingResponseDto,
-	>(uuid: UUIDId, isInternal?: IsInternal): Promise<Result> {
-		const sharing = await this.dbService.eventSharing.findByPk(uuid)
+import { CreateEventSharingDto, EventSharesError, UpdateEventSharingDto } from './event-shares.types'
 
-		if (!sharing) {
-			throw new NotFoundError('server.error.event_shares.not_found')
-		}
+export class EventSharesService {
+  model = EventSharingModel
 
-		return (isInternal ? sharing : sharing.asFullData()) as Result
-	}
+  readAll = async (): Promise<Ok<EventSharingDto[], never>> => {
+    const shares = await this.model.findAll()
 
-	async getAll(): Promise<EventSharingResponseDto[]> {
-		const shares = await this.dbService.eventSharing.findAll()
+    return ok(shares.map((sharing) => sharing.asDto()))
+  }
 
-		return shares.map((sharing) => sharing.asDto())
-	}
+  read = async (uuid: string): Promise<Result<EventSharingFullData, EventSharesError>> => {
+    const sharing = await this.model.findByPk(uuid)
 
-	async get(uuid: UUIDId): Promise<EventSharingFullDataResponseDto> {
-		return this._find(uuid)
-	}
+    if (!sharing) {
+      return err('ERR_EVENT_SHARING_DOES_NOT_EXIST')
+    }
 
-	async create(dto: CreateEventSharingDto): Promise<EventSharingFullDataResponseDto> {
-		const sharing = await this.dbService.eventSharing.create(dto)
+    return ok(await sharing.asFullData())
+  }
 
-		return sharing.asFullData()
-	}
+  create = async (dto: CreateEventSharingDto): Promise<Result<EventSharingFullData, EventSharesError>> => {
+    const sharing = await ResultAsync.fromPromise(this.model.create(dto), (err) => err)
 
-	async update(uuid: UUIDId, dto: UpdateEventSharingDto): Promise<EventSharingFullDataResponseDto> {
-		const sharing = await this._find(uuid, true)
+    if (sharing.isErr()) {
+      return err('ERR_EVENT_SHARING_INVALID_DATA')
+    }
 
-		await sharing.update(dto)
+    return ok(await sharing.value.asFullData())
+  }
 
-		return sharing.asFullData()
-	}
+  update = async (
+    uuid: string,
+    dto: UpdateEventSharingDto
+  ): Promise<Result<EventSharingFullData, EventSharesError>> => {
+    const sharing = await this.model.findByPk(uuid)
 
-	async delete(uuid: UUIDId): Promise<void> {
-		const sharing = await this._find(uuid, true)
+    if (!sharing) {
+      return err('ERR_EVENT_SHARING_DOES_NOT_EXIST')
+    }
 
-		await sharing.destroy()
-	}
+    await sharing.update(dto)
+
+    return ok(await sharing.asFullData())
+  }
+
+  delete = async (uuid: string): Promise<Result<void, EventSharesError>> => {
+    const sharing = await this.model.findByPk(uuid)
+
+    if (!sharing) {
+      return err('ERR_EVENT_SHARING_DOES_NOT_EXIST')
+    }
+
+    await sharing.destroy()
+
+    return ok()
+  }
 }
+
+export const eventSharesService = new EventSharesService()

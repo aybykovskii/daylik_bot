@@ -1,55 +1,58 @@
-import { NotFoundError, Service } from '@common'
-import { DbService } from '@modules'
-import {
-	CreatePaymentDto,
-	PaymentFullData,
-	PaymentFullDataResponseDto,
-	PaymentsResponseDto,
-	UpdatePaymentDto,
-} from 'shared'
+import { Ok, Result, err, ok } from 'neverthrow'
 
-@Service({ name: 'payments', services: [DbService] })
+import { PaymentModel } from '@/db'
+import { PaymentDto, PaymentFullData } from '@/types/payments'
+
+import { CreatePaymentDto, PaymentsError, ReadAllPaymentsArg, UpdatePaymentDto } from './payments.types'
+
 export class PaymentsService {
-	constructor(private readonly dbService: DbService) {}
+  model = PaymentModel
 
-	async find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['PaymentModel'] : PaymentFullData,
-	>(uuid: string, isInternal?: IsInternal): Promise<Result> {
-		const payment = await this.dbService.payment.findByPk(uuid)
+  readAll = async ({ userId }: ReadAllPaymentsArg): Promise<Ok<PaymentDto[], never>> => {
+    const payments = await this.model.findAll({ where: { userId } })
 
-		if (!payment) {
-			throw new NotFoundError('server.error.payments.not_found')
-		}
+    return ok(payments.map((payment) => payment.asDto()))
+  }
 
-		return (isInternal ? payment : payment.asDto()) as Result
-	}
+  read = async (uuid: string): Promise<Result<PaymentFullData, PaymentsError>> => {
+    const payment = await this.model.findByPk(uuid)
 
-	findOne = async (uuid: string): Promise<PaymentFullData> => this.find(uuid)
+    if (!payment) {
+      return err('ERR_PAYMENT_DOES_NOT_EXIST')
+    }
 
-	findAllByUserId = async (userId: number): Promise<PaymentsResponseDto> => {
-		const payments = await this.dbService.payment.findAll({ where: { userId } })
+    return ok(await payment.asFullData())
+  }
 
-		return payments.map((payment) => payment.asDto())
-	}
+  create = async (dto: CreatePaymentDto): Promise<Result<PaymentFullData, PaymentsError>> => {
+    const payment = await this.model.create(dto)
 
-	create = async (dto: CreatePaymentDto): Promise<PaymentFullDataResponseDto> => {
-		const payment = await this.dbService.payment.create(dto)
+    return ok(await payment.asFullData())
+  }
 
-		return payment.asFullData()
-	}
+  update = async (uuid: string, dto: UpdatePaymentDto): Promise<Result<PaymentFullData, PaymentsError>> => {
+    const payment = await this.model.findByPk(uuid)
 
-	update = async (uuid: string, dto: UpdatePaymentDto): Promise<PaymentFullDataResponseDto> => {
-		const payment = await this.find(uuid, true)
+    if (!payment) {
+      return err('ERR_PAYMENT_DOES_NOT_EXIST')
+    }
 
-		const updatedPayment = await payment.update(dto)
+    const updatedPayment = await payment.update(dto)
 
-		return updatedPayment.asFullData()
-	}
+    return ok(await updatedPayment.asFullData())
+  }
 
-	delete = async (uuid: string): Promise<void> => {
-		const payment = await this.find(uuid, true)
+  delete = async (uuid: string): Promise<Result<void, PaymentsError>> => {
+    const payment = await this.model.findByPk(uuid)
 
-		await payment.destroy()
-	}
+    if (!payment) {
+      return err('ERR_PAYMENT_DOES_NOT_EXIST')
+    }
+
+    await payment.destroy()
+
+    return ok()
+  }
 }
+
+export const paymentsService = new PaymentsService()

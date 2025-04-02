@@ -4,9 +4,14 @@
 		"baseUrl": "./",
 		"allowJs": true,
 		"paths": {
+			"@/*": ["./*"],
 			"@db": ["./db/index"],
+			"@db/*": ["./db/*"],
 			"@common": ["./common/index"],
-			"@modules": ["./modules/index"]
+			"@common/*": ["./common/*"],
+			"@modules": ["./modules/index"],
+			"@modules/*": ["./modules/*"],
+			"@/types/*": ["./types/*"]
 		}
 	}
 }

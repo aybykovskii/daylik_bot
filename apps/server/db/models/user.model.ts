@@ -11,13 +11,16 @@ import {
 import {
 	Attribute,
 	BelongsToMany,
+	Default,
 	HasMany,
 	HasOne,
 	NotNull,
 	Table,
 } from '@sequelize/core/decorators-legacy'
 
-import { UserDto, UserFullData } from 'shared/types/schemas/user.schema'
+import { UserDto, UserFullData, userRole } from 'types/users'
+
+import { typeToArray } from '@common/validation'
 import { BaseIntModel } from './base.model'
 import { EventDraftModel } from './event-draft.model'
 import { EventSharingModel } from './event-sharing.model'
@@ -25,13 +28,12 @@ import { EventModel } from './event.model'
 import { FriendshipRequestModel } from './friendship-request.model'
 import { PaymentModel } from './payment.model'
 import { RewardModel } from './reward.model'
-import { RoleModel } from './role.model'
 import { SettingsModel } from './settings.model'
 import { StatisticsModel } from './statistics.model'
 import { SubscriptionModel } from './subscription.model'
 
 @Table({ tableName: 'users', modelName: 'User' })
-export class UserModel extends BaseIntModel<UserModel> implements UserFullData {
+export class UserModel extends BaseIntModel<UserModel> {
 	@Attribute(DataTypes.STRING)
 	@NotNull
 	declare telegramUserId: UserDto['telegramUserId']
@@ -42,12 +44,9 @@ export class UserModel extends BaseIntModel<UserModel> implements UserFullData {
 	@Attribute(DataTypes.STRING)
 	declare lastName: UserDto['lastName']
 
-	@BelongsToMany(() => RoleModel, {
-		through: 'userRoles',
-	})
-	declare roles: NonAttribute<RoleModel[]>
-	declare getRoles: BelongsToManyGetAssociationsMixin<RoleModel>
-	declare addRole: BelongsToManyAddAssociationMixin<RoleModel, RoleModel['id']>
+	@Attribute(DataTypes.ENUM(typeToArray(userRole)))
+	@Default('user' satisfies UserDto['role'])
+	declare role: UserDto['role']
 
 	@BelongsToMany(() => RewardModel, {
 		through: 'userRewards',
@@ -184,12 +183,12 @@ export class UserModel extends BaseIntModel<UserModel> implements UserFullData {
 
 	asDto(): UserDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			telegramUserId: this.telegramUserId,
-			firstName: this.firstName,
+			firstName: this.firstName ?? '',
 			lastName: this.lastName ?? '',
+			fullName: this.fullName,
+			role: this.role,
 		}
 	}
 
@@ -198,27 +197,54 @@ export class UserModel extends BaseIntModel<UserModel> implements UserFullData {
 
 		const statistics = await this.getStatistics()
 		const statisticsDto = await statistics!.asDto()
+
 		const settings = await this.getSettings()
 		const settingsDto = await settings!.asDto()
+		
 		const subscription = await this.getSubscription()
 		const subscriptionDto = await subscription!.asDto()
 
+		const rewards = await this.getRewards()
+		const rewardsDto = await rewards.map((reward) => reward.asDto())
+
+		const events = await this.getEvents()
+		const eventsDto = await events.map((event) => event.asDto())
+
+		const eventDrafts = await this.getEventDrafts()
+		const eventDraftsDto = await eventDrafts.map((eventDraft) => eventDraft.asDto())
+
+		const payments = await this.getPayments()
+		const paymentsDto = await payments.map((payment) => payment.asDto())
+
+		const outgoingFriendshipRequests = await this.getOutgoingFriendshipRequests()
+		const outgoingFriendshipRequestsDto = await outgoingFriendshipRequests.map((request) => request.asDto())
+
+		const incomingFriendshipRequests = await this.getIncomingFriendshipRequests()
+		const incomingFriendshipRequestsDto = await incomingFriendshipRequests.map((request) => request.asDto())
+
+		const friends = await this.getFriends()
+		const friendsDto = await friends.map((friend) => friend.asDto())
+
+		const outgoingEventShares = await this.getOutgoingEventShares()
+		const outgoingEventSharesDto = await outgoingEventShares.map((share) => share.asDto())
+
+		const incomingEventShares = await this.getIncomingEventShares()
+		const incomingEventSharesDto = await incomingEventShares.map((share) => share.asDto())
+
 		return {
 			...dto,
-			fullName: this.fullName,
 			settings: settingsDto,
 			subscription: subscriptionDto,
 			statistics: statisticsDto,
-			roles: await this.getRoles(),
-			rewards: await this.getRewards(),
-			events: await this.getEvents(),
-			eventDrafts: await this.getEventDrafts(),
-			payments: await this.getPayments(),
-			outgoingFriendshipRequests: await this.getOutgoingFriendshipRequests(),
-			incomingFriendshipRequests: await this.getIncomingFriendshipRequests(),
-			friends: await this.getFriends(),
-			outgoingEventShares: await this.getOutgoingEventShares(),
-			incomingEventShares: await this.getIncomingEventShares(),
+			rewards: rewardsDto,
+			events: eventsDto,
+			eventDrafts: eventDraftsDto,
+			payments: paymentsDto,
+			outgoingFriendshipRequests: outgoingFriendshipRequestsDto,
+			incomingFriendshipRequests: incomingFriendshipRequestsDto,
+			friends: friendsDto,
+			outgoingEventShares: outgoingEventSharesDto,
+			incomingEventShares: incomingEventSharesDto,
 		}
 	}
 }

@@ -1,72 +1,79 @@
+import { Result, ResultAsync, err, ok } from 'neverthrow'
+
+import { UserModel } from '@/db'
+import { UserDto, UserFullData } from '@/types/users'
 import { Op } from '@sequelize/core'
 
-import { UserBase, UserDto, UserFullData } from 'shared'
+import { CreateUserDto, UpdateUserDto, UsersError } from './users.types'
 
-import { BadRequestError, NotFoundError, Service } from '@common'
-
-import { DbService } from '../db'
-import { RolesService } from '../roles'
-
-@Service({ name: 'usersService', services: [DbService, RolesService] })
 export class UsersService {
-	constructor(
-		private readonly dbService: DbService,
-		private readonly rolesService: RolesService
-	) {}
+  model = UserModel
 
-	async getOneInternal<
-		IsInternal extends boolean = false,
-		Result = IsInternal extends true ? DbService['UserModel'] : UserBase,
-	>(id: number | string, isInternal?: IsInternal): Promise<Result> {
-		const user = await this.dbService.user.findOne({
-			where: { [Op.or]: [{ id }, { telegramUserId: id.toString() }] },
-		})
+  getAll = async (): Promise<Result<UserDto[], never>> => {
+    const users = await this.model.findAll()
 
-		if (!user) {
-			throw new NotFoundError('server.error.users.not_found')
-		}
+    return ok(users.map((user) => user.asDto()))
+  }
 
-		return (isInternal ? user : user.asDto()) as Result
-	}
+  _read = async (id: number | string): Promise<UserModel | null> => {
+    return await this.model.findOne({
+      where: { [Op.or]: [{ id }, { telegramUserId: id.toString() }] },
+    })
+  }
 
-	async getAll() {
-		const users = await this.dbService.user.findAll()
+  read = async (id: number | string): Promise<Result<UserFullData, UsersError>> => {
+    const user = await this._read(id)
 
-		return users
-	}
+    if (!user) {
+      return err('ERR_USER_DOES_NOT_EXIST')
+    }
 
-	async create(dto: UserBase): Promise<UserDto> {
-		const user = await this.dbService.user.findOne({
-			where: { telegramUserId: dto.telegramUserId },
-		})
+    return ok(await user.asFullData())
+  }
 
-		if (user) {
-			throw new BadRequestError('server.error.users.already_exists')
-		}
+  create = async (dto: CreateUserDto): Promise<Result<UserFullData, UsersError>> => {
+    const [user, created] = await this.model.findOrCreate({
+      where: { telegramUserId: dto.telegramUserId },
+      defaults: {
+        ...dto,
+        role: 'user' satisfies UserDto['role'],
+      },
+    })
 
-		const newUser = await this.dbService.user.create(dto)
-		const userRole = await this.rolesService.get('user', true)
+    if (!created) {
+      return err('ERR_USER_ALREADY_EXISTS')
+    }
 
-		await newUser.addRole(userRole)
+    return ok(await user.asFullData())
+  }
 
-		return newUser.asDto()
-	}
+  update = async (id: number, dto: UpdateUserDto): Promise<Result<UserFullData, UsersError>> => {
+    const user = await this.model.findByPk(id)
 
-	async get(telegramOrUserId: number | string): Promise<UserFullData> {
-		return (await this.getOneInternal(telegramOrUserId, true)).asFullData()
-	}
+    if (!user) {
+      return err('ERR_USER_DOES_NOT_EXIST')
+    }
 
-	async update(id: number, dto: UserBase): Promise<UserDto> {
-		const user = await this.getOneInternal(id, true)
+    const updatedUser = await ResultAsync.fromPromise(user.update(dto), (err) => err)
 
-		const userDto = (await user.update(dto)).asDto()
+    if (updatedUser.isErr()) {
+      return err('ERR_USER_UPDATE_FAILED')
+    }
 
-		return userDto
-	}
+    return ok(await user.asFullData())
+  }
 
-	async delete(id: number): Promise<void> {
-		const user = await this.getOneInternal(id, true)
+  delete = async (id: number): Promise<Result<void, UsersError>> => {
+    const user = await this.model.findByPk(id)
 
-		await user.destroy()
-	}
+    if (!user) {
+      return err('ERR_USER_DOES_NOT_EXIST')
+    }
+
+    await user.destroy()
+
+    return ok()
+  }
 }
+
+export const usersService = new UsersService()

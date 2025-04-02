@@ -11,39 +11,37 @@ import {
 	SubscriptionFullData,
 	subscriptionStatus,
 	subscriptionType,
-} from 'shared/types'
+} from 'types/subscriptions'
 
+import { typeToArray } from '@common/validation'
 import { BaseIntModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'subscriptions', modelName: 'Subscription' })
-export class SubscriptionModel
-	extends BaseIntModel<SubscriptionModel>
-	implements SubscriptionFullData
-{
+export class SubscriptionModel extends BaseIntModel<SubscriptionModel> {
 	@Attribute(DataTypes.INTEGER)
 	@NotNull
-	declare userId: SubscriptionFullData['userId']
+	declare userId: SubscriptionDto['userId']
 
-	@Attribute(DataTypes.ENUM(subscriptionType.options))
+	@Attribute(DataTypes.ENUM(typeToArray(subscriptionType)))
 	@NotNull
-	@Default('trial')
-	declare type: CreationOptional<SubscriptionFullData['type']>
-
-	@Attribute(DataTypes.DATE)
-	@NotNull
-	@Default(DataTypes.NOW)
-	declare startDate: CreationOptional<SubscriptionFullData['startDate']>
+	@Default('trial' satisfies SubscriptionDto['type'])
+	declare type: CreationOptional<SubscriptionDto['type']>
 
 	@Attribute(DataTypes.DATE)
 	@NotNull
 	@Default(DataTypes.NOW)
-	declare endDate: CreationOptional<SubscriptionFullData['endDate']>
+	declare startDate: CreationOptional<Date>
 
-	@Attribute(DataTypes.ENUM(subscriptionStatus.options))
+	@Attribute(DataTypes.DATE)
 	@NotNull
-	@Default('active')
-	declare status: CreationOptional<SubscriptionFullData['status']>
+	@Default(DataTypes.NOW)
+	declare endDate: CreationOptional<Date>
+
+	@Attribute(DataTypes.ENUM(typeToArray(subscriptionStatus)))
+	@NotNull
+	@Default('active' satisfies SubscriptionDto['status'])
+	declare status: CreationOptional<SubscriptionDto['status']>
 
 	/** Defined by {@link UserModel.subscription} */
 	declare user: NonAttribute<UserModel>
@@ -51,21 +49,19 @@ export class SubscriptionModel
 
 	asDto(): SubscriptionDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			userId: this.userId,
 			type: this.type,
-			startDate: this.startDate,
-			endDate: this.endDate,
 			status: this.status,
+			startDate: this.startDate.toISOString(),
+			endDate: this.endDate.toISOString(),
 		}
 	}
 
 	async asFullData(): Promise<SubscriptionFullData> {
 		const dto = this.asDto()
 		const user = await this.getUser()
-		const userDto = await user!.asFullData()
+		const userDto = await user!.asDto()
 
 		return {
 			...dto,

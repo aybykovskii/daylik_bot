@@ -1,61 +1,73 @@
-import { BadRequestError, NotFoundError, Service } from '@common'
+import { Result, ok } from 'neverthrow'
+import { err } from 'neverthrow'
 
-import { CreateStatisticsDto, StatisticsDto, StatisticsFullData, UpdateStatisticsDto } from 'shared'
+import { StatisticsModel } from '@/db'
+import { StatisticsFullData } from '@/types/statistics'
 
-import { DbService } from '../db'
+import { StatisticsError } from './statistics.types'
+import { CreateStatisticsDto, UpdateStatisticsDto } from './statistics.types'
 
-@Service({ name: 'statisticsService', services: [DbService] })
 export class StatisticsService {
-	constructor(private readonly dbService: DbService) {}
+  model = StatisticsModel
 
-	async find<
-		IsInternal extends boolean,
-		Result = IsInternal extends true ? DbService['StatisticsModel'] : StatisticsFullData,
-	>(id: number, isInternal?: IsInternal): Promise<Result> {
-		const statistics = await this.dbService.statistics.findByPk(id)
+  read = async (id: number): Promise<Result<StatisticsFullData, StatisticsError>> => {
+    const statistics = await this.model.findByPk(id)
 
-		if (!statistics) {
-			throw new NotFoundError('server.error.statistics.not_found')
-		}
+    if (!statistics) {
+      return err('ERR_STATISTICS_DOES_NOT_EXIST')
+    }
 
-		return (isInternal ? statistics : statistics.asFullData()) as Result
-	}
+    return ok(await statistics.asFullData())
+  }
 
-	get = async (id: number): Promise<StatisticsFullData> => this.find(id)
+  create = async (dto: CreateStatisticsDto): Promise<Result<StatisticsFullData, StatisticsError>> => {
+    const [statistics, created] = await this.model.findOrCreate({
+      where: { userId: dto.userId },
+      defaults: dto,
+    })
 
-	create = async (dto: CreateStatisticsDto): Promise<StatisticsDto> => {
-		const statistics = await this.dbService.statistics.findOne({
-			where: { userId: dto.userId },
-		})
+    if (!created) {
+      return err('ERR_STATISTICS_ALREADY_EXISTS')
+    }
 
-		if (statistics) {
-			throw new BadRequestError('server.error.statistics.already_exists')
-		}
+    return ok(await statistics.asFullData())
+  }
 
-		const newStatistics = await this.dbService.statistics.create(dto)
+  update = async (id: number, dto: UpdateStatisticsDto): Promise<Result<StatisticsFullData, StatisticsError>> => {
+    const statistics = await this.model.findByPk(id)
 
-		return newStatistics.asDto()
-	}
+    if (!statistics) {
+      return err('ERR_STATISTICS_DOES_NOT_EXIST')
+    }
 
-	update = async (id: number, dto: UpdateStatisticsDto): Promise<StatisticsFullData> => {
-		const statistics = await this.find(id, true)
+    await statistics.update(dto)
 
-		await statistics.update(dto)
+    return ok(await statistics.asFullData())
+  }
 
-		return statistics.asFullData()
-	}
+  incrementSentRequestsCount = async (id: number): Promise<Result<StatisticsFullData, StatisticsError>> => {
+    const statistics = await this.model.findByPk(id)
 
-	incrementSentRequestsCount = async (id: number): Promise<StatisticsFullData> => {
-		const statistics = await this.find(id, true)
+    if (!statistics) {
+      return err('ERR_STATISTICS_DOES_NOT_EXIST')
+    }
 
-		const result = await statistics.increment('sentRequestsCount', { by: 1 })
+    const result = await statistics.increment('sentRequestsCount', { by: 1 })
 
-		return result.asFullData()
-	}
+    return ok(await result.asFullData())
+  }
 
-	delete = async (id: number): Promise<void> => {
-		const statistics = await this.find(id, true)
+  delete = async (id: number): Promise<Result<void, StatisticsError>> => {
+    const statistics = await this.model.findByPk(id)
 
-		await statistics.destroy()
-	}
+    if (!statistics) {
+      return err('ERR_STATISTICS_DOES_NOT_EXIST')
+    }
+
+    await statistics.destroy()
+
+    return ok()
+  }
 }
+
+export const statisticsService = new StatisticsService()

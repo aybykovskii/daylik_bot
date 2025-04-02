@@ -1,20 +1,20 @@
 import { DataTypes, HasManyGetAssociationsMixin, NonAttribute } from '@sequelize/core'
 import { Attribute, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { RewardDto, RewardFullData } from 'shared'
+import { RewardDto, RewardFullData } from 'types/rewards'
 
 import { BaseIntModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'rewards', modelName: 'Reward' })
-export class RewardModel extends BaseIntModel<RewardModel> implements RewardFullData {
+export class RewardModel extends BaseIntModel<RewardModel> {
 	@Attribute(DataTypes.STRING)
 	@NotNull()
-	declare name: RewardFullData['name']
+	declare name: RewardDto['name']
 
 	@Attribute(DataTypes.STRING)
 	@NotNull()
-	declare description: RewardFullData['description']
+	declare description: RewardDto['description']
 
 	/** Defined by {@link UserModel} */
 	declare users: NonAttribute<UserModel[]>
@@ -22,9 +22,7 @@ export class RewardModel extends BaseIntModel<RewardModel> implements RewardFull
 
 	asDto(): RewardDto {
 		return {
-			id: this.id,
-			createdAt: this.createdAt,
-			updatedAt: this.updatedAt,
+			...this.getBaseDto(),
 			name: this.name,
 			description: this.description,
 		}
@@ -33,7 +31,7 @@ export class RewardModel extends BaseIntModel<RewardModel> implements RewardFull
 	async asFullData(): Promise<RewardFullData> {
 		const dto = this.asDto()
 		const users = await this.getUsers()
-		const usersDto = await users.map((user) => user.asDto())
+		const usersDto = users.map((user) => user.asDto())
 
 		return {
 			...dto,
