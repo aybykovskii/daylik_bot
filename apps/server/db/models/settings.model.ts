@@ -1,8 +1,9 @@
-import { getUTCTimeDiff } from 'shared/time'
-
-import { Settings, SettingsDto, SettingsFullData } from '@/types/settings'
 import { BelongsToGetAssociationMixin, CreationOptional, DataTypes, NonAttribute } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
+
+import { getUTCTimeDiff } from 'shared'
+
+import { Settings, SettingsDto, SettingsFullData } from '@/types/settings'
 
 import { BaseIntModel } from './base.model'
 import { UserModel } from './user.model'

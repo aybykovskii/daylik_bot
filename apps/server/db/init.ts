@@ -1,7 +1,7 @@
-import { env, serverLogger } from 'shared'
-
 import Sequelize, { importModels } from '@sequelize/core'
 import { PostgresDialect } from '@sequelize/postgres'
+
+import { env, serverLogger } from 'shared'
 
 import config from './config/config'
 

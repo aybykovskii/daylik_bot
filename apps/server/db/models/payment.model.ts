@@ -1,77 +1,71 @@
-import {
-	BelongsToGetAssociationMixin,
-	CreationOptional,
-	DataTypes,
-	NonAttribute,
-	sql,
-} from '@sequelize/core'
+import { BelongsToGetAssociationMixin, CreationOptional, DataTypes, NonAttribute, sql } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table, Unique } from '@sequelize/core/decorators-legacy'
 
-import { typeToArray } from 'common/validation'
-import { PaymentDto, PaymentFullData, paymentStatus } from 'types/payments'
+import { typeToArray } from '@/common/validation'
+import { PaymentDto, PaymentFullData, paymentStatus } from '@/types/payments'
 
 import { BaseUuidModel } from './base.model'
 import { UserModel } from './user.model'
 
 @Table({ tableName: 'payments', modelName: 'Payment' })
 export class PaymentModel extends BaseUuidModel<PaymentModel> {
-	@Attribute(DataTypes.INTEGER)
-	@NotNull
-	declare userId: PaymentDto['userId']
+  @Attribute(DataTypes.INTEGER)
+  @NotNull
+  declare userId: PaymentDto['userId']
 
-	@Attribute(DataTypes.STRING)
-	@NotNull
-	@Unique
-	@Default(sql.uuidV4)
-	declare paymentId: CreationOptional<PaymentDto['paymentId']>
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  @Unique
+  @Default(sql.uuidV4)
+  declare paymentId: CreationOptional<PaymentDto['paymentId']>
 
-	@Attribute(DataTypes.STRING)
-	@NotNull
-	@Unique
-	@Default(sql.uuidV4)
-	declare idempotenceKey: CreationOptional<PaymentDto['idempotenceKey']>
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  @Unique
+  @Default(sql.uuidV4)
+  declare idempotenceKey: CreationOptional<PaymentDto['idempotenceKey']>
 
-	@Attribute(DataTypes.INTEGER)
-	declare amount: PaymentDto['amount']
+  @Attribute(DataTypes.INTEGER)
+  declare amount: PaymentDto['amount']
 
-	@Attribute(DataTypes.ENUM(typeToArray(paymentStatus)))
-	@Default('pending' satisfies PaymentDto['status'])
-	declare status: CreationOptional<PaymentDto['status']>
+  @Attribute(DataTypes.ENUM(typeToArray(paymentStatus)))
+  @Default('pending' satisfies PaymentDto['status'])
+  declare status: CreationOptional<PaymentDto['status']>
 
-	@Attribute(DataTypes.STRING)
-	@NotNull
-	@Default('RUB')
-	declare currency: CreationOptional<PaymentDto['currency']>
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  @Default('RUB')
+  declare currency: CreationOptional<PaymentDto['currency']>
 
-	@Attribute(DataTypes.STRING)
-	@NotNull
-	declare description: PaymentDto['description']
+  @Attribute(DataTypes.STRING)
+  @NotNull
+  declare description: PaymentDto['description']
 
-	/** Defined by {@link UserModel} */
-	declare user: NonAttribute<UserModel>
-	declare getUser: BelongsToGetAssociationMixin<UserModel>
+  /** Defined by {@link UserModel} */
+  declare user: NonAttribute<UserModel>
+  declare getUser: BelongsToGetAssociationMixin<UserModel>
 
-	asDto(): PaymentDto {
-		return {
-			...this.getBaseDto(),
-			userId: this.userId,
-			paymentId: this.paymentId,
-			idempotenceKey: this.idempotenceKey,
-			amount: this.amount,
-			status: this.status,
-			currency: this.currency,
-			description: this.description,
-		}
-	}
+  asDto(): PaymentDto {
+    return {
+      ...this.getBaseDto(),
+      userId: this.userId,
+      paymentId: this.paymentId,
+      idempotenceKey: this.idempotenceKey,
+      amount: this.amount,
+      status: this.status,
+      currency: this.currency,
+      description: this.description,
+    }
+  }
 
-	async asFullData(): Promise<PaymentFullData> {
-		const dto = this.asDto()
-		const user = await this.getUser()
-		const userDto = await user!.asDto()
+  async asFullData(): Promise<PaymentFullData> {
+    const dto = this.asDto()
+    const user = await this.getUser()
+    const userDto = await user!.asDto()
 
-		return {
-			...dto,
-			user: userDto,
-		}
-	}
+    return {
+      ...dto,
+      user: userDto,
+    }
+  }
 }
