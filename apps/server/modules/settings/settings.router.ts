@@ -1,17 +1,12 @@
-import { type } from 'arktype'
 import { Hono } from 'hono'
 
 import { createRouteDescription } from '@/common/route'
-import { validate } from '@/common/validation'
-import { paramsId } from '@/types/db'
+import { CommonError, validate, validateResponseUserId, validateRole } from '@/common/validation'
+import { makeErrorBody, paramsId } from '@/types/common'
 import { settingsDto } from '@/types/settings'
 
 import { settingsService } from './settings.service'
-import { settingsError, updateSettingsDto } from './settings.types'
-
-const errorSchema = type({
-  error: settingsError,
-})
+import { SettingsError, updateSettingsDto } from './settings.types'
 
 export const settingsRouter = new Hono()
 
@@ -19,8 +14,10 @@ settingsRouter.get(
   '/',
   createRouteDescription('Get list of all settings', 'settings', {
     200: settingsDto.array(),
-    400: errorSchema,
+    400: makeErrorBody(CommonError.ValidationFailed),
+    403: makeErrorBody(CommonError.InvalidUserRole),
   }),
+  validateRole('staff'),
   async (c) => {
     const entity = await settingsService.readAll()
 
@@ -32,10 +29,9 @@ settingsRouter.get(
   '/:id',
   createRouteDescription('Get a setting by id', 'settings', {
     200: settingsDto,
-    400: errorSchema,
+    400: makeErrorBody(CommonError.ValidationFailed.or(SettingsError.DoesNotExist)),
   }),
   validate(paramsId.in, 'param'),
-  validate(paramsId.in, 'query'),
   async (c) => {
     const { id } = c.req.valid('param')
 
@@ -45,7 +41,7 @@ settingsRouter.get(
       return c.json({ error: entity.error }, 400)
     }
 
-    return c.json(entity.value)
+    return validateResponseUserId(c, entity.value)
   }
 )
 
@@ -53,7 +49,7 @@ settingsRouter.patch(
   '/:id',
   createRouteDescription('Update a setting by id', 'settings', {
     200: settingsDto,
-    400: errorSchema,
+    400: makeErrorBody(CommonError.ValidationFailed.or(SettingsError.DoesNotExist)),
   }),
   validate(paramsId.in, 'param'),
   validate(updateSettingsDto),
@@ -67,6 +63,6 @@ settingsRouter.patch(
       return c.json({ error: entity.error }, 400)
     }
 
-    return c.json(entity.value)
+    return validateResponseUserId(c, entity.value)
   }
 )

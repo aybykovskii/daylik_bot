@@ -21,14 +21,3 @@ export const modelUuidId = dates.merge({
   id: uuid,
 })
 export type ModelUuidId = typeof modelUuidId.infer
-
-export const paramsId = type({ id: 'string.integer.parse' }).as<{ id: IntId }>()
-export type ParamsId = typeof paramsId.infer
-
-export const paramsUuid = type({
-  uuid: uuid,
-})
-export type ParamsUuid = typeof paramsUuid.infer
-
-export const emptyBody = type({})
-export type EmptyBody = typeof emptyBody.infer

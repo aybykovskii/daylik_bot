@@ -2,14 +2,17 @@ import { Result, ResultAsync, ok } from 'neverthrow'
 import { err } from 'neverthrow'
 
 import { SubscriptionModel } from '@/db'
+import { Errors } from '@/types/common'
 import { SubscriptionFullData } from '@/types/subscriptions'
 
-import { CreateSubscriptionDto, SubscriptionError, UpdateSubscriptionDto } from './subscription.types'
+import { CreateSubscriptionDto, SubscriptionError, UpdateSubscriptionDto } from './subscriptions.types'
 
 export class SubscriptionsService {
   model = SubscriptionModel
 
-  read = async (id: number): Promise<Result<SubscriptionFullData, SubscriptionError>> => {
+  read = async (
+    id: number
+  ): Promise<Result<SubscriptionFullData, Errors<typeof SubscriptionError, 'DoesNotExist'>>> => {
     const subscription = await this.model.findByPk(id)
 
     if (!subscription) {
@@ -19,8 +22,13 @@ export class SubscriptionsService {
     return ok(await subscription.asFullData())
   }
 
-  create = async ({ userId }: CreateSubscriptionDto): Promise<Result<SubscriptionFullData, SubscriptionError>> => {
-    const [subscription, created] = await this.model.findOrCreate({ where: { userId }, defaults: { userId } })
+  create = async ({
+    userId,
+    ...dates
+  }: CreateSubscriptionDto): Promise<
+    Result<SubscriptionFullData, Errors<typeof SubscriptionError, 'AlreadyExists'>>
+  > => {
+    const [subscription, created] = await this.model.findOrCreate({ where: { userId }, defaults: { userId, ...dates } })
 
     if (!created) {
       return err('ERR_SUBSCRIPTION_ALREADY_EXISTS')
@@ -29,7 +37,10 @@ export class SubscriptionsService {
     return ok(await subscription.asFullData())
   }
 
-  update = async (id: number, dto: UpdateSubscriptionDto): Promise<Result<SubscriptionFullData, SubscriptionError>> => {
+  update = async (
+    id: number,
+    dto: UpdateSubscriptionDto
+  ): Promise<Result<SubscriptionFullData, Errors<typeof SubscriptionError, 'DoesNotExist' | 'UpdateFailed'>>> => {
     const subscription = await this.model.findByPk(id)
 
     if (!subscription) {
@@ -52,7 +63,7 @@ export class SubscriptionsService {
     return ok(await subscription.asFullData())
   }
 
-  delete = async (id: number): Promise<Result<void, SubscriptionError>> => {
+  delete = async (id: number): Promise<Result<void, Errors<typeof SubscriptionError, 'DoesNotExist'>>> => {
     const subscription = await this.model.findByPk(id)
 
     if (!subscription) {

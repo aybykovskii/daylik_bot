@@ -1,20 +1,27 @@
 import { Hono } from 'hono'
 
 import { createRouteDescription } from '@/common/route'
-import { validate } from '@/common/validation'
-import { emptyBody, paramsUuid } from '@/types/db'
+import { CommonError, validate, validateResponseUserId, validateRole } from '@/common/validation'
+import { emptySuccessBody, makeErrorBody, paramsUuid, successBody } from '@/types/common'
 import { eventSharingDto } from '@/types/event-shares'
 
 import { eventSharesService } from './event-shares.service'
-import { createEventSharingDto, eventSharingFullData, updateEventSharingDto } from './event-shares.types'
+import {
+  EventSharesError,
+  createEventSharingDto,
+  eventSharingFullData,
+  updateEventSharingDto,
+} from './event-shares.types'
 
 export const eventSharesRouter = new Hono()
 
 eventSharesRouter.get(
   '/',
-  createRouteDescription('Get all event shares', 'event-shares', {
+  createRouteDescription('Get all event shares', 'event_shares', {
     200: eventSharingDto.array(),
+    403: makeErrorBody(CommonError.InvalidUserRole),
   }),
+  validateRole('staff'),
   async (c) => {
     const entities = await eventSharesService.readAll()
 
@@ -24,8 +31,10 @@ eventSharesRouter.get(
 
 eventSharesRouter.post(
   '/',
-  createRouteDescription('Create an event share', 'event-shares', {
+  createRouteDescription('Create an event share', 'event_shares', {
     201: eventSharingFullData,
+    400: makeErrorBody(EventSharesError.InvalidData),
+    403: makeErrorBody(CommonError.InvalidUserId.or(CommonError.ValidationFailed)),
   }),
   validate(createEventSharingDto),
   async (c) => {
@@ -35,14 +44,16 @@ eventSharesRouter.post(
       return c.json({ error: createdEntity.error }, 400)
     }
 
-    return c.json(createdEntity.value)
+    return validateResponseUserId(c, createdEntity.value)
   }
 )
 
 eventSharesRouter.get(
-  '/:id',
-  createRouteDescription('Get an event share by id', 'event-shares', {
+  '/:uuid',
+  createRouteDescription('Get an event share by id', 'event_shares', {
     200: eventSharingFullData,
+    400: makeErrorBody(EventSharesError.DoesNotExist),
+    403: makeErrorBody(CommonError.InvalidUserId),
   }),
   validate(paramsUuid.in, 'param'),
   async (c) => {
@@ -53,33 +64,37 @@ eventSharesRouter.get(
       return c.json({ error: entity.error }, 400)
     }
 
-    return c.json(entity.value)
+    return validateResponseUserId(c, entity.value)
   }
 )
 
 eventSharesRouter.patch(
-  '/:id',
-  createRouteDescription('Update an event share by id', 'event-shares', {
+  '/:uuid',
+  createRouteDescription('Update an event share by id', 'event_shares', {
     200: eventSharingFullData,
+    400: makeErrorBody(EventSharesError.DoesNotExist.or(EventSharesError.InvalidData)),
+    403: makeErrorBody(CommonError.InvalidUserId.or(CommonError.ValidationFailed)),
   }),
   validate(paramsUuid.in, 'param'),
   validate(updateEventSharingDto),
   async (c) => {
     const { uuid } = c.req.valid('param')
-    const entity = await eventSharesService.update(uuid, c.req.valid('json'))
+    const body = c.req.valid('json')
+    const entity = await eventSharesService.update(uuid, body)
 
     if (entity.isErr()) {
       return c.json({ error: entity.error }, 400)
     }
 
-    return c.json(entity.value)
+    return validateResponseUserId(c, entity.value)
   }
 )
 
 eventSharesRouter.delete(
-  '/:id',
-  createRouteDescription('Delete an event share by id', 'event-shares', {
-    204: emptyBody,
+  '/:uuid',
+  createRouteDescription('Delete an event share by id', 'event_shares', {
+    200: successBody,
+    400: makeErrorBody(EventSharesError.DoesNotExist),
   }),
   validate(paramsUuid.in, 'param'),
   async (c) => {
@@ -90,6 +105,6 @@ eventSharesRouter.delete(
       return c.json({ error: entity.error }, 400)
     }
 
-    return c.status(204)
+    return c.json(emptySuccessBody)
   }
 )

@@ -11,12 +11,11 @@ import { statisticsDto } from '@/types/statistics'
 import { subscriptionDto } from '@/types/subscriptions'
 import { user, userDto } from '@/types/users'
 
-export const usersError = type(`
-  'ERR_USER_DOES_NOT_EXIST'
-  | 'ERR_USER_ALREADY_EXISTS'
-  | 'ERR_USER_UPDATE_FAILED'
-`)
-export type UsersError = typeof usersError.infer
+export const UsersError = {
+  DoesNotExist: type('"ERR_USER_DOES_NOT_EXIST"'),
+  AlreadyExists: type('"ERR_USER_ALREADY_EXISTS"'),
+  UpdateFailed: type('"ERR_USER_UPDATE_FAILED"'),
+}
 
 export const createUserDto = user.omit('role', 'fullName')
 export type CreateUserDto = typeof createUserDto.infer
@@ -28,13 +27,13 @@ export const userFullData = userDto.merge({
   settings: settingsDto,
   subscription: subscriptionDto,
   statistics: statisticsDto,
-  rewards: rewardDto,
-  events: eventDto,
-  eventDrafts: eventDraftDto,
-  payments: paymentDto,
-  outgoingFriendshipRequests: friendshipRequestDto,
-  incomingFriendshipRequests: friendshipRequestDto,
-  friends: userDto,
-  outgoingEventShares: eventSharingDto,
-  incomingEventShares: eventSharingDto,
+  rewards: rewardDto.array(),
+  events: eventDto.array(),
+  eventDrafts: eventDraftDto.array(),
+  payments: paymentDto.array(),
+  outgoingFriendshipRequests: friendshipRequestDto.array(),
+  incomingFriendshipRequests: friendshipRequestDto.array(),
+  friends: userDto.array(),
+  outgoingEventShares: eventSharingDto.array(),
+  incomingEventShares: eventSharingDto.array(),
 })

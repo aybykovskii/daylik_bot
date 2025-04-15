@@ -1,12 +1,12 @@
 import { Hono } from 'hono'
 
 import { createRouteDescription } from '@/common/route'
-import { validate } from '@/common/validation'
-import { emptyBody, paramsUuid } from '@/types/db'
+import { CommonError, validate, validateResponseUserId, validateRole } from '@/common/validation'
+import { emptySuccessBody, makeErrorBody, paramsUuid, successBody } from '@/types/common'
 import { paymentDto } from '@/types/payments'
 
 import { paymentsService } from './payments.service'
-import { createPaymentDto, readAllPaymentsQuery, updatePaymentDto } from './payments.types'
+import { PaymentsError, createPaymentDto, readAllPaymentsQuery, updatePaymentDto } from './payments.types'
 
 export const paymentsRouter = new Hono()
 
@@ -14,8 +14,11 @@ paymentsRouter.get(
   '/',
   createRouteDescription('Get all payments for a user', 'payments', {
     200: paymentDto.array(),
+    400: makeErrorBody(CommonError.ValidationFailed),
+    403: makeErrorBody(CommonError.InvalidUserRole),
   }),
   validate(readAllPaymentsQuery.in, 'query'),
+  validateRole('staff'),
   async (c) => {
     const { userId } = c.req.valid('query')
     const payments = await paymentsService.readAll({ userId })
@@ -28,16 +31,18 @@ paymentsRouter.post(
   '/',
   createRouteDescription('Create a payment', 'payments', {
     201: paymentDto,
+    400: makeErrorBody(CommonError.ValidationFailed),
   }),
   validate(createPaymentDto),
   async (c) => {
-    const payment = await paymentsService.create(c.req.valid('json'))
+    const body = c.req.valid('json')
+    const payment = await paymentsService.create(body)
 
     if (payment.isErr()) {
       return c.json(payment.error, 400)
     }
 
-    return c.json(payment.value)
+    return validateResponseUserId(c, payment.value)
   }
 )
 
@@ -45,6 +50,7 @@ paymentsRouter.get(
   '/:uuid',
   createRouteDescription('Get a payment by UUID', 'payments', {
     200: paymentDto,
+    400: makeErrorBody(CommonError.ValidationFailed.or(PaymentsError.DoesNotExist)),
   }),
   validate(paramsUuid.in, 'param'),
   async (c) => {
@@ -55,7 +61,7 @@ paymentsRouter.get(
       return c.json(payment.error, 400)
     }
 
-    return c.json(payment.value)
+    return validateResponseUserId(c, payment.value)
   }
 )
 
@@ -63,25 +69,28 @@ paymentsRouter.patch(
   '/:uuid',
   createRouteDescription('Update a payment', 'payments', {
     200: paymentDto,
+    400: makeErrorBody(CommonError.ValidationFailed.or(PaymentsError.DoesNotExist)),
   }),
   validate(paramsUuid.in, 'param'),
   validate(updatePaymentDto),
   async (c) => {
     const { uuid } = c.req.valid('param')
-    const payment = await paymentsService.update(uuid, c.req.valid('json'))
+    const body = c.req.valid('json')
+    const payment = await paymentsService.update(uuid, body)
 
     if (payment.isErr()) {
       return c.json(payment.error, 400)
     }
 
-    return c.json(payment.value)
+    return validateResponseUserId(c, payment.value)
   }
 )
 
 paymentsRouter.delete(
   '/:uuid',
   createRouteDescription('Delete a payment', 'payments', {
-    204: emptyBody,
+    200: successBody,
+    400: makeErrorBody(CommonError.ValidationFailed.or(PaymentsError.DoesNotExist)),
   }),
   validate(paramsUuid.in, 'param'),
   async (c) => {
@@ -92,6 +101,6 @@ paymentsRouter.delete(
       return c.json(result.error, 400)
     }
 
-    return c.status(204)
+    return c.json(emptySuccessBody)
   }
 )

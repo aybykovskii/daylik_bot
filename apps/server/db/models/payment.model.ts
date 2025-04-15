@@ -41,6 +41,12 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> {
   @NotNull
   declare description: PaymentDto['description']
 
+  @Attribute(DataTypes.STRING)
+  declare provider: CreationOptional<PaymentDto['provider']>
+
+  @Attribute(DataTypes.STRING)
+  declare providerPaymentId: CreationOptional<PaymentDto['providerPaymentId']>
+
   /** Defined by {@link UserModel} */
   declare user: NonAttribute<UserModel>
   declare getUser: BelongsToGetAssociationMixin<UserModel>
@@ -55,6 +61,8 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> {
       status: this.status,
       currency: this.currency,
       description: this.description,
+      provider: this.provider,
+      providerPaymentId: this.providerPaymentId,
     }
   }
 

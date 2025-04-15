@@ -3,12 +3,9 @@ import { intId } from 'types/db'
 import { eventDraft, eventDraftDto } from 'types/event-drafts'
 import { userDto } from 'types/users'
 
-export const eventDraftsError = type(`
-  'ERR_EVENT_DRAFT_DOES_NOT_EXIST'
-  | 'ERR_EVENT_DRAFT_ALREADY_EXISTS'
-  | 'ERR_EVENT_DRAFT_INVALID_DATA'
-`)
-export type EventDraftsError = typeof eventDraftsError.infer
+export const EventDraftsError = {
+  DoesNotExist: type('"ERR_EVENT_DRAFT_DOES_NOT_EXIST"'),
+}
 
 export const createEventDraftDto = eventDraft
 export type CreateEventDraftDto = typeof createEventDraftDto.infer

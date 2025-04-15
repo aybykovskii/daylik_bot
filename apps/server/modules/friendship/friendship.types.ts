@@ -3,13 +3,12 @@ import { type } from 'arktype'
 import { friendshipRequest } from '@/types/friendship-requests'
 import { userDto } from '@/types/users'
 
-export const friendshipError = type(`
-  'ERR_FRIENDSHIP_REQUEST_ALREADY_EXISTS'
-  | 'ERR_FRIENDSHIP_REQUEST_NOT_PENDING'
-  | 'ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST'
-  | 'ERR_FRIENDSHIP_REQUEST_USER_DOES_NOT_EXIST'
-`)
-export type FriendshipError = typeof friendshipError.infer
+export const FriendshipError = {
+  AlreadyExists: type('"ERR_FRIENDSHIP_REQUEST_ALREADY_EXISTS"'),
+  NotPending: type('"ERR_FRIENDSHIP_REQUEST_NOT_PENDING"'),
+  DoesNotExist: type('"ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST"'),
+  UserDoesNotExist: type('"ERR_FRIENDSHIP_REQUEST_USER_DOES_NOT_EXIST"'),
+}
 
 export const readAllFriendshipRequestsQuery = type({
   'userId?': 'string.integer.parse',

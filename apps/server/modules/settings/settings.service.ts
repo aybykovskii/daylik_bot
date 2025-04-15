@@ -1,6 +1,7 @@
 import { Ok, Result, err, ok } from 'neverthrow'
 
 import { SettingsModel } from '@/db'
+import { Errors } from '@/types/common'
 import { SettingsDto } from '@/types/settings'
 
 import { CreateSettingsDto, SettingsError, UpdateSettingsDto } from './settings.types'
@@ -14,7 +15,7 @@ export class SettingsService {
     return ok(settings.map((setting) => setting.asDto()))
   }
 
-  read = async (id: number): Promise<Result<SettingsDto, SettingsError>> => {
+  read = async (id: number): Promise<Result<SettingsDto, Errors<typeof SettingsError, 'DoesNotExist'>>> => {
     const settings = await this.model.findByPk(id)
 
     if (!settings) {
@@ -24,7 +25,9 @@ export class SettingsService {
     return ok(settings.asDto())
   }
 
-  create = async (dto: CreateSettingsDto): Promise<Result<SettingsDto, SettingsError>> => {
+  create = async (
+    dto: CreateSettingsDto
+  ): Promise<Result<SettingsDto, Errors<typeof SettingsError, 'AlreadyExists'>>> => {
     const [settings, created] = await this.model.findOrCreate({
       where: { userId: dto.userId },
       defaults: dto,
@@ -37,7 +40,10 @@ export class SettingsService {
     return ok(settings.asDto())
   }
 
-  update = async (id: number, dto: UpdateSettingsDto): Promise<Result<SettingsDto, SettingsError>> => {
+  update = async (
+    id: number,
+    dto: UpdateSettingsDto
+  ): Promise<Result<SettingsDto, Errors<typeof SettingsError, 'DoesNotExist'>>> => {
     const settings = await this.model.findByPk(id)
 
     if (!settings) {
@@ -49,7 +55,7 @@ export class SettingsService {
     return ok(settings.asDto())
   }
 
-  delete = async (id: number): Promise<Result<void, SettingsError>> => {
+  delete = async (id: number): Promise<Result<void, Errors<typeof SettingsError, 'DoesNotExist'>>> => {
     const settings = await this.model.findByPk(id)
 
     if (!settings) {

@@ -1,6 +1,7 @@
 import { Ok, Result, ResultAsync, err, ok } from 'neverthrow'
 
 import { EventSharingModel } from '@/db'
+import { Errors } from '@/types/common'
 import { EventSharingDto, EventSharingFullData } from '@/types/event-shares'
 
 import { CreateEventSharingDto, EventSharesError, UpdateEventSharingDto } from './event-shares.types'
@@ -14,7 +15,9 @@ export class EventSharesService {
     return ok(shares.map((sharing) => sharing.asDto()))
   }
 
-  read = async (uuid: string): Promise<Result<EventSharingFullData, EventSharesError>> => {
+  read = async (
+    uuid: string
+  ): Promise<Result<EventSharingFullData, Errors<typeof EventSharesError, 'DoesNotExist'>>> => {
     const sharing = await this.model.findByPk(uuid)
 
     if (!sharing) {
@@ -24,7 +27,9 @@ export class EventSharesService {
     return ok(await sharing.asFullData())
   }
 
-  create = async (dto: CreateEventSharingDto): Promise<Result<EventSharingFullData, EventSharesError>> => {
+  create = async (
+    dto: CreateEventSharingDto
+  ): Promise<Result<EventSharingFullData, Errors<typeof EventSharesError, 'InvalidData'>>> => {
     const sharing = await ResultAsync.fromPromise(this.model.create(dto), (err) => err)
 
     if (sharing.isErr()) {
@@ -37,7 +42,7 @@ export class EventSharesService {
   update = async (
     uuid: string,
     dto: UpdateEventSharingDto
-  ): Promise<Result<EventSharingFullData, EventSharesError>> => {
+  ): Promise<Result<EventSharingFullData, Errors<typeof EventSharesError, 'DoesNotExist' | 'InvalidData'>>> => {
     const sharing = await this.model.findByPk(uuid)
 
     if (!sharing) {
@@ -49,7 +54,7 @@ export class EventSharesService {
     return ok(await sharing.asFullData())
   }
 
-  delete = async (uuid: string): Promise<Result<void, EventSharesError>> => {
+  delete = async (uuid: string): Promise<Result<void, Errors<typeof EventSharesError, 'DoesNotExist'>>> => {
     const sharing = await this.model.findByPk(uuid)
 
     if (!sharing) {

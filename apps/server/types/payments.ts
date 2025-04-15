@@ -13,6 +13,8 @@ export const payment = type({
   status: paymentStatus,
   currency: 'string',
   description: 'string',
+  provider: 'string | null',
+  providerPaymentId: 'string | null',
 })
 export type Payment = typeof payment.infer
 

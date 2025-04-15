@@ -1,8 +1,9 @@
+import { Transaction } from '@sequelize/core'
 import { Ok, Result, err, ok } from 'neverthrow'
 
 import { FriendshipRequestModel } from '@/db'
+import { Errors } from '@/types/common'
 import { FriendshipRequestDto } from '@/types/friendship-requests'
-import { Transaction } from '@sequelize/core'
 
 import { usersService } from '../users'
 
@@ -23,7 +24,9 @@ export class FriendshipService {
     return ok(requests.map((request) => request.asDto()))
   }
 
-  read = async (id: string): Promise<Result<FriendshipRequestFullData, FriendshipError>> => {
+  read = async (
+    id: string
+  ): Promise<Result<FriendshipRequestFullData, Errors<typeof FriendshipError, 'DoesNotExist'>>> => {
     const request = await this.model.findByPk(id)
 
     if (!request) {
@@ -33,7 +36,9 @@ export class FriendshipService {
     return ok(await request.asFullData())
   }
 
-  create = async (dto: CreateFriendshipRequestDto): Promise<Result<FriendshipRequestFullData, FriendshipError>> => {
+  create = async (
+    dto: CreateFriendshipRequestDto
+  ): Promise<Result<FriendshipRequestFullData, Errors<typeof FriendshipError, 'AlreadyExists'>>> => {
     const [request, created] = await this.model.findOrCreate({
       where: {
         targetUserId: dto.targetUserId,
@@ -51,7 +56,12 @@ export class FriendshipService {
   update = async (
     id: string,
     { status }: UpdateFriendshipRequestDto
-  ): Promise<Result<FriendshipRequestFullData, FriendshipError>> => {
+  ): Promise<
+    Result<
+      FriendshipRequestFullData,
+      Errors<typeof FriendshipError, 'DoesNotExist' | 'NotPending' | 'UserDoesNotExist'>
+    >
+  > => {
     const request = await this.model.findByPk(id)
 
     if (!request) {
@@ -87,7 +97,7 @@ export class FriendshipService {
   private async acceptFriendshipRequest(
     request: FriendshipRequestModel,
     transaction?: Transaction
-  ): Promise<Result<void, FriendshipError>> {
+  ): Promise<Result<void, Errors<typeof FriendshipError, 'UserDoesNotExist'>>> {
     const user = await usersService._read(request.userId)
     const targetUser = await usersService._read(request.targetUserId)
 
@@ -100,7 +110,7 @@ export class FriendshipService {
     return ok()
   }
 
-  delete = async (id: string): Promise<Result<void, FriendshipError>> => {
+  delete = async (id: string): Promise<Result<void, Errors<typeof FriendshipError, 'DoesNotExist'>>> => {
     const request = await this.model.findByPk(id)
 
     if (!request) {

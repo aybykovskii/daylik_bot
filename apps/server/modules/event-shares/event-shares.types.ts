@@ -4,11 +4,10 @@ import { eventSharing, eventSharingDto } from '@/types/event-shares'
 import { eventDto } from '@/types/events'
 import { userDto } from '@/types/users'
 
-export const eventSharesError = type(
-  `'ERR_EVENT_SHARING_DOES_NOT_EXIST'
-  | 'ERR_EVENT_SHARING_INVALID_DATA'`
-)
-export type EventSharesError = typeof eventSharesError.infer
+export const EventSharesError = {
+  DoesNotExist: type('"ERR_EVENT_SHARING_DOES_NOT_EXIST"'),
+  InvalidData: type('"ERR_EVENT_SHARING_INVALID_DATA"'),
+}
 
 export const createEventSharingDto = eventSharing.merge(
   eventSharing.pick('usageAmount', 'usageLimit', 'targetUserId').partial()

@@ -3,12 +3,11 @@ import { type } from 'arktype'
 import { Event, event, eventDto } from '@/types/events'
 import { userDto } from '@/types/users'
 
-export const eventsError = type(`
-  'ERR_EVENT_DOES_NOT_EXIST'
-  | 'ERR_EVENT_DRAFT_DOES_NOT_EXIST'
-  | 'ERR_EVENT_INVALID_DATA'
-`)
-export type EventsError = typeof eventsError.infer
+export const EventsError = {
+  DoesNotExist: type('"ERR_EVENT_DOES_NOT_EXIST"'),
+  DraftDoesNotExist: type('"ERR_EVENT_DRAFT_DOES_NOT_EXIST"'),
+  InvalidData: type('"ERR_EVENT_INVALID_DATA"'),
+}
 
 type CreateEventUnion =
   | Pick<Required<Event>, 'copyFromId'>

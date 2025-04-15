@@ -3,14 +3,10 @@ import { type } from 'arktype'
 import { intId } from '@/types/db'
 import { settingsBase } from '@/types/settings'
 
-export const settingsError = type(`
-	'ERR_SETTINGS_DOES_NOT_EXIST'
-| 'ERR_SETTINGS_ALREADY_EXISTS'
-| 'ERR_SETTINGS_INVALID_DATA'
-| 'ERR_SETTINGS_INTERNAL'
-`)
-
-export type SettingsError = typeof settingsError.infer
+export const SettingsError = {
+  DoesNotExist: type('"ERR_SETTINGS_DOES_NOT_EXIST"'),
+  AlreadyExists: type('"ERR_SETTINGS_ALREADY_EXISTS"'),
+}
 
 const partialBase = settingsBase.partial()
 

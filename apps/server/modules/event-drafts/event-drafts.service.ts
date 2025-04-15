@@ -1,8 +1,9 @@
+import { Transaction } from '@sequelize/core'
 import { Ok, Result, err, ok } from 'neverthrow'
 
 import { EventDraftModel } from '@/db'
+import { Errors } from '@/types/common'
 import { EventDraftDto, EventDraftFullData } from '@/types/event-drafts'
-import { Transaction } from '@sequelize/core'
 
 import { CreateEventDraftDto, EventDraftsError, UpdateEventDraftDto } from './event-drafts.types'
 
@@ -15,7 +16,7 @@ export class EventDraftsService {
     return ok(drafts.map((draft) => draft.asDto()))
   }
 
-  read = async (id: number): Promise<Result<EventDraftFullData, EventDraftsError>> => {
+  read = async (id: number): Promise<Result<EventDraftFullData, Errors<typeof EventDraftsError, 'DoesNotExist'>>> => {
     const draft = await this.model.findByPk(id)
 
     if (!draft) {
@@ -25,17 +26,16 @@ export class EventDraftsService {
     return ok(await draft.asFullData())
   }
 
-  create = async (dto: CreateEventDraftDto): Promise<Result<EventDraftFullData, EventDraftsError>> => {
-    const [draft, created] = await this.model.findOrCreate({ where: { userId: dto.userId }, defaults: dto })
-
-    if (!created) {
-      return err('ERR_EVENT_DRAFT_ALREADY_EXISTS')
-    }
+  create = async (dto: CreateEventDraftDto): Promise<Ok<EventDraftFullData, never>> => {
+    const draft = await this.model.create(dto)
 
     return ok(await draft.asFullData())
   }
 
-  update = async (id: number, dto: UpdateEventDraftDto): Promise<Result<EventDraftFullData, EventDraftsError>> => {
+  update = async (
+    id: number,
+    dto: UpdateEventDraftDto
+  ): Promise<Result<EventDraftFullData, Errors<typeof EventDraftsError, 'DoesNotExist'>>> => {
     const draft = await this.model.findByPk(id)
 
     if (!draft) {
@@ -47,7 +47,10 @@ export class EventDraftsService {
     return ok(await draft.asFullData())
   }
 
-  delete = async (id: number, transaction?: Transaction): Promise<Result<void, EventDraftsError>> => {
+  delete = async (
+    id: number,
+    transaction?: Transaction
+  ): Promise<Result<void, Errors<typeof EventDraftsError, 'DoesNotExist'>>> => {
     const draft = await this.model.findByPk(id, { transaction })
 
     if (!draft) {

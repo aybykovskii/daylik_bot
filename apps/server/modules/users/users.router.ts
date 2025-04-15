@@ -1,17 +1,14 @@
-import dayjs from 'dayjs'
 import { Hono } from 'hono'
 
 import { createRouteDescription } from '@/common/route'
-import { validate } from '@/common/validation'
-import { emptyBody, paramsId } from '@/types/db'
-import { userDto } from '@/types/users'
+import { CommonError, validate, validatePathUserId, validateResponseUserId, validateRole } from '@/common/validation'
+import { emptySuccessBody, makeErrorBody, paramsId, successBody } from '@/types/common'
+import { getIsUserRoleValid, userDto } from '@/types/users'
 
-import { settingsService } from '../settings'
 import { statisticsService } from '../statistics'
-import { subscriptionsService } from '../subscriptions'
 
 import { usersService } from './users.service'
-import { createUserDto, updateUserDto, userFullData } from './users.types'
+import { UsersError, createUserDto, updateUserDto, userFullData } from './users.types'
 
 export const usersRouter = new Hono()
 
@@ -19,9 +16,11 @@ usersRouter.get(
   '/',
   createRouteDescription('Get list of users', 'users', {
     200: userDto.array(),
+    403: makeErrorBody(CommonError.InvalidUserRole),
   }),
+  validateRole('staff'),
   async (c) => {
-    const users = await usersService.getAll()
+    const users = await usersService.readAll()
 
     return c.json(users)
   }
@@ -31,6 +30,7 @@ usersRouter.post(
   '/',
   createRouteDescription('Create user', 'users', {
     201: userFullData,
+    400: makeErrorBody(CommonError.ValidationFailed.or(UsersError.AlreadyExists)),
   }),
   validate(createUserDto),
   async (c) => {
@@ -40,23 +40,7 @@ usersRouter.post(
       return c.json({ error: result.error }, 400)
     }
 
-    const user = result.value
-
-    await settingsService.create({ userId: user.id })
-    await statisticsService.create({ userId: user.id })
-    await subscriptionsService.create({
-      userId: user.id,
-      startDate: dayjs().toISOString(),
-      endDate: dayjs().add(7, 'days').toISOString(),
-    })
-
-    const updatedUser = await usersService.read(user.id)
-
-    if (updatedUser.isErr()) {
-      return c.json({ error: updatedUser.error }, 400)
-    }
-
-    return c.json(updatedUser.value)
+    return c.json(result.value)
   }
 )
 
@@ -64,8 +48,11 @@ usersRouter.get(
   '/:id',
   createRouteDescription('Get user by id', 'users', {
     200: userFullData,
+    400: makeErrorBody(CommonError.ValidationFailed.or(UsersError.DoesNotExist)),
+    403: makeErrorBody(CommonError.InvalidUserId),
   }),
   validate(paramsId.in, 'param'),
+  validatePathUserId('id'),
   async (c) => {
     const { id } = c.req.valid('param')
     const user = await usersService.read(id)
@@ -74,21 +61,31 @@ usersRouter.get(
       return c.json({ error: user.error }, 400)
     }
 
-    return c.json(user.value)
+    return validateResponseUserId(c, user.value, ['id', 'telegramUserId'])
   }
 )
 
-// TODO: Add validation for updating role
 usersRouter.patch(
   '/:id',
   createRouteDescription('Update user', 'users', {
     200: userFullData,
+    400: makeErrorBody(CommonError.ValidationFailed.or(UsersError.DoesNotExist).or(UsersError.UpdateFailed)),
+    403: makeErrorBody(CommonError.InvalidUserId),
   }),
   validate(paramsId.in, 'param'),
+  validatePathUserId('id'),
   validate(updateUserDto),
   async (c) => {
     const { id } = c.req.valid('param')
-    const result = await usersService.update(id, c.req.valid('json'))
+    let body = c.req.valid('json')
+
+    // If user is not admin, don't allow them to update role
+    if (body.role && !getIsUserRoleValid(c.var.role, 'admin')) {
+      const { role, ...rest } = body
+      body = { ...rest }
+    }
+
+    const result = await usersService.update(id, body)
 
     if (result.isErr()) {
       return c.json({ error: result.error }, 400)
@@ -101,8 +98,11 @@ usersRouter.patch(
 usersRouter.delete(
   '/:id',
   createRouteDescription('Delete user', 'users', {
-    204: emptyBody,
+    200: successBody,
+    400: makeErrorBody(CommonError.ValidationFailed.or(UsersError.DoesNotExist)),
+    403: makeErrorBody(CommonError.InvalidUserId),
   }),
+  validatePathUserId('id'),
   validate(paramsId.in, 'param'),
   async (c) => {
     const { id } = c.req.valid('param')
@@ -112,6 +112,29 @@ usersRouter.delete(
       return c.json({ error: result.error }, 400)
     }
 
-    return c.status(204)
+    return c.json(emptySuccessBody)
+  }
+)
+
+usersRouter.patch(
+  '/:id/increase_requests_count',
+  createRouteDescription('Increase requests count for user', 'users', {
+    200: successBody,
+    400: makeErrorBody(CommonError.ValidationFailed.or(UsersError.DoesNotExist)),
+    403: makeErrorBody(CommonError.InvalidUserId),
+  }),
+  validate(paramsId.in, 'param'),
+  validatePathUserId('id'),
+  async (c) => {
+    const { id } = c.req.valid('param')
+    const user = await usersService.read(id)
+
+    if (user.isErr()) {
+      return c.json({ error: user.error }, 400)
+    }
+
+    statisticsService.incrementSentRequestsCount(user.value.statistics.id)
+
+    return c.json(emptySuccessBody)
   }
 )

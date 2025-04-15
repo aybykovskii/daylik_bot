@@ -1,17 +1,10 @@
 {
-	"extends": "../../tsconfig.json",
-	"compilerOptions": {
-		"baseUrl": "./",
-		"allowJs": true,
-		"paths": {
-			"@/*": ["./*"],
-			"@db": ["./db/index"],
-			"@db/*": ["./db/*"],
-			"@common": ["./common/index"],
-			"@common/*": ["./common/*"],
-			"@modules": ["./modules/index"],
-			"@modules/*": ["./modules/*"],
-			"@/types/*": ["./types/*"]
-		}
-	}
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "allowJs": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
 }

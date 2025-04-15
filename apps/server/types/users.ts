@@ -13,6 +13,7 @@ import { SubscriptionDto } from './subscriptions'
 
 export const userRole = type("'user' | 'staff' | 'admin'")
 export type UserRole = typeof userRole.infer
+export type Role = UserRole | 'system'
 
 export const user = type({
   telegramUserId: 'string',
@@ -39,4 +40,19 @@ export type UserFullData = UserDto & {
   friends: UserDto[]
   outgoingEventShares: EventSharingDto[]
   incomingEventShares: EventSharingDto[]
+}
+
+export const getIsUserRoleValid = (currentRole: Role, expectedRole: UserRole) => {
+  if (currentRole === 'system') return true
+
+  switch (expectedRole) {
+    case 'user':
+      return true
+
+    case 'staff':
+      return currentRole !== 'user'
+
+    case 'admin':
+      return currentRole === 'admin'
+  }
 }

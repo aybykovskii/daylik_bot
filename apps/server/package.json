@@ -1,25 +1,22 @@
 {
-	"name": "server",
-	"main": "server.ts",
-	"scripts": {
-		"start": "bun --watch ./server.ts"
-	},
-	"dependencies": {
-		"@fastify/swagger": "^9.3.0",
-		"@fastify/swagger-ui": "^5.1.0",
-		"@sequelize/core": "7.0.0-alpha.41",
-		"@sequelize/postgres": "7.0.0-alpha.41",
-		"fastify": "^5.0.0",
-		"fastify-type-provider-zod": "^3.0.0",
-		"fastify-zod-openapi": "^3.0.4",
-		"jsonwebtoken": "8.5.1",
-		"reflect-metadata": "^0.2.2",
-		"shared": "workspace:*",
-		"zod-openapi": "^4.0.0"
-	},
-	"devDependencies": {
-		"@types/jsonwebtoken": "8.5.1",
-		"sequelize": "7.0.0-alpha.9",
-		"sequelize-cli": "^6.6.2"
-	}
+  "name": "server",
+  "main": "server.ts",
+  "scripts": {
+    "start": "bun --watch ./server.ts",
+    "format": "prettier . --write"
+  },
+  "dependencies": {
+    "@hono/swagger-ui": "^0.5.1",
+    "@sequelize/core": "7.0.0-alpha.41",
+    "@sequelize/postgres": "7.0.0-alpha.41",
+    "cron": "^4.1.0",
+    "hono-openapi": "^0.4.6",
+    "jsonwebtoken": "8.5.1",
+    "shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "8.5.1",
+    "sequelize": "7.0.0-alpha.9",
+    "sequelize-cli": "^6.6.2"
+  }
 }

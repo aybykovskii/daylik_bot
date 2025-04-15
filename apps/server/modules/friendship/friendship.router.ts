@@ -1,12 +1,13 @@
 import { Hono } from 'hono'
 
 import { createRouteDescription } from '@/common/route'
-import { validate } from '@/common/validation'
-import { emptyBody, paramsUuid } from '@/types/db'
+import { CommonError, validate, validateRole } from '@/common/validation'
+import { emptySuccessBody, makeErrorBody, paramsUuid, successBody } from '@/types/common'
 import { friendshipRequestDto } from '@/types/friendship-requests'
 
 import { friendshipService } from './friendship.service'
 import {
+  FriendshipError,
   createFriendshipRequestDto,
   friendshipRequestFullData,
   readAllFriendshipRequestsQuery,
@@ -17,10 +18,13 @@ export const friendshipRouter = new Hono()
 
 friendshipRouter.get(
   '/',
-  createRouteDescription('Get all friendship requests', 'friendships', {
+  createRouteDescription('Get all friendship requests', 'friendship', {
     200: friendshipRequestDto.array(),
+    400: makeErrorBody(CommonError.ValidationFailed),
+    403: makeErrorBody(CommonError.InvalidUserRole),
   }),
   validate(readAllFriendshipRequestsQuery.in, 'query'),
+  validateRole('staff'),
   async (c) => {
     const { userId } = c.req.valid('query')
     const friendshipRequests = await friendshipService.readAll({ userId })
@@ -31,8 +35,9 @@ friendshipRouter.get(
 
 friendshipRouter.post(
   '/',
-  createRouteDescription('Create a friendship request', 'friendships', {
+  createRouteDescription('Create a friendship request', 'friendship', {
     201: friendshipRequestFullData,
+    400: makeErrorBody(CommonError.ValidationFailed.or(FriendshipError.AlreadyExists)),
   }),
   validate(createFriendshipRequestDto),
   async (c) => {
@@ -49,8 +54,9 @@ friendshipRouter.post(
 
 friendshipRouter.get(
   '/:uuid',
-  createRouteDescription('Get a friendship request', 'friendships', {
+  createRouteDescription('Get a friendship request', 'friendship', {
     200: friendshipRequestFullData,
+    400: makeErrorBody(CommonError.ValidationFailed.or(FriendshipError.DoesNotExist)),
   }),
   validate(paramsUuid.in, 'param'),
   async (c) => {
@@ -67,8 +73,13 @@ friendshipRouter.get(
 
 friendshipRouter.patch(
   '/:uuid',
-  createRouteDescription('Update a friendship request', 'friendships', {
+  createRouteDescription('Update a friendship request', 'friendship', {
     200: friendshipRequestFullData,
+    400: makeErrorBody(
+      CommonError.ValidationFailed.or(FriendshipError.DoesNotExist)
+        .or(FriendshipError.NotPending)
+        .or(FriendshipError.UserDoesNotExist)
+    ),
   }),
   validate(paramsUuid.in, 'param'),
   validate(updateFriendshipRequestDto),
@@ -87,8 +98,9 @@ friendshipRouter.patch(
 
 friendshipRouter.delete(
   '/:uuid',
-  createRouteDescription('Delete a friendship request', 'friendships', {
-    204: emptyBody,
+  createRouteDescription('Delete a friendship request', 'friendship', {
+    200: successBody,
+    400: makeErrorBody(CommonError.ValidationFailed.or(FriendshipError.DoesNotExist)),
   }),
   validate(paramsUuid.in, 'param'),
   async (c) => {
@@ -99,6 +111,6 @@ friendshipRouter.delete(
       return c.json(friendshipRequest.error, 400)
     }
 
-    return c.status(204)
+    return c.json(emptySuccessBody)
   }
 )

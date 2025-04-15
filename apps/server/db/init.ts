@@ -8,8 +8,6 @@ import config from './config/config'
 export const init = async () => {
   const envConfig = config[env.MODE]
 
-  serverLogger.debug({ envConfig })
-
   const sql = new Sequelize({
     dialect: PostgresDialect,
     host: envConfig.host,
