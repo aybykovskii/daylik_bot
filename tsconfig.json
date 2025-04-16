@@ -18,6 +18,6 @@
 		"jsx": "preserve",
 		"incremental": true
 	},
-	"include": ["**/*.ts", "packages/shared/types/dtos/role.dto.ts"],
+	"include": ["**/*.ts"],
 	"exclude": ["node_modules"]
 }

@@ -29,7 +29,7 @@ services:
       base:
         condition: service_started
     healthcheck:
-      test: [ 'CMD', 'curl', '-f', 'http://localhost:${SERVER_PORT}/health' ]
+      test: 'curl --fail http://localhost:${SERVER_PORT}/health || exit 1'
       interval: 5s
       timeout: 5s
       retries: 5
@@ -58,7 +58,7 @@ services:
     networks:
       - daylik
     healthcheck:
-      test: [ 'CMD', 'curl', '-f', 'http://localhost:${BOT_PORT}/health' ]
+      test: 'curl --fail http://localhost:${BOT_PORT}/health || exit 1'
       interval: 5s
       timeout: 5s
       retries: 5

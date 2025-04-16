@@ -1,19 +1,11 @@
-FROM node:18
+FROM oven/bun:latest
 
 WORKDIR /app
 
-RUN npm install -g pnpm
+RUN apt-get update && apt-get install -y curl
 
-ENV BUN_INSTALL="$HOME/.bun"
-ENV PATH="$BUN_INSTALL/bin:$PATH"
-
-RUN curl -fsSL https://bun.sh/install | bash
-
-RUN bun --version
-
-COPY pnpm-workspace.yaml ./
 COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY bun.lock ./
 COPY tsconfig.json ./
 
 COPY apps/server/package.json ./apps/server/
@@ -22,7 +14,7 @@ COPY apps/miniapp/package.json ./apps/miniapp/
 COPY packages/shared/package.json ./packages/shared/
 COPY packages/api/package.json ./packages/api/
 
-RUN pnpm install --frozen-lockfile
+RUN bun install --verbose --frozen-lockfile --force
 
 COPY packages/shared ./packages/shared
 COPY packages/api ./packages/api
