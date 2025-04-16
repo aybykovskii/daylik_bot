@@ -42,7 +42,7 @@ export const validatePathUserId =
   async (c, next) => {
     if (c.var.role === 'system') return next()
 
-    if ([c.var.userId, c.var.telegramUserId].every((id) => id !== c.req.param(key))) {
+    if ([c.var.userId, c.var.telegramUserId].every((id) => id !== c.req.param(key) && id !== +c.req.param(key)!)) {
       return c.json(
         { error: 'ERR_INVALID_USER_ID', message: 'You are not authorized to access this resource. Path is not valid.' },
         403
