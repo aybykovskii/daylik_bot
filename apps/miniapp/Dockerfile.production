@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY apps/miniapp/ ./apps/miniapp/
 
-RUN pnpm --filter=miniapp build && \
+RUN bun --filter=miniapp build && \
   rm -rf ./apps/miniapp/src && \
   rm -rf ./apps/miniapp/node-modules

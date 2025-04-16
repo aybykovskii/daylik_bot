@@ -9,53 +9,59 @@ import { chunkArray, getSortedDayEvents } from '@/utils'
 import styles from './styles.module.scss'
 
 type Props = {
-	date: dayjs.Dayjs
-	events: Events.List.ResponseBody
-	editingEventId: number | null
-	onEditEvent: (eventId: number) => void
+  date: dayjs.Dayjs
+  events: Events.GetAll.ResponseBody
+  editingEventId: number | null
+  onEditEvent: (eventId: number) => void
 }
 
 export const MonthCalendarBody = ({ date, events, editingEventId, onEditEvent }: Props) => {
-	const isTooltipDisabled = !!editingEventId
-	const monthStart = date.startOf('month').startOf('week')
-	const monthEnd = date.endOf('month').endOf('week')
-	const daysInMonth = monthEnd.add(1, 'day').diff(monthStart, 'days')
-	const monthDays = Array.from({ length: daysInMonth }, (_, i) => monthStart.add(i, 'day'))
-	const weeks = chunkArray(monthDays, 7)
+  const isTooltipDisabled = !!editingEventId
+  const monthStart = date.startOf('month').startOf('week')
+  const monthEnd = date.endOf('month').endOf('week')
+  const daysInMonth = monthEnd.add(1, 'day').diff(monthStart, 'days')
+  const monthDays = Array.from({ length: daysInMonth }, (_, i) => monthStart.add(i, 'day'))
+  const weeks = chunkArray(monthDays, 7)
 
-	return (
-		<tbody>
-			{weeks.map((weekdays) => (
-				<tr key={`week-${weekdays[0].format('DD.MM')}`} className={styles.monthWeek}>
-					{weekdays.map((day) => (
-						<td key={`day-${day.format('DD.MM')}`} className={styles.dayContainer}>
-							<div className={styles.dayContent}>
-								<span
-									className={cn({
-										[styles.anotherMonth]: !day.isSame(date, 'month'),
-										[styles.today]: day.isSame(dayjs(), 'day'),
-									})}
-								>
-									{day.format('DD')}
-								</span>
-								<div className={styles.events}>
-									{getSortedDayEvents(events, day).map((event) => (
-										<EventBadge
-											id={event.id}
-											key={event.id}
-											emoji={event.emoji}
-											text={event.text}
-											time={event.time}
-											onEdit={() => onEditEvent(event.id)}
-											isTooltipDisabled={isTooltipDisabled}
-										/>
-									))}
-								</div>
-							</div>
-						</td>
-					))}
-				</tr>
-			))}
-		</tbody>
-	)
+  return (
+    <tbody>
+      {weeks.map((weekdays) => (
+        <tr
+          key={`week-${weekdays[0].format('DD.MM')}`}
+          className={styles.monthWeek}
+        >
+          {weekdays.map((day) => (
+            <td
+              key={`day-${day.format('DD.MM')}`}
+              className={styles.dayContainer}
+            >
+              <div className={styles.dayContent}>
+                <span
+                  className={cn({
+                    [styles.anotherMonth]: !day.isSame(date, 'month'),
+                    [styles.today]: day.isSame(dayjs(), 'day'),
+                  })}
+                >
+                  {day.format('DD')}
+                </span>
+                <div className={styles.events}>
+                  {getSortedDayEvents(events, day).map((event) => (
+                    <EventBadge
+                      id={event.id}
+                      key={event.id}
+                      emoji={event.emoji}
+                      text={event.text}
+                      time={event.time}
+                      onEdit={() => onEditEvent(event.id)}
+                      isTooltipDisabled={isTooltipDisabled}
+                    />
+                  ))}
+                </div>
+              </div>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  )
 }
