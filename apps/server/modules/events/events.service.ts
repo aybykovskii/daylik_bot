@@ -105,8 +105,6 @@ export class EventsService {
       return err('ERR_EVENT_DOES_NOT_EXIST')
     }
 
-    console.log('update', { event, dto })
-
     await event.update({
       ...dto,
       ...(dto.date || dto.time
