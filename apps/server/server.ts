@@ -1,14 +1,16 @@
 import { swaggerUI } from '@hono/swagger-ui'
 import { Hono, MiddlewareHandler } from 'hono'
-import { cors } from 'hono/cors'
 import { RegExpRouter } from 'hono/router/reg-exp-router'
 
 import { openAPISpecs } from 'hono-openapi'
 import { serverLogger } from 'shared'
 
 import { OpenApiConfig } from '@/common/docs'
+import { dailyNotificationJob, eventNotificationJob } from '@/common/jobs'
 import { init as initDB } from '@/db'
 import {
+  authMiddleware,
+  authRouter,
   eventDraftsRouter,
   eventSharesRouter,
   eventsRouter,
@@ -18,14 +20,9 @@ import {
   subscriptionsRouter,
   usersRouter,
 } from '@/modules'
-import { authMiddleware, authRouter } from '@/modules/auth'
-
-import { dailyNotificationJob } from './common/jobs'
 
 const server = new Hono({ router: new RegExpRouter() })
 const v1 = new Hono({ router: new RegExpRouter() })
-
-v1.use('*', cors({ origin: '*' }))
 
 const logger: MiddlewareHandler = async (c, next) => {
   serverLogger.info('Registered request', { method: c.req.method, url: c.req.url, params: c.req.param() })
@@ -68,6 +65,7 @@ server.notFound((c) => c.json({ error: 'ERR_ROUTE_NOT_FOUND' }, 404))
 await initDB()
 
 dailyNotificationJob.start()
+eventNotificationJob.start()
 
 export default {
   port: 8080,

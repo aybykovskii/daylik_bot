@@ -1,1 +1,2 @@
-export * from './notifications'
+export * from './dailyNotification'
+export * from './eventNotification'
