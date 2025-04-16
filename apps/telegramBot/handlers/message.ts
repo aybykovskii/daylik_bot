@@ -1,129 +1,110 @@
-import { Middleware } from 'telegraf'
-
-import { IntId, intId } from 'shared/types'
-import { TelegrafContext } from 'types'
-
 import dayjs from 'dayjs'
-import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from 'helpers'
+import { InlineKeyboard, Middleware } from 'grammy'
+
 import { botLogger } from 'shared/logger'
-import { InlineKeyboardButton } from 'telegraf/types'
-import { GPTResponse } from 'types/gpt'
+import { DATE_FORMAT } from 'shared/time'
+
+import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from '@/helpers'
+import { BotContext } from '@/types'
+import { GPTResponse } from '@/types/gpt'
+
 import { MAIN_PROMPT } from '../prompts.json'
 
-const getConfirmCreationKeyboard = (eventId: IntId): InlineKeyboardButton[][] => [
-	[
-		{ text: 'Да', callback_data: confirmCreationCD.fill({ eventId }) },
-		{ text: 'Нет', callback_data: rejectCreationCD.fill({ eventId }) },
-	],
-]
+const getConfirmCreationKeyboard = (eventId: number) =>
+  new InlineKeyboard().text('Да', confirmCreationCD.fill({ eventId })).text('Нет', rejectCreationCD.fill({ eventId }))
 
-const getConfirmDeletionKeyboard = (eventId: IntId): InlineKeyboardButton[][] => [
-	[
-		{ text: 'Да', callback_data: confirmDeletionCD.fill({ eventId }) },
-		{ text: 'Нет', callback_data: rejectDeletionCD.fill({ eventId }) },
-	],
-]
+const getConfirmDeletionKeyboard = (eventId: number) =>
+  new InlineKeyboard().text('Да', confirmDeletionCD.fill({ eventId })).text('Нет', rejectDeletionCD.fill({ eventId }))
 
-export const messageHandler: Middleware<TelegrafContext> = async (ctx) => {
-	const {
-		message: msg,
-		user: { telegramUserId },
-		api,
-	} = ctx
+export const messageHandler: Middleware<BotContext> = async (ctx) => {
+  const {
+    message: msg,
+    user: { telegramUserId },
+  } = ctx
 
-	const gptMessageHandler = async ({
-		response,
-		chatId,
-		userId,
-		messageId,
-	}: {
-		response: GPTResponse
-		chatId: string | undefined
-		userId: number
-		messageId: number | undefined
-	}) => {
-		botLogger.info({ response })
-		const { userMessage } = response
+  const gptMessageHandler = async ({
+    response,
+    userId,
+    messageId,
+  }: {
+    response: GPTResponse
+    userId: number
+    messageId: number
+  }) => {
+    const { userMessage } = response
 
-		if (userMessage.length) {
-			ctx.telegram.editMessageText(chatId, messageId, undefined, userMessage)
+    if (userMessage.length) {
+      ctx.api.editMessageText(telegramUserId, messageId, userMessage)
 
-			switch (response.action) {
-				case 'createEvent': {
-					if (!response.event) {
-						ctx.telegram.editMessageText(
-							chatId,
-							messageId,
-							undefined,
-							'Произошла ошибка при обработке запроса'
-						)
-						botLogger.error('Failed to create event', { response })
-						break
-					}
+      switch (response.action) {
+        case 'createEvent': {
+          const event = response.event
 
-					const eventDraft = await api.eventDrafts.create({ userId, ...response.event! })
+          if (!event) {
+            ctx.api.editMessageText(telegramUserId, messageId, 'Произошла ошибка при обработке запроса')
+            botLogger.error('Failed to create event', { response })
+            break
+          }
 
-					await ctx.telegram.editMessageReplyMarkup(chatId, messageId, undefined, {
-						inline_keyboard: getConfirmCreationKeyboard(intId.parse(eventDraft.id)),
-					})
+          const eventDraft = await ctx.apiV1.eventDrafts.post({ userId, ...event, time: event.time || null })
 
-					break
-				}
-				case 'deleteEvent': {
-					await ctx.telegram.editMessageReplyMarkup(chatId, messageId, undefined, {
-						inline_keyboard: getConfirmDeletionKeyboard(response.eventId!),
-					})
+          await ctx.api.editMessageReplyMarkup(telegramUserId, messageId, {
+            reply_markup: getConfirmCreationKeyboard(eventDraft.id),
+          })
 
-					break
-				}
+          break
+        }
 
-				case 'info':
-				case 'error':
-					break
+        case 'deleteEvent': {
+          await ctx.api.editMessageReplyMarkup(telegramUserId, messageId, {
+            reply_markup: getConfirmDeletionKeyboard(response.eventId!),
+          })
 
-				default:
-					response.action satisfies never
-					break
-			}
-		}
-	}
+          break
+        }
 
-	const sendGPTMessage = async (text: string, chatId: string | undefined) => {
-		const message = await ctx.replyT('bot.generation_pending')
-		const filteredEvents = ctx.user.events.filter(
-			(event) => dayjs(event.date).isSame(dayjs(), 'day') || dayjs(event.date).isAfter(dayjs(), 'day')
-		)
+        case 'info':
+        case 'error':
+          break
 
-		botLogger.info({ filteredEvents })
+        default:
+          response.action satisfies never
+          break
+      }
+    }
+  }
 
-		const answer = await ctx.gpt.sendMessage([
-			{
-				role: 'system',
-				content: MAIN_PROMPT.replaceAll('{TODAY}', dayjs().format('MM.DD.YYYY'))
-					.replaceAll('{TOMORROW}', dayjs().add(1, 'day').format('MM.DD.YYYY'))
-					.replaceAll('{EVENTS}', JSON.stringify(filteredEvents)),
-			},
-			{ role: 'user', content: text },
-		])
+  const sendGPTMessage = async (text: string) => {
+    const message = await ctx.replyT('bot.generation_pending')
+    const filteredEvents = ctx.user.events.filter(
+      (event) => dayjs(event.date).isSame(dayjs(), 'day') || dayjs(event.date).isAfter(dayjs(), 'day')
+    )
 
-		gptMessageHandler({
-			response: answer,
-			chatId,
-			userId: ctx.user.id,
-			messageId: message.message_id,
-		})
-	}
+    const answer = await ctx.gpt.sendMessage([
+      {
+        role: 'system',
+        content: MAIN_PROMPT.replaceAll('{TODAY}', dayjs().format(DATE_FORMAT))
+          .replaceAll('{DATE_FORMAT}', DATE_FORMAT)
+          .replaceAll('{EVENTS}', JSON.stringify(filteredEvents)),
+      },
+      { role: 'user', content: text },
+    ])
 
-	if (msg && 'voice' in msg) {
-		const fileId = msg.voice.file_id
+    gptMessageHandler({
+      response: answer,
+      userId: ctx.user.id,
+      messageId: message.message_id,
+    })
+  }
 
-		const fileLink = await ctx.telegram.getFileLink(fileId)
-		const file = await fetch(fileLink as URL)
+  if (msg && 'voice' in msg) {
+    const fileLink = (await ctx.getFile()).getUrl()
+    const file = await fetch(fileLink)
 
-		const transcription = await ctx.gpt.getVoiceTranscription(file)
+    const transcription = await ctx.gpt.getVoiceTranscription(file)
 
-		await sendGPTMessage(transcription, telegramUserId)
-	} else if (msg && 'text' in msg) {
-		await sendGPTMessage(msg.text, telegramUserId)
-	}
+    await sendGPTMessage(transcription)
+  } else if (msg && 'text' in msg) {
+    await sendGPTMessage(msg.text!)
+  }
 }

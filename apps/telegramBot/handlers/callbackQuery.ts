@@ -1,63 +1,62 @@
-import { Middleware } from 'telegraf'
-
-import { intId } from 'shared/types'
-
+import { Middleware } from 'grammy'
 import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from 'helpers'
+
 import { botLogger } from 'shared'
-import { TelegrafContext } from 'types'
 
-export const callbackQueryHandler: Middleware<TelegrafContext> = async (ctx) => {
-	const cbq = ctx.callbackQuery
-	const api = ctx.api
+import { BotContext } from '@/types'
 
-	if (!cbq || !('data' in cbq)) return
+export const callbackQueryHandler: Middleware<BotContext> = async (ctx) => {
+  const cbq = ctx.callbackQuery
+  const api = ctx.apiV1
 
-	const { data } = cbq
+  if (!cbq || !('data' in cbq)) return
 
-	ctx.telegram.deleteMessage(ctx.chat?.id!, cbq.message?.message_id!)
+  const { data = '' } = cbq
 
-	switch (true) {
-		case confirmCreationCD.match(data): {
-			const { eventId } = confirmCreationCD.get<{ eventId: string }>(data)
+  ctx.api.deleteMessage(ctx.chat?.id!, cbq.message?.message_id!)
 
-			try {
-				const draft = await api.eventDrafts.get(intId.parse(eventId))
+  switch (true) {
+    case confirmCreationCD.match(data): {
+      const { eventId } = confirmCreationCD.get<{ eventId: string }>(data)
 
-				const { id, ...eventDraft } = draft
+      try {
+        const draft = await api.eventDrafts.getById(eventId)
 
-				await api.events.create(eventDraft)
-				await api.eventDrafts.delete(id)
+        const { id, ...eventDraft } = draft
 
-				ctx.sendTMessage('bot.event.creation.confirmed')
-			} catch (error) {
-				botLogger.error('Failed to create event', { error })
-				ctx.sendTMessage('bot.event.notFound')
-			}
+        await api.events.post(eventDraft)
+        await api.eventDrafts.deleteById(id.toString())
 
-			break
-		}
+        ctx.sendTMessage('bot.event.creation.confirmed')
+      } catch (error) {
+        botLogger.error('Failed to create event', { error })
+        ctx.sendTMessage('bot.event.notFound')
+      }
 
-		case rejectCreationCD.match(data): {
-			const { eventId } = rejectCreationCD.get<{ eventId: string }>(data)
+      break
+    }
 
-			await api.eventDrafts.delete(+eventId)
+    case rejectCreationCD.match(data): {
+      const { eventId } = rejectCreationCD.get<{ eventId: string }>(data)
 
-			ctx.sendTMessage('bot.event.creation.cancelled')
-			break
-		}
+      await api.eventDrafts.deleteById(eventId)
 
-		case confirmDeletionCD.match(data): {
-			const { eventId } = confirmDeletionCD.get<{ eventId: string }>(data)
+      ctx.sendTMessage('bot.event.creation.cancelled')
+      break
+    }
 
-			await api.eventDrafts.delete(+eventId)
+    case confirmDeletionCD.match(data): {
+      const { eventId } = confirmDeletionCD.get<{ eventId: string }>(data)
 
-			ctx.sendTMessage('bot.event.deletion.confirmed')
-			break
-		}
+      await api.eventDrafts.deleteById(eventId)
 
-		case rejectDeletionCD.match(data): {
-			ctx.sendTMessage('bot.event.deletion.cancelled')
-			break
-		}
-	}
+      ctx.sendTMessage('bot.event.deletion.confirmed')
+      break
+    }
+
+    case rejectDeletionCD.match(data): {
+      ctx.sendTMessage('bot.event.deletion.cancelled')
+      break
+    }
+  }
 }

@@ -1,38 +1,34 @@
-import { Middleware } from 'telegraf'
-
-import { botLogger } from 'shared/logger'
-import { telegramUserId } from 'shared/types'
+import { Middleware } from 'grammy'
 
 import { Users } from 'api'
-import { TelegrafContext } from 'types'
+import { botLogger } from 'shared/logger'
 
-export const userMiddleware: Middleware<TelegrafContext> = async (ctx, next) => {
-	const userId = ctx.from?.id
+import { BotContext } from '@/types'
 
-	botLogger.info('called user check', { userId })
+export const userMiddleware: Middleware<BotContext> = async (ctx, next) => {
+  const userId = ctx.from?.id
 
-	if (!userId) {
-		throw new Error('User id is not defined')
-	}
+  if (!userId) {
+    throw new Error('User id is not defined')
+  }
 
-	const id = telegramUserId.parse(userId)
-	let user: Users.Get.ResponseBody
+  const id = userId.toString()
+  let user: Users.GetById.ResponseBody
 
-	try {
-		user = await ctx.api.users.get(id)
+  try {
+    user = await ctx.apiV1.users.getById(id)
+    botLogger.debug('User found', { user })
+  } catch (_) {
+    botLogger.error(`User not found. Creating new user. Id: ${id}`)
 
-		botLogger.info(`User found`, { telegramUserId: userId, id: user.id, fullName: user.fullName })
-	} catch (_) {
-		botLogger.error(`User not found. Creating new user. Id: ${id}`)
+    user = await ctx.apiV1.users.post({
+      firstName: ctx?.from?.first_name,
+      lastName: ctx?.from?.last_name ?? null,
+      telegramUserId: id,
+    })
+  }
 
-		user = await ctx.api.users.create({
-			firstName: ctx?.from?.first_name,
-			lastName: ctx?.from?.last_name,
-			telegramUserId: id,
-		})
-	}
+  ctx.user = user
 
-	ctx.user = user
-
-	return next()
+  return next()
 }
