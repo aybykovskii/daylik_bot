@@ -1,76 +1,43 @@
 import { hydrateFiles } from '@grammyjs/files'
 import { Bot } from 'grammy'
-import {
-  callbackQueryHandler,
-  getNotificationRouter,
-  helpCommandHandler,
-  messageHandler,
-  startCommandHandler,
-} from 'handlers'
 import { Hono } from 'hono'
 
 import { createApi } from 'api'
 import { env } from 'shared/environment'
 import { botLogger } from 'shared/logger'
 
-import { contextMiddleware, userMiddleware } from '@/middlewares'
+import { CommandHandlers, Payments, callbackQueryHandler, messageHandler } from '@/handlers'
+import { configMiddleware, contextMiddleware, subscriptionMiddleware, userMiddleware } from '@/middlewares'
+import { getNotificationRouter } from '@/router'
 import { BotContext } from '@/types'
 
-import { paymentCommandHandler } from './commands/payment'
-import { preCheckoutQueryHandler } from './handlers/preCheckoutQuery'
-
-const api = createApi({
-  headers: {
-    [env.AUTH_HEADER_KEY]: env.AUTH_HEADER_VALUE,
-  },
+const apis = createApi({
+  baseUrl: `http://server:${env.SERVER_PORT}`,
+  headers: { [env.AUTH_HEADER_KEY]: env.AUTH_HEADER_VALUE },
 })
-api.baseUrl = `http://server:${env.SERVER_PORT}`
 
 const bot = new Bot<BotContext>(env.TG_BOT_TOKEN)
 
 bot.api.config.use(hydrateFiles(bot.token))
-bot.use(contextMiddleware(api))
+bot.use(contextMiddleware(apis))
 bot.use(userMiddleware)
+bot.use(configMiddleware)
 
-bot.command('start', startCommandHandler)
-bot.command('help', helpCommandHandler)
-bot.command('info', (ctx) => ctx.replyT('bot.commands.info.message'))
-bot.command('payment', paymentCommandHandler)
-bot.command('test', (ctx) => {
-  const entities = ctx.message?.entities
+bot.command('start', CommandHandlers.start)
+bot.command('help', CommandHandlers.help)
+bot.command('info', CommandHandlers.info)
+bot.command('payment', CommandHandlers.payment)
+bot.command('request_refund', CommandHandlers.requestRefund)
+bot.command('refund', CommandHandlers.refund)
+bot.on(':entities:bot_command', CommandHandlers.unknown)
 
-  console.log({ entities })
-})
-bot.on(':entities:bot_command', (ctx) => ctx.replyT('bot.commands.unknown'))
+bot.on('pre_checkout_query', (ctx) => ctx.answerPreCheckoutQuery(true))
+bot.on(':successful_payment', Payments.successfulPaymentHandler)
 
-bot.on(':successful_payment', async (ctx) => {
-  const { telegram_payment_charge_id: telegramPaymentChargeId } = ctx.message?.successful_payment!
+bot.on('message', subscriptionMiddleware, messageHandler)
+bot.on('callback_query:data', callbackQueryHandler)
 
-  const pendingPayment = ctx.user.payments.find((payment) => payment.status === 'pending')
-
-  if (!pendingPayment) {
-    return ctx.api.sendMessage(ctx.user.telegramUserId, 'Произошла ошибка при оплате')
-  }
-
-  await ctx.apiV1.payments.patchByUuid(pendingPayment.id, {
-    providerPaymentId: telegramPaymentChargeId,
-    status: 'success',
-  })
-
-  return ctx.api.refundStarPayment(ctx.message?.chat.id!, telegramPaymentChargeId)
-})
-
-// Message
-bot.on('message', messageHandler)
-// Callback query
-bot.on('callback_query', callbackQueryHandler)
-
-bot.on('pre_checkout_query', preCheckoutQueryHandler)
-
-// Error handling
-bot.catch((error) => {
-  botLogger.error('Occurred bot error', error)
-})
+bot.catch((error) => botLogger.error('Occurred bot error', error))
 
 bot.start()
 
@@ -78,7 +45,8 @@ process.once('SIGINT', () => bot.stop())
 process.once('SIGTERM', () => bot.stop())
 
 const app = new Hono()
-app.route('/notifications', getNotificationRouter(bot, api))
+
+app.route('/notifications', getNotificationRouter(bot, apis.api))
 app.get('/health', (c) => c.text('ok'))
 
 export default {
