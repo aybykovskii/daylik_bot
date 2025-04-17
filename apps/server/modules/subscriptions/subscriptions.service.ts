@@ -47,14 +47,7 @@ export class SubscriptionsService {
       return err('ERR_SUBSCRIPTION_DOES_NOT_EXIST')
     }
 
-    const updatedSubscription = await ResultAsync.fromPromise(
-      subscription.update({
-        ...dto,
-        startDate: dto.startDate ? new Date(dto.startDate) : undefined,
-        endDate: dto.endDate ? new Date(dto.endDate) : undefined,
-      }),
-      (err) => err
-    )
+    const updatedSubscription = await ResultAsync.fromPromise(subscription.update(dto), (err) => err)
 
     if (updatedSubscription.isErr()) {
       return err('ERR_SUBSCRIPTION_UPDATE_FAILED')

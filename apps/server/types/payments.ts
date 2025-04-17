@@ -3,10 +3,12 @@ import { type } from 'arktype'
 import { intId, modelUuidId } from './db'
 import { UserDto } from './users'
 
-export const paymentStatus = type("'pending' | 'in_progress' | 'success' | 'failed' | 'canceled'")
+export const paymentStatus = type("'pending' | 'in_progress' | 'success' | 'failed' | 'canceled' | 'refunded'")
+export const paymentType = type("'subscription' | 'refund'")
 
 export const payment = type({
   userId: intId,
+  type: paymentType,
   paymentId: 'string.uuid',
   idempotenceKey: 'string.uuid',
   amount: 'number',

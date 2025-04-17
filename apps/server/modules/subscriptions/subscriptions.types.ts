@@ -9,6 +9,7 @@ export const SubscriptionError = {
   UpdateFailed: type('"ERR_SUBSCRIPTION_UPDATE_FAILED"'),
   TrialSubscriptionExpired: type('"ERR_TRIAL_SUBSCRIPTION_EXPIRED"'),
   PaidSubscriptionExpired: type('"ERR_PAID_SUBSCRIPTION_EXPIRED"'),
+  Canceled: type('"ERR_SUBSCRIPTION_CANCELED"'),
 }
 
 export const createSubscriptionDto = subscription.pick('userId', 'startDate', 'endDate').as<{
@@ -19,4 +20,7 @@ export const createSubscriptionDto = subscription.pick('userId', 'startDate', 'e
 export type CreateSubscriptionDto = typeof createSubscriptionDto.infer
 
 export const updateSubscriptionDto = subscription.omit('userId').partial()
-export type UpdateSubscriptionDto = typeof updateSubscriptionDto.infer
+export type UpdateSubscriptionDto = Omit<typeof updateSubscriptionDto.infer, 'startDate' | 'endDate'> & {
+  startDate?: Date
+  endDate?: Date
+}
