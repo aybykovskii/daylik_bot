@@ -12,6 +12,7 @@ export const envSchema = z
 
     TG_BOT_TOKEN: z.string(),
     OPENAI_API_KEY: z.string(),
+    SUBSCRIPTION_STARS_AMOUNT: z.number(),
 
     POSTGRES_HOST: z.string(),
     POSTGRES_PORT: z.coerce.number().default(5432),
