@@ -1,6 +1,8 @@
 import ky from 'ky'
 
-import { Api, RequestParams } from './api.generated'
+import { Api as ApiClass, RequestParams } from './api.generated'
+
+import { makeApiSafe } from './safeApi'
 
 class AuthData {
   static token = ''
@@ -45,8 +47,21 @@ const customFetch = (input: RequestInfo | URL, init?: RequestInit) =>
     },
   })
 
-type CustomApi = Omit<Api<unknown>, 'abortRequest' | 'request' | 'setSecurityData'>
-export const api = new Api({ customFetch }) as CustomApi
+export type ApiV1 = Omit<ApiClass<unknown>, 'abortRequest' | 'request' | 'setSecurityData'>
+export const api = new ApiClass({ customFetch }) as ApiV1
 
-type ApiParams = Omit<RequestParams, 'baseUrl' | 'signal' | 'cancelToken'>
-export const createApi = (params: ApiParams) => new Api({ customFetch, baseApiParams: params }) as CustomApi
+export const safeApi = makeApiSafe(api)
+export type SafeApiV1 = typeof safeApi
+
+type ApiParams = Omit<RequestParams, 'baseUrl' | 'signal' | 'cancelToken'> & { baseUrl?: string }
+export const createApi = (params: ApiParams) => {
+  const api = new ApiClass({ customFetch, baseApiParams: params }) as ApiV1
+
+  api.baseUrl = params.baseUrl ?? ''
+
+  return {
+    api,
+    safeApi: makeApiSafe(api),
+  }
+}
+export type ApisV1 = ReturnType<typeof createApi>

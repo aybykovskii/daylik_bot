@@ -118,6 +118,7 @@ export type GetSubscriptionsByIdCheckError =
   | {
       error:
         | "ERR_PAID_SUBSCRIPTION_EXPIRED"
+        | "ERR_SUBSCRIPTION_CANCELED"
         | "ERR_TRIAL_SUBSCRIPTION_EXPIRED"
         | "ERR_VALIDATION_FAILED";
     }
@@ -178,6 +179,22 @@ export type PatchPaymentsByUuidError = {
 export type PatchSettingsByIdError = {
   error: "ERR_SETTINGS_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
 };
+
+export type PatchSubscriptionsByIdCancelError =
+  | {
+      error: "ERR_VALIDATION_FAILED";
+    }
+  | {
+      error: "ERR_SUBSCRIPTION_DOES_NOT_EXIST";
+    };
+
+export type PatchSubscriptionsByIdRenewError =
+  | {
+      error: "ERR_VALIDATION_FAILED";
+    }
+  | {
+      error: "ERR_SUBSCRIPTION_DOES_NOT_EXIST";
+    };
 
 export type PatchUsersByIdError =
   | {
@@ -1085,7 +1102,14 @@ export namespace Payments {
         | "ffffffff-ffff-ffff-ffff-ffffffffffff";
       provider: string | null;
       providerPaymentId: string | null;
-      status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+      status:
+        | "canceled"
+        | "failed"
+        | "in_progress"
+        | "pending"
+        | "refunded"
+        | "success";
+      type: "refund" | "subscription";
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
       updatedAt: string;
       userId: number;
@@ -1133,7 +1157,14 @@ export namespace Payments {
         | "ffffffff-ffff-ffff-ffff-ffffffffffff";
       provider: string | null;
       providerPaymentId: string | null;
-      status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+      status:
+        | "canceled"
+        | "failed"
+        | "in_progress"
+        | "pending"
+        | "refunded"
+        | "success";
+      type: "refund" | "subscription";
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
       updatedAt: string;
       userId: number;
@@ -1162,7 +1193,14 @@ export namespace Payments {
       description?: string;
       provider?: string | null;
       providerPaymentId?: string | null;
-      status?: "canceled" | "failed" | "in_progress" | "pending" | "success";
+      status?:
+        | "canceled"
+        | "failed"
+        | "in_progress"
+        | "pending"
+        | "refunded"
+        | "success";
+      type?: "refund" | "subscription";
     };
     export type RequestHeaders = {};
     export type ResponseBody = {
@@ -1188,7 +1226,14 @@ export namespace Payments {
         | "ffffffff-ffff-ffff-ffff-ffffffffffff";
       provider: string | null;
       providerPaymentId: string | null;
-      status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+      status:
+        | "canceled"
+        | "failed"
+        | "in_progress"
+        | "pending"
+        | "refunded"
+        | "success";
+      type: "refund" | "subscription";
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
       updatedAt: string;
       userId: number;
@@ -1211,6 +1256,7 @@ export namespace Payments {
       description: string;
       provider?: string;
       providerPaymentId?: string;
+      type: "refund" | "subscription";
       userId: number;
     };
     export type RequestHeaders = {};
@@ -1237,7 +1283,14 @@ export namespace Payments {
         | "ffffffff-ffff-ffff-ffff-ffffffffffff";
       provider: string | null;
       providerPaymentId: string | null;
-      status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+      status:
+        | "canceled"
+        | "failed"
+        | "in_progress"
+        | "pending"
+        | "refunded"
+        | "success";
+      type: "refund" | "subscription";
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
       updatedAt: string;
       userId: number;
@@ -1436,7 +1489,14 @@ export namespace Users {
           | "ffffffff-ffff-ffff-ffff-ffffffffffff";
         provider: string | null;
         providerPaymentId: string | null;
-        status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+        status:
+          | "canceled"
+          | "failed"
+          | "in_progress"
+          | "pending"
+          | "refunded"
+          | "success";
+        type: "refund" | "subscription";
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
         updatedAt: string;
         userId: number;
@@ -1647,7 +1707,14 @@ export namespace Users {
           | "ffffffff-ffff-ffff-ffff-ffffffffffff";
         provider: string | null;
         providerPaymentId: string | null;
-        status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+        status:
+          | "canceled"
+          | "failed"
+          | "in_progress"
+          | "pending"
+          | "refunded"
+          | "success";
+        type: "refund" | "subscription";
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
         updatedAt: string;
         userId: number;
@@ -1875,7 +1942,14 @@ export namespace Users {
           | "ffffffff-ffff-ffff-ffff-ffffffffffff";
         provider: string | null;
         providerPaymentId: string | null;
-        status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+        status:
+          | "canceled"
+          | "failed"
+          | "in_progress"
+          | "pending"
+          | "refunded"
+          | "success";
+        type: "refund" | "subscription";
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
         updatedAt: string;
         userId: number;
@@ -2149,6 +2223,66 @@ export namespace Subscriptions {
    * @request GET:/api/v1/subscriptions/{id}/check
    */
   export namespace GetByIdCheck {
+    export type RequestParams = {
+      id: number | string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = {
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      createdAt: string;
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      endDate: string;
+      id: number;
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      startDate: string;
+      status: "active" | "canceled" | "expired";
+      type: "paid" | "trial";
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      updatedAt: string;
+      userId: number;
+    };
+  }
+
+  /**
+   * No description
+   * @tags subscriptions
+   * @name PatchByIdCancel
+   * @summary Cancel subscription by id
+   * @request PATCH:/api/v1/subscriptions/{id}/cancel
+   */
+  export namespace PatchByIdCancel {
+    export type RequestParams = {
+      id: number | string;
+    };
+    export type RequestQuery = {};
+    export type RequestBody = never;
+    export type RequestHeaders = {};
+    export type ResponseBody = {
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      createdAt: string;
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      endDate: string;
+      id: number;
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      startDate: string;
+      status: "active" | "canceled" | "expired";
+      type: "paid" | "trial";
+      /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+      updatedAt: string;
+      userId: number;
+    };
+  }
+
+  /**
+   * No description
+   * @tags subscriptions
+   * @name PatchByIdRenew
+   * @summary Renew subscription by id
+   * @request PATCH:/api/v1/subscriptions/{id}/renew
+   */
+  export namespace PatchByIdRenew {
     export type RequestParams = {
       id: number | string;
     };
@@ -3378,7 +3512,14 @@ export class Api<
             | "ffffffff-ffff-ffff-ffff-ffffffffffff";
           provider: string | null;
           providerPaymentId: string | null;
-          status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+          status:
+            | "canceled"
+            | "failed"
+            | "in_progress"
+            | "pending"
+            | "refunded"
+            | "success";
+          type: "refund" | "subscription";
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
           updatedAt: string;
           userId: number;
@@ -3431,7 +3572,14 @@ export class Api<
             | "ffffffff-ffff-ffff-ffff-ffffffffffff";
           provider: string | null;
           providerPaymentId: string | null;
-          status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+          status:
+            | "canceled"
+            | "failed"
+            | "in_progress"
+            | "pending"
+            | "refunded"
+            | "success";
+          type: "refund" | "subscription";
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
           updatedAt: string;
           userId: number;
@@ -3463,7 +3611,14 @@ export class Api<
         description?: string;
         provider?: string | null;
         providerPaymentId?: string | null;
-        status?: "canceled" | "failed" | "in_progress" | "pending" | "success";
+        status?:
+          | "canceled"
+          | "failed"
+          | "in_progress"
+          | "pending"
+          | "refunded"
+          | "success";
+        type?: "refund" | "subscription";
       },
       params: RequestParams = {},
     ) =>
@@ -3491,7 +3646,14 @@ export class Api<
             | "ffffffff-ffff-ffff-ffff-ffffffffffff";
           provider: string | null;
           providerPaymentId: string | null;
-          status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+          status:
+            | "canceled"
+            | "failed"
+            | "in_progress"
+            | "pending"
+            | "refunded"
+            | "success";
+          type: "refund" | "subscription";
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
           updatedAt: string;
           userId: number;
@@ -3521,6 +3683,7 @@ export class Api<
         description: string;
         provider?: string;
         providerPaymentId?: string;
+        type: "refund" | "subscription";
         userId: number;
       },
       params: RequestParams = {},
@@ -3549,7 +3712,14 @@ export class Api<
             | "ffffffff-ffff-ffff-ffff-ffffffffffff";
           provider: string | null;
           providerPaymentId: string | null;
-          status: "canceled" | "failed" | "in_progress" | "pending" | "success";
+          status:
+            | "canceled"
+            | "failed"
+            | "in_progress"
+            | "pending"
+            | "refunded"
+            | "success";
+          type: "refund" | "subscription";
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
           updatedAt: string;
           userId: number;
@@ -3762,7 +3932,9 @@ export class Api<
               | "failed"
               | "in_progress"
               | "pending"
+              | "refunded"
               | "success";
+            type: "refund" | "subscription";
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
             updatedAt: string;
             userId: number;
@@ -3984,7 +4156,9 @@ export class Api<
               | "failed"
               | "in_progress"
               | "pending"
+              | "refunded"
               | "success";
+            type: "refund" | "subscription";
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
             updatedAt: string;
             userId: number;
@@ -4231,7 +4405,9 @@ export class Api<
               | "failed"
               | "in_progress"
               | "pending"
+              | "refunded"
               | "success";
+            type: "refund" | "subscription";
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
             updatedAt: string;
             userId: number;
@@ -4563,6 +4739,70 @@ export class Api<
       >({
         path: `/api/v1/subscriptions/${id}/check`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags subscriptions
+     * @name PatchByIdCancel
+     * @summary Cancel subscription by id
+     * @request PATCH:/api/v1/subscriptions/{id}/cancel
+     */
+    patchByIdCancel: (id: number | string, params: RequestParams = {}) =>
+      this.request<
+        {
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          createdAt: string;
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          endDate: string;
+          id: number;
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          startDate: string;
+          status: "active" | "canceled" | "expired";
+          type: "paid" | "trial";
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          updatedAt: string;
+          userId: number;
+        },
+        PatchSubscriptionsByIdCancelError
+      >({
+        path: `/api/v1/subscriptions/${id}/cancel`,
+        method: "PATCH",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags subscriptions
+     * @name PatchByIdRenew
+     * @summary Renew subscription by id
+     * @request PATCH:/api/v1/subscriptions/{id}/renew
+     */
+    patchByIdRenew: (id: number | string, params: RequestParams = {}) =>
+      this.request<
+        {
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          createdAt: string;
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          endDate: string;
+          id: number;
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          startDate: string;
+          status: "active" | "canceled" | "expired";
+          type: "paid" | "trial";
+          /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
+          updatedAt: string;
+          userId: number;
+        },
+        PatchSubscriptionsByIdRenewError
+      >({
+        path: `/api/v1/subscriptions/${id}/renew`,
+        method: "PATCH",
         format: "json",
         ...params,
       }),
