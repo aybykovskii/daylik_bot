@@ -35,7 +35,7 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
       const diff = user?.settings.UTCTimeDiff ?? 0
       const userDate = getUserDate(diff)
 
-      if (!user || userDate.hour() === DAILY_NOTIFICATION_TIME) {
+      if (!user || userDate.hour() !== DAILY_NOTIFICATION_TIME) {
         return acc
       }
 
@@ -45,6 +45,11 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
       const eventsToNotify = getTimeSorted(events).filter(
         (event) => dayjs(event.datetime).isAfter(userStartOfDay) && dayjs(event.datetime).isBefore(userEndOfDay)
       )
+
+      if (!eventsToNotify.length) {
+        return acc
+      }
+
       const eventsText = eventsToNotify.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
 
       acc[user.telegramUserId] = `Список событий на сегодня:\n${eventsText}`
@@ -52,6 +57,8 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
     },
     {} as Record<string, string>
   )
+
+  if (!Object.keys(eventToNotifyByUserId).length) return
 
   botRequest('POST', 'notifications', {
     message: Object.values(eventToNotifyByUserId),

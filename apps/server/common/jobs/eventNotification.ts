@@ -45,6 +45,8 @@ export const eventNotificationJob = new CronJob('0 * * * * *', async () => {
     {} as Record<string, string>
   )
 
+  if (!Object.keys(eventToNotifyByUserId).length) return
+
   botRequest('POST', 'notifications', {
     message: Object.values(eventToNotifyByUserId),
     userIds: Object.keys(eventToNotifyByUserId),
