@@ -21,7 +21,9 @@ export class Payments {
     const amount = env.SUBSCRIPTION_STARS_AMOUNT
     const description = ctx.t('bot.subscription.stars.description')
 
-    const paymentKeyboard = new InlineKeyboard().pay(ctx.t('bot.subscription.stars.buttonLabel', { amount, currency }))
+    const paymentKeyboard = new InlineKeyboard().pay(
+      ctx.t('bot.subscription.stars.buttonLabel', { amount, currency: Payments.CURRENCY_EMOJI[currency] })
+    )
 
     await ctx.apiV1.payments.post({
       userId: ctx.user.id,
