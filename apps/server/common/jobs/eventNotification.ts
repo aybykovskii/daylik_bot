@@ -33,7 +33,7 @@ export const eventNotificationJob = new CronJob('0 * * * * *', async () => {
     (acc, [userId, events]) => {
       const user = users.find((user) => user.id === +userId)
 
-      if (!user) {
+      if (!user || user.subscription.status !== 'active') {
         return acc
       }
 

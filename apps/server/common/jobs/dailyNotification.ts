@@ -35,7 +35,7 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
       const diff = user?.settings.UTCTimeDiff ?? 0
       const userDate = getUserDate(diff)
 
-      if (!user || userDate.hour() !== DAILY_NOTIFICATION_TIME) {
+      if (!user || user.subscription.status !== 'active' || userDate.hour() !== DAILY_NOTIFICATION_TIME) {
         return acc
       }
 
