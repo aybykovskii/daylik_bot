@@ -2,7 +2,7 @@ import { FileFlavor } from '@grammyjs/files'
 import { Context } from 'grammy'
 import { Message } from 'grammy/types'
 
-import { Users, api } from 'api'
+import { ApiV1, SafeApiV1, Users } from 'api'
 import { i18next } from 'shared/i18n'
 
 import { GPT } from '@/helpers'
@@ -19,7 +19,8 @@ export type I18nSendMessage = (msg: I18nPhrase, replace?: TOptions, opts?: Messa
 export type I18nReply = (msg: I18nPhrase, replace?: TOptions, opts?: ReplyExtra) => Promise<Message.TextMessage>
 
 export type BotContext = FileFlavor<Context> & {
-  apiV1: typeof api
+  apiV1: ApiV1
+  safeApiV1: SafeApiV1
   user: Users.GetById.ResponseBody
   gpt: GPT
   t: (phrase: I18nPhrase, tOptions?: TOptions) => string

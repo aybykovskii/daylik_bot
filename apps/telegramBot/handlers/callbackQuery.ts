@@ -1,19 +1,17 @@
-import { Middleware } from 'grammy'
-import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from 'helpers'
+import { Filter, Middleware } from 'grammy'
+import { confirmCreationCD, confirmDeletionCD, refundCreationCD, rejectCreationCD, rejectDeletionCD } from 'helpers'
 
 import { botLogger } from 'shared'
 
 import { BotContext } from '@/types'
 
-export const callbackQueryHandler: Middleware<BotContext> = async (ctx) => {
-  const cbq = ctx.callbackQuery
+import { Payments } from './payment'
+
+export const callbackQueryHandler: Middleware<Filter<BotContext, 'callback_query:data'>> = async (ctx) => {
+  const { data, message } = ctx.callbackQuery
   const api = ctx.apiV1
 
-  if (!cbq || !('data' in cbq)) return
-
-  const { data = '' } = cbq
-
-  ctx.api.deleteMessage(ctx.chat?.id!, cbq.message?.message_id!)
+  ctx.api.deleteMessage(ctx.chat?.id!, message?.message_id!)
 
   switch (true) {
     case confirmCreationCD.match(data): {
@@ -56,6 +54,13 @@ export const callbackQueryHandler: Middleware<BotContext> = async (ctx) => {
 
     case rejectDeletionCD.match(data): {
       ctx.sendTMessage('bot.event.deletion.cancelled')
+      break
+    }
+
+    case refundCreationCD.match(data): {
+      const { paymentId } = refundCreationCD.get<{ paymentId: string }>(data)
+
+      await Payments.refundPayment(ctx, paymentId)
       break
     }
   }
