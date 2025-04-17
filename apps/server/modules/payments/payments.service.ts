@@ -27,13 +27,22 @@ export class PaymentsService {
 
   create = async ({
     userId,
+    type,
     amount,
     currency,
     description,
     provider,
     providerPaymentId,
   }: CreatePaymentDto): Promise<Result<PaymentFullData, never>> => {
-    const payment = await this.model.create({ userId, amount, currency, description, provider, providerPaymentId })
+    const payment = await this.model.create({
+      userId,
+      type,
+      amount,
+      currency,
+      description,
+      provider,
+      providerPaymentId,
+    })
 
     return ok(await payment.asFullData())
   }

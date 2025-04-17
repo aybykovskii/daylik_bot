@@ -15,6 +15,11 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> {
 
   @Attribute(DataTypes.STRING)
   @NotNull
+  @Default('subscription' satisfies PaymentDto['type'])
+  declare type: CreationOptional<PaymentDto['type']>
+
+  @Attribute(DataTypes.STRING)
+  @NotNull
   @Unique
   @Default(sql.uuidV4)
   declare paymentId: CreationOptional<PaymentDto['paymentId']>
@@ -54,6 +59,7 @@ export class PaymentModel extends BaseUuidModel<PaymentModel> {
   asDto(): PaymentDto {
     return {
       ...this.getBaseDto(),
+      type: this.type,
       userId: this.userId,
       paymentId: this.paymentId,
       idempotenceKey: this.idempotenceKey,
