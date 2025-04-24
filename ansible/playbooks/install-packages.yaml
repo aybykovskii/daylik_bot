@@ -41,5 +41,19 @@
           - gnupg
           - lsb-release
           - nodejs
+          - npm
         state: present
       become_user: root
+
+    - name: Установка bun
+      npm:
+        name: bun
+        global: yes
+        state: present
+      become_user: root
+
+    - name: Проверка установки bun
+      shell: 'bun --version'
+      register: bun_version
+      changed_when: false
+      failed_when: bun_version.rc != 0

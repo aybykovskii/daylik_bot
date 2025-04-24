@@ -5,9 +5,10 @@
     - env.yaml
   become_user: '{{ user }}'
   vars:
+    root: '../..'
     github_repo_path: 'https://github.com/{{ github_username }}/{{ github_repo }}.git'
     repo_path: '/home/{{ user }}/{{ github_repo }}'
-    repo_docker_path: '/home/{{ user }}/{{ github_repo }}/docker'
+    repo_docker_path: '{{ repo_path }}/docker'
     db_compose: 'compose.db.yaml'
     apps_compose: 'compose.yaml'
     nginx_compose: 'compose.nginx.yaml'
@@ -16,24 +17,35 @@
     - name: Клонируем репозиторий
       git:
         repo: '{{ github_repo_path }}'
-        dest: '/home/{{ user }}/{{ github_repo }}'
+        dest: '{{ repo_path }}'
         accept_hostkey: yes
         force: yes
       become_user: 'root'
 
-    - name: Копируем env файл
+    - name: Копируем базовый env файл
       copy:
-        src: '../../.production.env'
-        dest: '/home/{{ user }}/{{ github_repo }}/.env'
+        src: '{{ root }}/.env'
+        dest: '{{ repo_path }}/.env'
+        force: yes
+      become_user: '{{ user }}'
+
+    - name: Копируем production env файл
+      copy:
+        src: '{{ root }}/.env.production'
+        dest: '{{ repo_path }}/.env.production'
         force: yes
       become_user: '{{ user }}'
 
     - name: Копируем prompt файл
       copy:
-        src: '../../prompt.md'
-        dest: '/home/{{ user }}/{{ github_repo }}/prompt.md'
+        src: '{{ root }}/prompt.md'
+        dest: '{{ repo_path }}/prompt.md'
         force: yes
       become_user: '{{ user }}'
+
+    - name: Выполняем скрипт для установки переменных окружения
+      shell: 'cd {{ repo_path }} && bun run copy:env:prod'
+      become_user: 'root'
 
     - name: Логин в Docker Registry
       docker_login:
@@ -69,6 +81,8 @@
         project_src: '{{ repo_docker_path }}'
         files:
           - '{{ apps_compose }}'
+        profiles:
+          - all
         build: always
         state: present
       register: apps_compose_result
@@ -80,7 +94,7 @@
     - name: Создаем контейнер miniapp
       community.docker.docker_container:
         name: '{{ miniapp_name }}'
-        image: daylik_bot-miniapp
+        image: daylik-miniapp
         state: present
 
     - name: Удаляем старую статику
@@ -96,7 +110,7 @@
     - name: Удаляем контейнер miniapp
       community.docker.docker_container:
         name: '{{ miniapp_name }}'
-        image: daylik_bot-miniapp
+        image: daylik-miniapp
         state: absent
 
     - name: Перезапускаем nginx docker compose
