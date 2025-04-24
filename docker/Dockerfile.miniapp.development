@@ -1,6 +1,4 @@
-FROM aybykovskii/daylik-base:latest
-
-WORKDIR /app
+FROM base
 
 COPY apps/miniapp/ ./apps/miniapp/
 

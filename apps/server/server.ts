@@ -1,9 +1,10 @@
 import { swaggerUI } from '@hono/swagger-ui'
+import Bun from 'bun'
 import { Hono, MiddlewareHandler } from 'hono'
 import { RegExpRouter } from 'hono/router/reg-exp-router'
 
 import { openAPISpecs } from 'hono-openapi'
-import { serverLogger } from 'shared'
+import { env, serverLogger } from 'shared'
 
 import { OpenApiConfig } from '@/common/docs'
 import { dailyNotificationJob, eventNotificationJob } from '@/common/jobs'
@@ -21,7 +22,7 @@ import {
   usersRouter,
 } from '@/modules'
 
-const server = new Hono({ router: new RegExpRouter() })
+const root = new Hono({ router: new RegExpRouter() })
 const v1 = new Hono({ router: new RegExpRouter() })
 
 const logger: MiddlewareHandler = async (c, next) => {
@@ -30,7 +31,7 @@ const logger: MiddlewareHandler = async (c, next) => {
   return next()
 }
 //Auth
-server.route('/api/auth', authRouter)
+root.route('/api/auth', authRouter)
 
 // V1
 v1.use(logger)
@@ -44,30 +45,40 @@ v1.route('/users', usersRouter)
 v1.route('/friendship', friendshipRouter)
 v1.route('/subscriptions', subscriptionsRouter)
 
-server.route('/api/v1', v1)
+root.route('/api/v1', v1)
 
 // Swagger Docs
-server.get('/api/docs', openAPISpecs(server, OpenApiConfig))
-server.get('/api/docs/ui', swaggerUI({ url: '/api/docs' }))
+root.get('/api/docs', openAPISpecs(root, OpenApiConfig))
+root.get('/api/docs/ui', swaggerUI({ url: '/api/docs' }))
 
 // Health check
-server.get('/health', (c) => c.json({ status: 'ok' }))
+root.get('/health', (c) => c.json({ status: 'ok' }))
 
 // Error handler
-server.onError((err, c) => {
+root.onError((err, c) => {
   serverLogger.error('Occurred internal server error', { error: err.message })
   return c.json({ error: 'ERR_INTERNAL_SERVER_ERROR', details: err.message }, 500)
 })
 
 // Not found handler
-server.notFound((c) => c.json({ error: 'ERR_ROUTE_NOT_FOUND' }, 404))
+root.notFound((c) => c.json({ error: 'ERR_ROUTE_NOT_FOUND' }, 404))
 
-await initDB()
+const db = await initDB()
 
 dailyNotificationJob.start()
 eventNotificationJob.start()
 
-export default {
-  port: 8080,
-  fetch: server.fetch,
-}
+const server = Bun.serve({
+  port: env.SERVER_PORT,
+  fetch: root.fetch,
+  development: false,
+})
+
+process.on('SIGTERM', async () => {
+  await db.close()
+  await server.stop()
+  serverLogger.debug('SIGTERM signal received: DB connection closed, HTTP server stopped')
+  process.exit(0)
+})
+
+export default server

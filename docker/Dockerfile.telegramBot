@@ -1,9 +1,7 @@
-FROM aybykovskii/daylik-base:latest
-
-WORKDIR /app
+FROM base
 
 COPY apps/telegramBot/ ./apps/telegramBot/
-COPY ./prompts.json ./apps/telegramBot/
+COPY ./prompt.md ./apps/telegramBot/
 
 EXPOSE ${BOT_PORT}
 

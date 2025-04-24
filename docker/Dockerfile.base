@@ -1,22 +1,19 @@
-FROM oven/bun:latest
+FROM oven/bun:slim
 
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y curl
 
 COPY package.json ./
-COPY bun.lock ./
-COPY tsconfig.json ./
-
 COPY apps/server/package.json ./apps/server/
 COPY apps/telegramBot/package.json ./apps/telegramBot/
 COPY apps/miniapp/package.json ./apps/miniapp/
-COPY packages/shared/package.json ./packages/shared/
 COPY packages/api/package.json ./packages/api/
+COPY packages/shared/package.json ./packages/shared/
+COPY bun.lock ./
+COPY tsconfig.json ./
 
-RUN bun install --verbose --frozen-lockfile --force
+RUN bun install --frozen-lockfile --verbose
 
-COPY packages/shared ./packages/shared
-COPY packages/api ./packages/api
 COPY .env ./
-COPY .env ./packages/shared
+COPY .env ./packages/shared/

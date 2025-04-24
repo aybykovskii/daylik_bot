@@ -10,13 +10,10 @@
     "@sequelize/core": "7.0.0-alpha.41",
     "@sequelize/postgres": "7.0.0-alpha.41",
     "cron": "^4.1.0",
-    "hono-openapi": "^0.4.6",
     "jsonwebtoken": "8.5.1",
     "shared": "workspace:*"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "8.5.1",
-    "sequelize": "7.0.0-alpha.9",
-    "sequelize-cli": "^6.6.2"
+    "@types/jsonwebtoken": "8.5.1"
   }
 }

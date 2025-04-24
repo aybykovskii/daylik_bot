@@ -7,12 +7,9 @@ node_modules
 **/.DS_Store
 
 # env
-.env
-**/*.env
 **/*env*
 
 # prompts
-**/*prompts.json
 **/*prompt.md
 
 #logs

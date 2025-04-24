@@ -1,4 +1,5 @@
 import { hydrateFiles } from '@grammyjs/files'
+import Bun from 'bun'
 import { Bot } from 'grammy'
 import { Hono } from 'hono'
 
@@ -41,15 +42,21 @@ bot.catch((error) => botLogger.error('Occurred bot error', error))
 
 bot.start()
 
-process.once('SIGINT', () => bot.stop())
-process.once('SIGTERM', () => bot.stop())
+const root = new Hono()
 
-const app = new Hono()
+root.route('/notifications', getNotificationRouter(bot, apis.api))
+root.get('/health', (c) => c.text('ok'))
 
-app.route('/notifications', getNotificationRouter(bot, apis.api))
-app.get('/health', (c) => c.text('ok'))
-
-export default {
+const server = Bun.serve({
   port: env.BOT_PORT,
-  fetch: app.fetch,
-}
+  fetch: root.fetch,
+  development: false,
+})
+
+process.once('SIGTERM', async () => {
+  await bot.stop()
+  await server.stop()
+  process.exit(0)
+})
+
+export default server

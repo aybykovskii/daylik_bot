@@ -3,114 +3,115 @@
   become: true
   vars_files:
     - env.yaml
-  become_user: "{{ user }}"
+  become_user: '{{ user }}'
   vars:
-    github_repo_path: "https://github.com/{{ github_username }}/{{ github_repo }}.git"
-    repo_path: "/home/{{ user }}/{{ github_repo }}"
-    db_compose: "docker-compose.db.yaml"
-    apps_compose: "docker-compose.production.yaml"
-    nginx_compose: "docker-compose.nginx.yaml"
+    github_repo_path: 'https://github.com/{{ github_username }}/{{ github_repo }}.git'
+    repo_path: '/home/{{ user }}/{{ github_repo }}'
+    repo_docker_path: '/home/{{ user }}/{{ github_repo }}/docker'
+    db_compose: 'compose.db.yaml'
+    apps_compose: 'compose.yaml'
+    nginx_compose: 'compose.nginx.yaml'
 
   tasks:
-  - name: Клонируем репозиторий
-    git:
-      repo: "{{ github_repo_path }}"
-      dest: "/home/{{ user }}/{{ github_repo }}"
-      accept_hostkey: yes
-      force: yes
-    become_user: "root"
+    - name: Клонируем репозиторий
+      git:
+        repo: '{{ github_repo_path }}'
+        dest: '/home/{{ user }}/{{ github_repo }}'
+        accept_hostkey: yes
+        force: yes
+      become_user: 'root'
 
-  - name: Копируем env файл
-    copy:
-      src: "../../.production.env"
-      dest: "/home/{{ user }}/{{ github_repo }}/.env"
-      force: yes
-    become_user: "{{ user }}"
+    - name: Копируем env файл
+      copy:
+        src: '../../.production.env'
+        dest: '/home/{{ user }}/{{ github_repo }}/.env'
+        force: yes
+      become_user: '{{ user }}'
 
-  - name: Копируем prompts файл
-    copy:
-      src: "../../prompts.json"
-      dest: "/home/{{ user }}/{{ github_repo }}/prompts.json"
-      force: yes
-    become_user: "{{ user }}"
+    - name: Копируем prompt файл
+      copy:
+        src: '../../prompt.md'
+        dest: '/home/{{ user }}/{{ github_repo }}/prompt.md'
+        force: yes
+      become_user: '{{ user }}'
 
-  - name: Логин в Docker Registry
-    docker_login:
-      username: "{{ docker_user }}"
-      password: "{{ docker_password }}"
+    - name: Логин в Docker Registry
+      docker_login:
+        username: '{{ docker_user }}'
+        password: '{{ docker_password }}'
 
-  - name: Создаем сеть daylik
-    community.docker.docker_network:
-      name: daylik
-      state: present
+    - name: Создаем сеть daylik
+      community.docker.docker_network:
+        name: daylik
+        state: present
 
-  - name: Запускаем db docker compose
-    community.docker.docker_compose_v2:
-      project_src: "{{ repo_path }}"
-      files: 
-      - "{{ db_compose }}"
-      state: present
-    register: db_compose_result
-  
-  - name: Результаты db docker compose
-    debug:
-      var: db_compose_result
+    - name: Запускаем db docker compose
+      community.docker.docker_compose_v2:
+        project_src: '{{ repo_docker_path }}'
+        files:
+          - '{{ db_compose }}'
+        state: present
+      register: db_compose_result
 
-  - name: Останавливаем apps docker compose
-    community.docker.docker_compose_v2:
-      project_src: "{{ repo_path }}"
-      files: 
-      - "{{ apps_compose }}"
-      state: absent
+    - name: Результаты db docker compose
+      debug:
+        var: db_compose_result
 
-  - name: Запускаем apps docker compose
-    community.docker.docker_compose_v2:
-      project_src: "{{ repo_path }}"
-      files: 
-      - "{{ apps_compose }}"
-      build: always
-      state: present
-    register: apps_compose_result
+    - name: Останавливаем apps docker compose
+      community.docker.docker_compose_v2:
+        project_src: '{{ repo_docker_path }}'
+        files:
+          - '{{ apps_compose }}'
+        state: absent
 
-  - name: Результаты apps docker compose
-    debug:
-      var: apps_compose_result
+    - name: Запускаем apps docker compose
+      community.docker.docker_compose_v2:
+        project_src: '{{ repo_docker_path }}'
+        files:
+          - '{{ apps_compose }}'
+        build: always
+        state: present
+      register: apps_compose_result
 
-  - name: Создаем контейнер miniapp
-    community.docker.docker_container:
-      name: "{{ miniapp_name }}"
-      image: daylik_bot-miniapp
-      state: present
+    - name: Результаты apps docker compose
+      debug:
+        var: apps_compose_result
 
-  - name: Удаляем старую статику
-    file:
-      path: "{{ repo_path }}/static/"
-      state: absent
-    become_user: root
+    - name: Создаем контейнер miniapp
+      community.docker.docker_container:
+        name: '{{ miniapp_name }}'
+        image: daylik_bot-miniapp
+        state: present
 
-  - name: Копируем статику miniapp
-    command: "docker cp {{ miniapp_name }}:/app/apps/miniapp/dist {{ repo_path }}/static"
-    become_user: root
+    - name: Удаляем старую статику
+      file:
+        path: '{{ repo_path }}/static/'
+        state: absent
+      become_user: root
 
-  - name: Удаляем контейнер miniapp
-    community.docker.docker_container:
-      name: "{{ miniapp_name }}"
-      image: daylik_bot-miniapp
-      state: absent
+    - name: Копируем статику miniapp
+      command: 'docker cp {{ miniapp_name }}:/app/apps/miniapp/dist {{ repo_path }}/static'
+      become_user: root
 
-  - name: Перезапускаем nginx docker compose
-    community.docker.docker_compose_v2:
-      project_src: "{{ repo_path }}"
-      files: 
-      - "{{ nginx_compose }}"
-      state: restarted
-    register: nginx_compose_result
+    - name: Удаляем контейнер miniapp
+      community.docker.docker_container:
+        name: '{{ miniapp_name }}'
+        image: daylik_bot-miniapp
+        state: absent
 
-  - name: Результаты nginx docker compose
-    debug:
-      var: nginx_compose_result
+    - name: Перезапускаем nginx docker compose
+      community.docker.docker_compose_v2:
+        project_src: '{{ repo_docker_path }}'
+        files:
+          - '{{ nginx_compose }}'
+        state: restarted
+      register: nginx_compose_result
 
-  - name: Удаляем старые образы и контейнеры
-    community.docker.docker_prune:
-      containers: false
-      images: true
+    - name: Результаты nginx docker compose
+      debug:
+        var: nginx_compose_result
+
+    - name: Удаляем старые образы и контейнеры
+      community.docker.docker_prune:
+        containers: false
+        images: true

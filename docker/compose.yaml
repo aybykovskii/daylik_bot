@@ -1,0 +1,103 @@
+name: daylik
+
+x-root-defaults: &root-defaults
+  restart: unless-stopped
+  env_file:
+    - .env
+  networks:
+    - daylik
+  depends_on:
+    - base
+  volumes:
+    - ../packages:/app/packages:rw
+
+x-build-context: &build-context
+  context: ..
+
+x-build-defaults: &build-defaults
+  <<: *build-context
+  additional_contexts:
+    base: 'service:base'
+
+x-depends-on-server: &depends-on-server
+  server:
+    condition: service_healthy
+
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 5s
+  timeout: 5s
+  retries: 5
+
+services:
+  base:
+    build:
+      <<: *build-context
+      dockerfile: ./docker/Dockerfile.base
+    image: base
+
+  server:
+    <<: *root-defaults
+    container_name: server
+    build:
+      <<: *build-defaults
+      dockerfile: ./docker/Dockerfile.server
+    develop:
+      watch:
+        - action: sync+restart
+          path: ../apps/server
+          target: /app/apps/server
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: 'curl --fail http://localhost:${SERVER_PORT}/health || exit 1'
+    ports:
+      - '8080:${SERVER_PORT}'
+    profiles:
+      - server
+      - bot
+      - all
+
+  telegram_bot:
+    <<: *root-defaults
+    container_name: bot
+    build:
+      <<: *build-defaults
+      dockerfile: ./docker/Dockerfile.telegramBot
+    develop:
+      watch:
+        - action: sync+restart
+          path: ../apps/telegramBot
+          target: /app/apps/telegramBot
+    depends_on:
+      <<: *depends-on-server
+    ports:
+      - '3030:${BOT_PORT}'
+    healthcheck:
+      <<: *healthcheck-defaults
+      test: 'curl --fail http://localhost:${BOT_PORT}/health || exit 1'
+    restart: unless-stopped
+    profiles:
+      - bot
+      - all
+
+  miniapp:
+    <<: *root-defaults
+    container_name: miniapp
+    build:
+      <<: *build-defaults
+      dockerfile: ./docker/Dockerfile.miniapp.${NODE_ENV}
+    develop:
+      watch:
+        - action: sync+restart
+          path: ../apps/miniapp
+          target: /app/apps/miniapp
+    depends_on:
+      <<: *depends-on-server
+    ports:
+      - '3000:${MINI_APP_PORT}'
+    restart: ${RESTART_POLICY:-unless-stopped}
+    profiles:
+      - all
+
+networks:
+  daylik:
+    external: true

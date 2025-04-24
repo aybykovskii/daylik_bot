@@ -1,9 +1,10 @@
-FROM aybykovskii/daylik-base:latest
+FROM base
 
 WORKDIR /app
 
 COPY apps/miniapp/ ./apps/miniapp/
+COPY packages/ ./packages/
 
-RUN bun --filter=miniapp build && \
+RUN bun run miniapp:build && \
   rm -rf ./apps/miniapp/src && \
   rm -rf ./apps/miniapp/node-modules

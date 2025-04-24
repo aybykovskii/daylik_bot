@@ -1,26 +1,30 @@
+name: daylik
+
+x-defaults: &defaults
+  env_file:
+    - .env
+  networks:
+    - daylik
+
 services:
   postgres:
+    <<: *defaults
     image: postgres:latest
-    env_file:
-      - .env
-    networks:
-      - daylik
+    container_name: db
     volumes:
       - postgres_data:/var/lib/postgresql/data/:rw
     healthcheck:
-      test: [ 'CMD-SHELL', 'pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}' ]
+      test: ['CMD-SHELL', 'pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}']
       interval: 5s
       timeout: 5s
       retries: 5
 
   pgadmin:
-    image: dpage/pgadmin4
-    env_file:
-      - .env
+    <<: *defaults
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
     ports:
       - '5050:80'
-    networks:
-      - daylik
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
@@ -28,9 +32,9 @@ services:
 
 volumes:
   postgres_data:
+    name: daylik_db_volume
   pgadmin-data:
-
-
+    name: daylik_pgadmin_volume
 networks:
   daylik:
     external: true

@@ -19,6 +19,9 @@ export const init = async () => {
     logging: false,
   })
 
+  // Shut the deprecation warning
+  process.on('warning', () => {})
+
   try {
     await sql.authenticate()
     serverLogger.debug('Connected to postgres')

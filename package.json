@@ -18,10 +18,21 @@
     "check:biome": "biome check .",
     "format:biome": "biome format .",
     "ansible:certificates": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/update-certificates.yaml",
-    "ansible:deploy": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/deploy.yaml"
+    "ansible:deploy": "ansible-playbook -i ansible/inventory.yaml ansible/playbooks/deploy.yaml",
+    "copy:env:dev": "cat .env | tee docker/.env packages/shared/.env > /dev/null",
+    "copy:env:prod": "cat .env .env.production | tee docker/.env packages/shared/.env > /dev/null",
+    "docker:run:db": "bun run copy:env:dev && docker compose -f docker/compose.db.yaml up -d",
+    "docker:run:apps": "bun run copy:env:dev && docker compose -f docker/compose.yaml --profile all up --build",
+    "docker:run:apps:prod": "bun run copy:env:prod && docker compose -f docker/compose.yaml --profile all up --build --detach",
+    "docker:run:server": "bun run copy:env:dev && docker compose -f docker/compose.yaml --profile server up --build",
+    "docker:run:bot": "bun run copy:env:dev && docker compose -f docker/compose.yaml --profile bot up --build",
+    "docker:stop:db": "docker compose -f docker/compose.db.yaml down",
+    "docker:stop:apps:prod": "NODE_ENV=production docker compose -f docker/compose.yaml --profile all down",
+    "docker:stop:nginx": "docker compose -f docker/compose.nginx.yaml down"
   },
   "license": "ISC",
   "dependencies": {
+    "@types/bun": "^1.2.10",
     "@hono/arktype-validator": "^2.0.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "arktype": "^2.1.15",
@@ -38,6 +49,6 @@
     "@biomejs/biome": "1.8.3",
     "@types/node": "~18.16.9",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.8.3"
   }
 }
