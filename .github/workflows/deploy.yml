@@ -32,8 +32,8 @@ jobs:
           echo "${{ secrets.BASE_ENV }}" > .env
           echo "${{ secrets.PROD_ENV }}" > .env.production
           echo "${{ secrets.ANSIBLE_ENV }}" > ansible/playbooks/env.yaml
-          cat <<EOF > guide.md
-          ${MARKDOWN_GUIDE}
+          cat <<EOF > prompt.md
+          ${{ secrets.PROMPT }}
           EOF
 
       - name: Add SSH private key
