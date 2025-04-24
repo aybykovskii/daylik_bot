@@ -9,6 +9,8 @@ import { Payments } from './payment'
 export class CommandHandlers {
   static REFUND_COMMAND_REGEX = /\/refund\?paymentId=(.+)/
 
+  static REFUND_LIMIT = 3
+
   static webAppKeyboard = new InlineKeyboard().webApp('Планер', env.WEB_APP_URL)
 
   static start: Middleware<BotContext> = async (ctx) =>
@@ -42,6 +44,12 @@ export class CommandHandlers {
 
     if (!availablePayments.length) {
       return ctx.replyT('bot.commands.request_refund.paymentsNotFound')
+    }
+
+    const refundPayments = ctx.user.payments.filter(({ type, status }) => type === 'refund' && status === 'success')
+
+    if (refundPayments.length >= CommandHandlers.REFUND_LIMIT) {
+      return ctx.replyT('bot.commands.request_refund.refundLimitReached')
     }
 
     return Payments.sendRefundablePayments(ctx)

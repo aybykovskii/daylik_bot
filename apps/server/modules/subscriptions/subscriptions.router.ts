@@ -31,7 +31,12 @@ subscriptionsRouter.get(
       return c.json({ error: subscription.error }, 404)
     }
 
-    const { status, type, endDate } = subscription.value
+    const { status, type, endDate, user: { role } } = subscription.value
+
+    // Staff has no limits
+    if (role !== 'user') {
+      return c.json(subscription.value)
+    }
 
     if (status === 'canceled') {
       return c.json({ error: 'ERR_SUBSCRIPTION_CANCELED' }, 400)
