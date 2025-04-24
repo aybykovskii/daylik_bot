@@ -2,8 +2,6 @@ import dayjs, { Dayjs } from 'dayjs'
 
 import { ONE_HOUR } from './constants'
 
-export const getUTCTimeDiff = (hours: number) => hours * ONE_HOUR
-
 export const makeUTCTimeDiff = (mins: number) => mins / ONE_HOUR
 
 export const getUserDate = (diff: number, date?: Dayjs) => (date ?? dayjs()).add(-diff, 'hour')

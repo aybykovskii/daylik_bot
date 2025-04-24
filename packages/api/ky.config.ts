@@ -25,23 +25,12 @@ const customFetch = (input: RequestInfo | URL, init?: RequestInit) =>
         },
       ],
       afterResponse: [
-        async (_, options, res) => {
-          const { method } = options
-          const { url, status } = res
-
-          if (status >= 400) {
-            const { message } = (await res.json()) as { message: string }
-
-            console.error(`Request to ${method} ${url} failed with status ${status}: ${message}`)
-          }
-
+        async (...[, , res]) => {
           const token = res.headers.get('Authorization')
 
           if (token && !AuthData.getToken()) {
             AuthData.setToken(token)
           }
-
-          return res
         },
       ],
     },

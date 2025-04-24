@@ -1,8 +1,6 @@
 import { BelongsToGetAssociationMixin, CreationOptional, DataTypes, NonAttribute } from '@sequelize/core'
 import { Attribute, Default, NotNull, Table } from '@sequelize/core/decorators-legacy'
 
-import { getUTCTimeDiff } from 'shared'
-
 import { Settings, SettingsDto, SettingsFullData } from '@/types/settings'
 
 import { BaseIntModel } from './base.model'
@@ -16,7 +14,7 @@ export class SettingsModel extends BaseIntModel<SettingsModel> {
 
   @Attribute(DataTypes.INTEGER)
   @NotNull
-  @Default(getUTCTimeDiff(3))
+  @Default(-3) // Default offset for Moscow timezone
   declare UTCTimeDiff: CreationOptional<Settings['UTCTimeDiff']>
 
   @Attribute(DataTypes.STRING)

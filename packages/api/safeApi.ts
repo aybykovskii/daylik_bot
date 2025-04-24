@@ -1,4 +1,5 @@
-import { Result, err, ok } from 'neverthrow'
+import { KyResponse } from 'ky'
+import { Ok, Result, ResultAsync, err } from 'neverthrow'
 
 export type MakeSafeApi<T> = {
   [K in keyof T]: T[K] extends (...args: infer P) => Promise<infer R>
@@ -7,12 +8,17 @@ export type MakeSafeApi<T> = {
 }
 
 const makeApiCallSafe = async <T, E>(apiCall: Promise<T>): Promise<Result<T, E>> => {
-  try {
-    const response = await apiCall
-    return ok(response)
-  } catch (error) {
-    return err(error as E)
+  const res = await ResultAsync.fromPromise(apiCall, (res) => res)
+
+  if (res.isErr()) {
+    const errorResponse = res.error as KyResponse
+
+    const originalError = await errorResponse.json<E>()
+
+    return err(originalError)
   }
+
+  return res as Ok<T, E>
 }
 
 export const makeApiSafe = <T extends object>(apiInstance: T): MakeSafeApi<T> =>

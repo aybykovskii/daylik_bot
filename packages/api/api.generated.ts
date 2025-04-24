@@ -12,244 +12,239 @@
 
 export type DeleteEventDraftsByIdError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_EVENT_DRAFT_DOES_NOT_EXIST";
-    };
+      error: 'ERR_EVENT_DRAFT_DOES_NOT_EXIST'
+    }
 
 export type DeleteEventSharesByUuidError = {
-  error: "ERR_EVENT_SHARING_DOES_NOT_EXIST";
-};
+  error: 'ERR_EVENT_SHARING_DOES_NOT_EXIST'
+}
 
 export type DeleteEventsByIdError = {
-  error: "ERR_EVENT_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_EVENT_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type DeleteFriendshipByUuidError = {
-  error: "ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type DeletePaymentsByUuidError = {
-  error: "ERR_PAYMENT_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_PAYMENT_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type DeleteUsersByIdError =
   | {
-      error: "ERR_USER_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
+      error: 'ERR_USER_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type GetApiAuthTokenError = {
-  error: "ERR_USER_DOES_NOT_EXIST";
-};
+  error: 'ERR_USER_DOES_NOT_EXIST'
+}
 
 export type GetEventDraftsByIdError =
   | {
-      error: "ERR_INVALID_USER_ID" | "ERR_VALIDATION_FAILED";
+      error: 'ERR_INVALID_USER_ID' | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_EVENT_DRAFT_DOES_NOT_EXIST";
-    };
+      error: 'ERR_EVENT_DRAFT_DOES_NOT_EXIST'
+    }
 
 export type GetEventSharesByUuidError =
   | {
-      error: "ERR_EVENT_SHARING_DOES_NOT_EXIST";
+      error: 'ERR_EVENT_SHARING_DOES_NOT_EXIST'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type GetEventSharesError = {
-  error: "ERR_INVALID_USER_ROLE";
-};
+  error: 'ERR_INVALID_USER_ROLE'
+}
 
 export type GetEventsByIdError =
   | {
-      error: "ERR_EVENT_DOES_NOT_EXIST";
+      error: 'ERR_EVENT_DOES_NOT_EXIST'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type GetEventsError = {
-  error: "ERR_INVALID_USER_ROLE";
-};
+  error: 'ERR_INVALID_USER_ROLE'
+}
 
 export type GetFriendshipByUuidError = {
-  error: "ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type GetFriendshipError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ROLE";
-    };
+      error: 'ERR_INVALID_USER_ROLE'
+    }
 
 export type GetPaymentsByUuidError = {
-  error: "ERR_PAYMENT_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_PAYMENT_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type GetPaymentsError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ROLE";
-    };
+      error: 'ERR_INVALID_USER_ROLE'
+    }
 
 export type GetSettingsByIdError = {
-  error: "ERR_SETTINGS_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_SETTINGS_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type GetSettingsError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ROLE";
-    };
+      error: 'ERR_INVALID_USER_ROLE'
+    }
 
 export type GetSubscriptionsByIdCheckError =
   | {
       error:
-        | "ERR_PAID_SUBSCRIPTION_EXPIRED"
-        | "ERR_SUBSCRIPTION_CANCELED"
-        | "ERR_TRIAL_SUBSCRIPTION_EXPIRED"
-        | "ERR_VALIDATION_FAILED";
+        | 'ERR_PAID_SUBSCRIPTION_EXPIRED'
+        | 'ERR_SUBSCRIPTION_CANCELED'
+        | 'ERR_TRIAL_SUBSCRIPTION_EXPIRED'
+        | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_SUBSCRIPTION_DOES_NOT_EXIST";
-    };
+      error: 'ERR_SUBSCRIPTION_DOES_NOT_EXIST'
+    }
 
 export type GetUsersByIdError =
   | {
-      error: "ERR_USER_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
+      error: 'ERR_USER_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type GetUsersError = {
-  error: "ERR_INVALID_USER_ROLE";
-};
+  error: 'ERR_INVALID_USER_ROLE'
+}
 
 export type PatchEventDraftsByIdError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_EVENT_DRAFT_DOES_NOT_EXIST";
-    };
+      error: 'ERR_EVENT_DRAFT_DOES_NOT_EXIST'
+    }
 
 export type PatchEventSharesByUuidError =
   | {
-      error:
-        | "ERR_EVENT_SHARING_DOES_NOT_EXIST"
-        | "ERR_EVENT_SHARING_INVALID_DATA";
+      error: 'ERR_EVENT_SHARING_DOES_NOT_EXIST' | 'ERR_EVENT_SHARING_INVALID_DATA'
     }
   | {
-      error: "ERR_INVALID_USER_ID" | "ERR_VALIDATION_FAILED";
-    };
+      error: 'ERR_INVALID_USER_ID' | 'ERR_VALIDATION_FAILED'
+    }
 
 export type PatchEventsByIdError =
   | {
-      error: "ERR_EVENT_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
+      error: 'ERR_EVENT_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type PatchFriendshipByUuidError = {
   error:
-    | "ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST"
-    | "ERR_FRIENDSHIP_REQUEST_NOT_PENDING"
-    | "ERR_FRIENDSHIP_REQUEST_USER_DOES_NOT_EXIST"
-    | "ERR_VALIDATION_FAILED";
-};
+    | 'ERR_FRIENDSHIP_REQUEST_DOES_NOT_EXIST'
+    | 'ERR_FRIENDSHIP_REQUEST_NOT_PENDING'
+    | 'ERR_FRIENDSHIP_REQUEST_USER_DOES_NOT_EXIST'
+    | 'ERR_VALIDATION_FAILED'
+}
 
 export type PatchPaymentsByUuidError = {
-  error: "ERR_PAYMENT_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_PAYMENT_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type PatchSettingsByIdError = {
-  error: "ERR_SETTINGS_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_SETTINGS_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
+}
 
 export type PatchSubscriptionsByIdCancelError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_SUBSCRIPTION_DOES_NOT_EXIST";
-    };
+      error: 'ERR_SUBSCRIPTION_DOES_NOT_EXIST'
+    }
 
 export type PatchSubscriptionsByIdRenewError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_SUBSCRIPTION_DOES_NOT_EXIST";
-    };
+      error: 'ERR_SUBSCRIPTION_DOES_NOT_EXIST'
+    }
 
 export type PatchUsersByIdError =
   | {
-      error:
-        | "ERR_USER_DOES_NOT_EXIST"
-        | "ERR_USER_UPDATE_FAILED"
-        | "ERR_VALIDATION_FAILED";
+      error: 'ERR_USER_DOES_NOT_EXIST' | 'ERR_USER_UPDATE_FAILED' | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type PatchUsersByIdIncreaseRequestsCountError =
   | {
-      error: "ERR_USER_DOES_NOT_EXIST" | "ERR_VALIDATION_FAILED";
+      error: 'ERR_USER_DOES_NOT_EXIST' | 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_INVALID_USER_ID";
-    };
+      error: 'ERR_INVALID_USER_ID'
+    }
 
 export type PostEventDraftsError =
   | {
-      error: "ERR_VALIDATION_FAILED";
+      error: 'ERR_VALIDATION_FAILED'
     }
   | {
-      error: "ERR_EVENT_DRAFT_DOES_NOT_EXIST";
-    };
+      error: 'ERR_EVENT_DRAFT_DOES_NOT_EXIST'
+    }
 
 export type PostEventSharesError =
   | {
-      error: "ERR_EVENT_SHARING_INVALID_DATA";
+      error: 'ERR_EVENT_SHARING_INVALID_DATA'
     }
   | {
-      error: "ERR_INVALID_USER_ID" | "ERR_VALIDATION_FAILED";
-    };
+      error: 'ERR_INVALID_USER_ID' | 'ERR_VALIDATION_FAILED'
+    }
 
 export type PostEventsError =
   | {
-      error: "ERR_EVENT_DRAFT_DOES_NOT_EXIST" | "ERR_EVENT_INVALID_DATA";
+      error: 'ERR_EVENT_DRAFT_DOES_NOT_EXIST' | 'ERR_EVENT_INVALID_DATA'
     }
   | {
-      error: "ERR_VALIDATION_FAILED";
-    };
+      error: 'ERR_VALIDATION_FAILED'
+    }
 
 export type PostFriendshipError = {
-  error: "ERR_FRIENDSHIP_REQUEST_ALREADY_EXISTS" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_FRIENDSHIP_REQUEST_ALREADY_EXISTS' | 'ERR_VALIDATION_FAILED'
+}
 
 export type PostPaymentsError = {
-  error: "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_VALIDATION_FAILED'
+}
 
 export type PostUsersError = {
-  error: "ERR_USER_ALREADY_EXISTS" | "ERR_VALIDATION_FAILED";
-};
+  error: 'ERR_USER_ALREADY_EXISTS' | 'ERR_VALIDATION_FAILED'
+}
 
 export namespace Auth {
   /**
@@ -260,17 +255,17 @@ export namespace Auth {
    * @request GET:/api/auth/token
    */
   export namespace GetApiToken {
-    export type RequestParams = {};
+    export type RequestParams = {}
     export type RequestQuery = {
-      telegramUserId?: string;
+      telegramUserId?: string
       /** @pattern ^(?:(?!^-0$)-?(?:(?:0|[1-9]\d*)))$ */
-      userId?: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      userId?: string
+    }
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      token: string;
-    };
+      token: string
+    }
   }
 }
 
@@ -283,24 +278,24 @@ export namespace Settings {
    * @request GET:/api/v1/settings
    */
   export namespace GetAll {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      UTCTimeDiff: number;
+      UTCTimeDiff: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      id: number;
-      notificationTime: string;
+      createdAt: string
+      id: number
+      notificationTime: string
       stylization: {
-        primaryColor?: string;
-        secondaryColor?: string;
-      };
+        primaryColor?: string
+        secondaryColor?: string
+      }
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    }[];
+      updatedAt: string
+      userId: number
+    }[]
   }
 
   /**
@@ -312,25 +307,25 @@ export namespace Settings {
    */
   export namespace GetById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      UTCTimeDiff: number;
+      UTCTimeDiff: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      id: number;
-      notificationTime: string;
+      createdAt: string
+      id: number
+      notificationTime: string
       stylization: {
-        primaryColor?: string;
-        secondaryColor?: string;
-      };
+        primaryColor?: string
+        secondaryColor?: string
+      }
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 
   /**
@@ -342,32 +337,32 @@ export namespace Settings {
    */
   export namespace PatchById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
-      UTCTimeDiff?: number;
-      notificationTime?: string;
+      UTCTimeDiff?: number
+      notificationTime?: string
       stylization?: {
-        primaryColor?: string;
-        secondaryColor?: string;
-      };
-    };
-    export type RequestHeaders = {};
+        primaryColor?: string
+        secondaryColor?: string
+      }
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      UTCTimeDiff: number;
+      UTCTimeDiff: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      id: number;
-      notificationTime: string;
+      createdAt: string
+      id: number
+      notificationTime: string
       stylization: {
-        primaryColor?: string;
-        secondaryColor?: string;
-      };
+        primaryColor?: string
+        secondaryColor?: string
+      }
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 }
 
@@ -381,14 +376,14 @@ export namespace EventDrafts {
    */
   export namespace DeleteById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -399,23 +394,23 @@ export namespace EventDrafts {
    * @request GET:/api/v1/event_drafts
    */
   export namespace GetAll {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      emoji: string;
-      id: number;
-      text: string;
-      time: string | null;
+      date: string
+      emoji: string
+      id: number
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    }[];
+      updatedAt: string
+      userId: number
+    }[]
   }
 
   /**
@@ -427,36 +422,36 @@ export namespace EventDrafts {
    */
   export namespace GetById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      emoji: string;
-      id: number;
-      text: string;
-      time: string | null;
+      date: string
+      emoji: string
+      id: number
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
+      updatedAt: string
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -468,43 +463,43 @@ export namespace EventDrafts {
    */
   export namespace PatchById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date?: string;
-      emoji?: string;
-      text?: string;
-      time?: string | null;
-      userId: number;
-    };
-    export type RequestHeaders = {};
+      date?: string
+      emoji?: string
+      text?: string
+      time?: string | null
+      userId: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      emoji: string;
-      id: number;
-      text: string;
-      time: string | null;
+      date: string
+      emoji: string
+      id: number
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
+      updatedAt: string
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -515,42 +510,42 @@ export namespace EventDrafts {
    * @request POST:/api/v1/event_drafts
    */
   export namespace Post {
-    export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
     export type RequestBody = {
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      emoji: string;
-      text: string;
-      time: string | null;
-      userId: number;
-    };
-    export type RequestHeaders = {};
+      date: string
+      emoji: string
+      text: string
+      time: string | null
+      userId: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      emoji: string;
-      id: number;
-      text: string;
-      time: string | null;
+      date: string
+      emoji: string
+      id: number
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
+      updatedAt: string
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 }
 
@@ -565,17 +560,14 @@ export namespace EventShares {
   export namespace DeleteByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -586,26 +578,23 @@ export namespace EventShares {
    * @request GET:/api/v1/event_shares
    */
   export namespace GetAll {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      eventId: number;
+      createdAt: string
+      eventId: number
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-      targetUserId: number | null;
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+      targetUserId: number | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      usageAmount: number;
-      usageLimit: number;
-      userId: number;
-    }[];
+      updatedAt: string
+      usageAmount: number
+      usageLimit: number
+      userId: number
+    }[]
   }
 
   /**
@@ -618,70 +607,64 @@ export namespace EventShares {
   export namespace GetByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       event: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        datetime: string;
-        emoji: string;
-        id: number;
-        notificationDatetime: string;
-        text: string;
-        time: string | null;
+        date: string
+        datetime: string
+        emoji: string
+        id: number
+        notificationDatetime: string
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
-      eventId: number;
+        updatedAt: string
+        userId: number
+      }
+      eventId: number
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       targetUser: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      targetUserId: number | null;
+        updatedAt: string
+      }
+      targetUserId: number | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      usageAmount: number;
-      usageLimit: number;
+      updatedAt: string
+      usageAmount: number
+      usageLimit: number
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -694,73 +677,67 @@ export namespace EventShares {
   export namespace PatchByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
-      targetUserId?: number | null;
-      usageAmount?: number;
-    };
-    export type RequestHeaders = {};
+      targetUserId?: number | null
+      usageAmount?: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       event: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        datetime: string;
-        emoji: string;
-        id: number;
-        notificationDatetime: string;
-        text: string;
-        time: string | null;
+        date: string
+        datetime: string
+        emoji: string
+        id: number
+        notificationDatetime: string
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
-      eventId: number;
+        updatedAt: string
+        userId: number
+      }
+      eventId: number
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       targetUser: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      targetUserId: number | null;
+        updatedAt: string
+      }
+      targetUserId: number | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      usageAmount: number;
-      usageLimit: number;
+      updatedAt: string
+      usageAmount: number
+      usageLimit: number
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -771,72 +748,69 @@ export namespace EventShares {
    * @request POST:/api/v1/event_shares
    */
   export namespace Post {
-    export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
     export type RequestBody = {
-      eventId: number;
-      targetUserId?: number | null;
-      usageAmount?: number;
-      usageLimit?: number;
-      userId: number;
-    };
-    export type RequestHeaders = {};
+      eventId: number
+      targetUserId?: number | null
+      usageAmount?: number
+      usageLimit?: number
+      userId: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       event: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        datetime: string;
-        emoji: string;
-        id: number;
-        notificationDatetime: string;
-        text: string;
-        time: string | null;
+        date: string
+        datetime: string
+        emoji: string
+        id: number
+        notificationDatetime: string
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
-      eventId: number;
+        updatedAt: string
+        userId: number
+      }
+      eventId: number
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       targetUser: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      targetUserId: number | null;
+        updatedAt: string
+      }
+      targetUserId: number | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      usageAmount: number;
-      usageLimit: number;
+      updatedAt: string
+      usageAmount: number
+      usageLimit: number
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 }
 
@@ -850,14 +824,14 @@ export namespace Events {
    */
   export namespace DeleteById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -868,26 +842,26 @@ export namespace Events {
    * @request GET:/api/v1/events
    */
   export namespace GetAll {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      copyFromId?: number;
+      copyFromId?: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      datetime: string;
-      emoji: string;
-      id: number;
-      notificationDatetime: string;
-      text: string;
-      time: string | null;
+      date: string
+      datetime: string
+      emoji: string
+      id: number
+      notificationDatetime: string
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    }[];
+      updatedAt: string
+      userId: number
+    }[]
   }
 
   /**
@@ -899,39 +873,39 @@ export namespace Events {
    */
   export namespace GetById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      copyFromId?: number;
+      copyFromId?: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      datetime: string;
-      emoji: string;
-      id: number;
-      notificationDatetime: string;
-      text: string;
-      time: string | null;
+      date: string
+      datetime: string
+      emoji: string
+      id: number
+      notificationDatetime: string
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
+      updatedAt: string
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -943,48 +917,48 @@ export namespace Events {
    */
   export namespace PatchById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
-      copyFromId?: number;
+      copyFromId?: number
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date?: string;
-      datetime?: string;
-      emoji?: string;
-      notificationDatetime?: string;
-      text?: string;
-      time?: string | null;
-    };
-    export type RequestHeaders = {};
+      date?: string
+      datetime?: string
+      emoji?: string
+      notificationDatetime?: string
+      text?: string
+      time?: string | null
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      copyFromId?: number;
+      copyFromId?: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      datetime: string;
-      emoji: string;
-      id: number;
-      notificationDatetime: string;
-      text: string;
-      time: string | null;
+      date: string
+      datetime: string
+      emoji: string
+      id: number
+      notificationDatetime: string
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
+      updatedAt: string
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -995,48 +969,48 @@ export namespace Events {
    * @request POST:/api/v1/events
    */
   export namespace Post {
-    export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
     export type RequestBody = {
-      copyFromId?: number;
+      copyFromId?: number
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date?: string;
-      datetime?: string;
-      emoji?: string;
-      notificationDatetime?: string;
-      text?: string;
-      time?: string | null;
-      userId?: number;
-    };
-    export type RequestHeaders = {};
+      date?: string
+      datetime?: string
+      emoji?: string
+      notificationDatetime?: string
+      text?: string
+      time?: string | null
+      userId?: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      copyFromId?: number;
+      copyFromId?: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-      date: string;
-      datetime: string;
-      emoji: string;
-      id: number;
-      notificationDatetime: string;
-      text: string;
-      time: string | null;
+      date: string
+      datetime: string
+      emoji: string
+      id: number
+      notificationDatetime: string
+      text: string
+      time: string | null
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
+      updatedAt: string
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 }
 
@@ -1051,17 +1025,14 @@ export namespace Payments {
   export namespace DeleteByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -1072,48 +1043,33 @@ export namespace Payments {
    * @request GET:/api/v1/payments
    */
   export namespace GetAll {
-    export type RequestParams = {};
+    export type RequestParams = {}
     export type RequestQuery = {
       /** @pattern ^(?:(?!^-0$)-?(?:(?:0|[1-9]\d*)))$ */
-      userId?: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      userId?: string
+    }
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      amount: number;
+      amount: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      currency: string;
-      description: string;
+      createdAt: string
+      currency: string
+      description: string
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      idempotenceKey:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      paymentId:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-      provider: string | null;
-      providerPaymentId: string | null;
-      status:
-        | "canceled"
-        | "failed"
-        | "in_progress"
-        | "pending"
-        | "refunded"
-        | "success";
-      type: "refund" | "subscription";
+      paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+      provider: string | null
+      providerPaymentId: string | null
+      status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+      type: 'refund' | 'subscription'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    }[];
+      updatedAt: string
+      userId: number
+    }[]
   }
 
   /**
@@ -1126,49 +1082,31 @@ export namespace Payments {
   export namespace GetByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      amount: number;
+      amount: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      currency: string;
-      description: string;
+      createdAt: string
+      currency: string
+      description: string
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      idempotenceKey:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      paymentId:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-      provider: string | null;
-      providerPaymentId: string | null;
-      status:
-        | "canceled"
-        | "failed"
-        | "in_progress"
-        | "pending"
-        | "refunded"
-        | "success";
-      type: "refund" | "subscription";
+      paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+      provider: string | null
+      providerPaymentId: string | null
+      status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+      type: 'refund' | 'subscription'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 
   /**
@@ -1181,63 +1119,39 @@ export namespace Payments {
   export namespace PatchByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
-      amount?: number;
-      currency?: string;
-      description?: string;
-      provider?: string | null;
-      providerPaymentId?: string | null;
-      status?:
-        | "canceled"
-        | "failed"
-        | "in_progress"
-        | "pending"
-        | "refunded"
-        | "success";
-      type?: "refund" | "subscription";
-    };
-    export type RequestHeaders = {};
+      amount?: number
+      currency?: string
+      description?: string
+      provider?: string | null
+      providerPaymentId?: string | null
+      status?: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+      type?: 'refund' | 'subscription'
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      amount: number;
+      amount: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      currency: string;
-      description: string;
+      createdAt: string
+      currency: string
+      description: string
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      idempotenceKey:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      paymentId:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-      provider: string | null;
-      providerPaymentId: string | null;
-      status:
-        | "canceled"
-        | "failed"
-        | "in_progress"
-        | "pending"
-        | "refunded"
-        | "success";
-      type: "refund" | "subscription";
+      paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+      provider: string | null
+      providerPaymentId: string | null
+      status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+      type: 'refund' | 'subscription'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 
   /**
@@ -1248,53 +1162,38 @@ export namespace Payments {
    * @request POST:/api/v1/payments
    */
   export namespace Post {
-    export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
     export type RequestBody = {
-      amount: number;
-      currency: string;
-      description: string;
-      provider?: string;
-      providerPaymentId?: string;
-      type: "refund" | "subscription";
-      userId: number;
-    };
-    export type RequestHeaders = {};
+      amount: number
+      currency: string
+      description: string
+      provider?: string
+      providerPaymentId?: string
+      type: 'refund' | 'subscription'
+      userId: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      amount: number;
+      amount: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      currency: string;
-      description: string;
+      createdAt: string
+      currency: string
+      description: string
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      idempotenceKey:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+      idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
       /** a UUID */
-      paymentId:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-      provider: string | null;
-      providerPaymentId: string | null;
-      status:
-        | "canceled"
-        | "failed"
-        | "in_progress"
-        | "pending"
-        | "refunded"
-        | "success";
-      type: "refund" | "subscription";
+      paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+      provider: string | null
+      providerPaymentId: string | null
+      status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+      type: 'refund' | 'subscription'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 }
 
@@ -1308,14 +1207,14 @@ export namespace Users {
    */
   export namespace DeleteById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -1326,22 +1225,22 @@ export namespace Users {
    * @request GET:/api/v1/users
    */
   export namespace GetAll {
-    export type RequestParams = {};
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
-      firstName: string | null;
-      fullName: string;
-      id: number;
-      lastName: string | null;
-      role: "admin" | "staff" | "user";
-      telegramUserId: string;
+      createdAt: string
+      firstName: string | null
+      fullName: string
+      id: number
+      lastName: string | null
+      role: 'admin' | 'staff' | 'user'
+      telegramUserId: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-    }[];
+      updatedAt: string
+    }[]
   }
 
   /**
@@ -1353,209 +1252,182 @@ export namespace Users {
    */
   export namespace GetById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       eventDrafts: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        emoji: string;
-        id: number;
-        text: string;
-        time: string | null;
+        date: string
+        emoji: string
+        id: number
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       events: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        datetime: string;
-        emoji: string;
-        id: number;
-        notificationDatetime: string;
-        text: string;
-        time: string | null;
+        date: string
+        datetime: string
+        emoji: string
+        id: number
+        notificationDatetime: string
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
-      firstName: string | null;
+        updatedAt: string
+        userId: number
+      }[]
+      firstName: string | null
       friends: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      }[];
-      fullName: string;
-      id: number;
+        updatedAt: string
+      }[]
+      fullName: string
+      id: number
       incomingEventShares: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        eventId: number;
+        createdAt: string
+        eventId: number
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        targetUserId: number | null;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        targetUserId: number | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        usageAmount: number;
-        usageLimit: number;
-        userId: number;
-      }[];
+        updatedAt: string
+        usageAmount: number
+        usageLimit: number
+        userId: number
+      }[]
       incomingFriendshipRequests: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        status: "accepted" | "pending" | "rejected";
-        targetUserId: number;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        status: 'accepted' | 'pending' | 'rejected'
+        targetUserId: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
-      lastName: string | null;
+        updatedAt: string
+        userId: number
+      }[]
+      lastName: string | null
       outgoingEventShares: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        eventId: number;
+        createdAt: string
+        eventId: number
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        targetUserId: number | null;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        targetUserId: number | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        usageAmount: number;
-        usageLimit: number;
-        userId: number;
-      }[];
+        updatedAt: string
+        usageAmount: number
+        usageLimit: number
+        userId: number
+      }[]
       outgoingFriendshipRequests: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        status: "accepted" | "pending" | "rejected";
-        targetUserId: number;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        status: 'accepted' | 'pending' | 'rejected'
+        targetUserId: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       payments: {
-        amount: number;
+        amount: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        currency: string;
-        description: string;
+        createdAt: string
+        currency: string
+        description: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
         /** a UUID */
-        idempotenceKey:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+        idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
         /** a UUID */
-        paymentId:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        provider: string | null;
-        providerPaymentId: string | null;
-        status:
-          | "canceled"
-          | "failed"
-          | "in_progress"
-          | "pending"
-          | "refunded"
-          | "success";
-        type: "refund" | "subscription";
+        paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        provider: string | null
+        providerPaymentId: string | null
+        status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+        type: 'refund' | 'subscription'
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       rewards: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        description: string;
-        id: number;
-        name: string;
+        createdAt: string
+        description: string
+        id: number
+        name: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      }[];
-      role: "admin" | "staff" | "user";
+        updatedAt: string
+      }[]
+      role: 'admin' | 'staff' | 'user'
       settings: {
-        UTCTimeDiff: number;
+        UTCTimeDiff: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        id: number;
-        notificationTime: string;
+        createdAt: string
+        id: number
+        notificationTime: string
         stylization: {
-          primaryColor?: string;
-          secondaryColor?: string;
-        };
+          primaryColor?: string
+          secondaryColor?: string
+        }
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
+        updatedAt: string
+        userId: number
+      }
       statistics: {
-        activityRating: number;
+        activityRating: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        createdEventsCount: number;
-        friendsCount: number;
-        id: number;
-        sentRequestsCount: number;
-        sharedEventsCount: number;
+        createdAt: string
+        createdEventsCount: number
+        friendsCount: number
+        id: number
+        sentRequestsCount: number
+        sharedEventsCount: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
+        updatedAt: string
+        userId: number
+      }
       subscription: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        endDate: string;
-        id: number;
+        endDate: string
+        id: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        startDate: string;
-        status: "active" | "canceled" | "expired";
-        type: "paid" | "trial";
+        startDate: string
+        status: 'active' | 'canceled' | 'expired'
+        type: 'paid' | 'trial'
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
-      telegramUserId: string;
+        updatedAt: string
+        userId: number
+      }
+      telegramUserId: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-    };
+      updatedAt: string
+    }
   }
 
   /**
@@ -1567,213 +1439,186 @@ export namespace Users {
    */
   export namespace PatchById {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
-      firstName?: string | null;
-      lastName?: string | null;
-      role?: "admin" | "staff" | "user";
-    };
-    export type RequestHeaders = {};
+      firstName?: string | null
+      lastName?: string | null
+      role?: 'admin' | 'staff' | 'user'
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       eventDrafts: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        emoji: string;
-        id: number;
-        text: string;
-        time: string | null;
+        date: string
+        emoji: string
+        id: number
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       events: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        datetime: string;
-        emoji: string;
-        id: number;
-        notificationDatetime: string;
-        text: string;
-        time: string | null;
+        date: string
+        datetime: string
+        emoji: string
+        id: number
+        notificationDatetime: string
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
-      firstName: string | null;
+        updatedAt: string
+        userId: number
+      }[]
+      firstName: string | null
       friends: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      }[];
-      fullName: string;
-      id: number;
+        updatedAt: string
+      }[]
+      fullName: string
+      id: number
       incomingEventShares: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        eventId: number;
+        createdAt: string
+        eventId: number
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        targetUserId: number | null;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        targetUserId: number | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        usageAmount: number;
-        usageLimit: number;
-        userId: number;
-      }[];
+        updatedAt: string
+        usageAmount: number
+        usageLimit: number
+        userId: number
+      }[]
       incomingFriendshipRequests: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        status: "accepted" | "pending" | "rejected";
-        targetUserId: number;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        status: 'accepted' | 'pending' | 'rejected'
+        targetUserId: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
-      lastName: string | null;
+        updatedAt: string
+        userId: number
+      }[]
+      lastName: string | null
       outgoingEventShares: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        eventId: number;
+        createdAt: string
+        eventId: number
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        targetUserId: number | null;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        targetUserId: number | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        usageAmount: number;
-        usageLimit: number;
-        userId: number;
-      }[];
+        updatedAt: string
+        usageAmount: number
+        usageLimit: number
+        userId: number
+      }[]
       outgoingFriendshipRequests: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        status: "accepted" | "pending" | "rejected";
-        targetUserId: number;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        status: 'accepted' | 'pending' | 'rejected'
+        targetUserId: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       payments: {
-        amount: number;
+        amount: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        currency: string;
-        description: string;
+        createdAt: string
+        currency: string
+        description: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
         /** a UUID */
-        idempotenceKey:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+        idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
         /** a UUID */
-        paymentId:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        provider: string | null;
-        providerPaymentId: string | null;
-        status:
-          | "canceled"
-          | "failed"
-          | "in_progress"
-          | "pending"
-          | "refunded"
-          | "success";
-        type: "refund" | "subscription";
+        paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        provider: string | null
+        providerPaymentId: string | null
+        status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+        type: 'refund' | 'subscription'
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       rewards: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        description: string;
-        id: number;
-        name: string;
+        createdAt: string
+        description: string
+        id: number
+        name: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      }[];
-      role: "admin" | "staff" | "user";
+        updatedAt: string
+      }[]
+      role: 'admin' | 'staff' | 'user'
       settings: {
-        UTCTimeDiff: number;
+        UTCTimeDiff: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        id: number;
-        notificationTime: string;
+        createdAt: string
+        id: number
+        notificationTime: string
         stylization: {
-          primaryColor?: string;
-          secondaryColor?: string;
-        };
+          primaryColor?: string
+          secondaryColor?: string
+        }
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
+        updatedAt: string
+        userId: number
+      }
       statistics: {
-        activityRating: number;
+        activityRating: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        createdEventsCount: number;
-        friendsCount: number;
-        id: number;
-        sentRequestsCount: number;
-        sharedEventsCount: number;
+        createdAt: string
+        createdEventsCount: number
+        friendsCount: number
+        id: number
+        sentRequestsCount: number
+        sharedEventsCount: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
+        updatedAt: string
+        userId: number
+      }
       subscription: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        endDate: string;
-        id: number;
+        endDate: string
+        id: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        startDate: string;
-        status: "active" | "canceled" | "expired";
-        type: "paid" | "trial";
+        startDate: string
+        status: 'active' | 'canceled' | 'expired'
+        type: 'paid' | 'trial'
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
-      telegramUserId: string;
+        updatedAt: string
+        userId: number
+      }
+      telegramUserId: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-    };
+      updatedAt: string
+    }
   }
 
   /**
@@ -1785,14 +1630,14 @@ export namespace Users {
    */
   export namespace PatchByIdIncreaseRequestsCount {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -1803,212 +1648,185 @@ export namespace Users {
    * @request POST:/api/v1/users
    */
   export namespace Post {
-    export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
     export type RequestBody = {
-      firstName: string | null;
-      lastName: string | null;
-      telegramUserId: string;
-    };
-    export type RequestHeaders = {};
+      firstName: string | null
+      lastName: string | null
+      telegramUserId: string
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       eventDrafts: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        emoji: string;
-        id: number;
-        text: string;
-        time: string | null;
+        date: string
+        emoji: string
+        id: number
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       events: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        datetime: string;
-        emoji: string;
-        id: number;
-        notificationDatetime: string;
-        text: string;
-        time: string | null;
+        date: string
+        datetime: string
+        emoji: string
+        id: number
+        notificationDatetime: string
+        text: string
+        time: string | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
-      firstName: string | null;
+        updatedAt: string
+        userId: number
+      }[]
+      firstName: string | null
       friends: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      }[];
-      fullName: string;
-      id: number;
+        updatedAt: string
+      }[]
+      fullName: string
+      id: number
       incomingEventShares: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        eventId: number;
+        createdAt: string
+        eventId: number
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        targetUserId: number | null;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        targetUserId: number | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        usageAmount: number;
-        usageLimit: number;
-        userId: number;
-      }[];
+        updatedAt: string
+        usageAmount: number
+        usageLimit: number
+        userId: number
+      }[]
       incomingFriendshipRequests: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        status: "accepted" | "pending" | "rejected";
-        targetUserId: number;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        status: 'accepted' | 'pending' | 'rejected'
+        targetUserId: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
-      lastName: string | null;
+        updatedAt: string
+        userId: number
+      }[]
+      lastName: string | null
       outgoingEventShares: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        eventId: number;
+        createdAt: string
+        eventId: number
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        targetUserId: number | null;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        targetUserId: number | null
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        usageAmount: number;
-        usageLimit: number;
-        userId: number;
-      }[];
+        updatedAt: string
+        usageAmount: number
+        usageLimit: number
+        userId: number
+      }[]
       outgoingFriendshipRequests: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        status: "accepted" | "pending" | "rejected";
-        targetUserId: number;
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        status: 'accepted' | 'pending' | 'rejected'
+        targetUserId: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       payments: {
-        amount: number;
+        amount: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        currency: string;
-        description: string;
+        createdAt: string
+        currency: string
+        description: string
         /** a UUID */
-        id:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+        id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
         /** a UUID */
-        idempotenceKey:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+        idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
         /** a UUID */
-        paymentId:
-          | string
-          | "00000000-0000-0000-0000-000000000000"
-          | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-        provider: string | null;
-        providerPaymentId: string | null;
-        status:
-          | "canceled"
-          | "failed"
-          | "in_progress"
-          | "pending"
-          | "refunded"
-          | "success";
-        type: "refund" | "subscription";
+        paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+        provider: string | null
+        providerPaymentId: string | null
+        status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+        type: 'refund' | 'subscription'
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      }[];
+        updatedAt: string
+        userId: number
+      }[]
       rewards: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        description: string;
-        id: number;
-        name: string;
+        createdAt: string
+        description: string
+        id: number
+        name: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      }[];
-      role: "admin" | "staff" | "user";
+        updatedAt: string
+      }[]
+      role: 'admin' | 'staff' | 'user'
       settings: {
-        UTCTimeDiff: number;
+        UTCTimeDiff: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        id: number;
-        notificationTime: string;
+        createdAt: string
+        id: number
+        notificationTime: string
         stylization: {
-          primaryColor?: string;
-          secondaryColor?: string;
-        };
+          primaryColor?: string
+          secondaryColor?: string
+        }
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
+        updatedAt: string
+        userId: number
+      }
       statistics: {
-        activityRating: number;
+        activityRating: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        createdEventsCount: number;
-        friendsCount: number;
-        id: number;
-        sentRequestsCount: number;
-        sharedEventsCount: number;
+        createdAt: string
+        createdEventsCount: number
+        friendsCount: number
+        id: number
+        sentRequestsCount: number
+        sharedEventsCount: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
+        updatedAt: string
+        userId: number
+      }
       subscription: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
+        createdAt: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        endDate: string;
-        id: number;
+        endDate: string
+        id: number
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        startDate: string;
-        status: "active" | "canceled" | "expired";
-        type: "paid" | "trial";
+        startDate: string
+        status: 'active' | 'canceled' | 'expired'
+        type: 'paid' | 'trial'
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-        userId: number;
-      };
-      telegramUserId: string;
+        updatedAt: string
+        userId: number
+      }
+      telegramUserId: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-    };
+      updatedAt: string
+    }
   }
 }
 
@@ -2023,17 +1841,14 @@ export namespace Friendship {
   export namespace DeleteByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      success: boolean;
-    };
+      success: boolean
+    }
   }
 
   /**
@@ -2044,27 +1859,24 @@ export namespace Friendship {
    * @request GET:/api/v1/friendship
    */
   export namespace GetAll {
-    export type RequestParams = {};
+    export type RequestParams = {}
     export type RequestQuery = {
       /** @pattern ^(?:(?!^-0$)-?(?:(?:0|[1-9]\d*)))$ */
-      userId?: string;
-    };
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      userId?: string
+    }
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** a UUID */
-      id:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-      status: "accepted" | "pending" | "rejected";
-      targetUserId: number;
+      id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+      status: 'accepted' | 'pending' | 'rejected'
+      targetUserId: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    }[];
+      updatedAt: string
+      userId: number
+    }[]
   }
 
   /**
@@ -2077,43 +1889,40 @@ export namespace Friendship {
   export namespace GetByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      status: "accepted" | "pending" | "rejected";
+      status: 'accepted' | 'pending' | 'rejected'
       targetUser: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      targetUserId: number;
+        updatedAt: string
+      }
+      targetUserId: number
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -2126,45 +1935,42 @@ export namespace Friendship {
   export namespace PatchByUuid {
     export type RequestParams = {
       /** a UUID */
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-    };
-    export type RequestQuery = {};
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+    }
+    export type RequestQuery = {}
     export type RequestBody = {
-      status: "accepted" | "pending" | "rejected";
-    };
-    export type RequestHeaders = {};
+      status: 'accepted' | 'pending' | 'rejected'
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      status: "accepted" | "pending" | "rejected";
+      status: 'accepted' | 'pending' | 'rejected'
       targetUser: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      targetUserId: number;
+        updatedAt: string
+      }
+      targetUserId: number
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 
   /**
@@ -2175,42 +1981,42 @@ export namespace Friendship {
    * @request POST:/api/v1/friendship
    */
   export namespace Post {
-    export type RequestParams = {};
-    export type RequestQuery = {};
+    export type RequestParams = {}
+    export type RequestQuery = {}
     export type RequestBody = {
-      targetUserId: number;
-      userId: number;
-    };
-    export type RequestHeaders = {};
+      targetUserId: number
+      userId: number
+    }
+    export type RequestHeaders = {}
     export type ResponseBody = {
-      status: "accepted" | "pending" | "rejected";
+      status: 'accepted' | 'pending' | 'rejected'
       targetUser: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      targetUserId: number;
+        updatedAt: string
+      }
+      targetUserId: number
       user: {
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        createdAt: string;
-        firstName: string | null;
-        fullName: string;
-        id: number;
-        lastName: string | null;
-        role: "admin" | "staff" | "user";
-        telegramUserId: string;
+        createdAt: string
+        firstName: string | null
+        fullName: string
+        id: number
+        lastName: string | null
+        role: 'admin' | 'staff' | 'user'
+        telegramUserId: string
         /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-        updatedAt: string;
-      };
-      userId: number;
-    };
+        updatedAt: string
+      }
+      userId: number
+    }
   }
 }
 
@@ -2224,25 +2030,25 @@ export namespace Subscriptions {
    */
   export namespace GetByIdCheck {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      endDate: string;
-      id: number;
+      endDate: string
+      id: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      startDate: string;
-      status: "active" | "canceled" | "expired";
-      type: "paid" | "trial";
+      startDate: string
+      status: 'active' | 'canceled' | 'expired'
+      type: 'paid' | 'trial'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 
   /**
@@ -2254,25 +2060,25 @@ export namespace Subscriptions {
    */
   export namespace PatchByIdCancel {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      endDate: string;
-      id: number;
+      endDate: string
+      id: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      startDate: string;
-      status: "active" | "canceled" | "expired";
-      type: "paid" | "trial";
+      startDate: string
+      status: 'active' | 'canceled' | 'expired'
+      type: 'paid' | 'trial'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 
   /**
@@ -2284,164 +2090,143 @@ export namespace Subscriptions {
    */
   export namespace PatchByIdRenew {
     export type RequestParams = {
-      id: number | string;
-    };
-    export type RequestQuery = {};
-    export type RequestBody = never;
-    export type RequestHeaders = {};
+      id: number | string
+    }
+    export type RequestQuery = {}
+    export type RequestBody = never
+    export type RequestHeaders = {}
     export type ResponseBody = {
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      createdAt: string;
+      createdAt: string
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      endDate: string;
-      id: number;
+      endDate: string
+      id: number
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      startDate: string;
-      status: "active" | "canceled" | "expired";
-      type: "paid" | "trial";
+      startDate: string
+      status: 'active' | 'canceled' | 'expired'
+      type: 'paid' | 'trial'
       /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-      updatedAt: string;
-      userId: number;
-    };
+      updatedAt: string
+      userId: number
+    }
   }
 }
 
-export type QueryParamsType = Record<string | number, any>;
-export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
+export type QueryParamsType = Record<string | number, any>
+export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>
 
-export interface FullRequestParams extends Omit<RequestInit, "body"> {
+export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   /** set parameter to `true` for call `securityWorker` for this request */
-  secure?: boolean;
+  secure?: boolean
   /** request path */
-  path: string;
+  path: string
   /** content type of request body */
-  type?: ContentType;
+  type?: ContentType
   /** query params */
-  query?: QueryParamsType;
+  query?: QueryParamsType
   /** format of response (i.e. response.json() -> format: "json") */
-  format?: ResponseFormat;
+  format?: ResponseFormat
   /** request body */
-  body?: unknown;
+  body?: unknown
   /** base url */
-  baseUrl?: string;
+  baseUrl?: string
   /** request cancellation token */
-  cancelToken?: CancelToken;
+  cancelToken?: CancelToken
 }
 
-export type RequestParams = Omit<
-  FullRequestParams,
-  "body" | "method" | "query" | "path"
->;
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>
 
 export interface ApiConfig<SecurityDataType = unknown> {
-  baseUrl?: string;
-  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (
-    securityData: SecurityDataType | null,
-  ) => Promise<RequestParams | void> | RequestParams | void;
-  customFetch?: typeof fetch;
+  baseUrl?: string
+  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
+  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void
+  customFetch?: typeof fetch
 }
 
-export interface HttpResponse<D extends unknown, E extends unknown = unknown>
-  extends Response {
-  data: D;
-  error: E;
+export interface HttpResponse<D, E = unknown> extends Response {
+  data: D
+  error: E
 }
 
-type CancelToken = Symbol | string | number;
+type CancelToken = symbol | string | number
 
 export enum ContentType {
-  Json = "application/json",
-  FormData = "multipart/form-data",
-  UrlEncoded = "application/x-www-form-urlencoded",
-  Text = "text/plain",
+  Json = 'application/json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded',
+  Text = 'text/plain',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "http://localhost:8080";
-  private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
-  private abortControllers = new Map<CancelToken, AbortController>();
-  private customFetch = (...fetchParams: Parameters<typeof fetch>) =>
-    fetch(...fetchParams);
+  public baseUrl = 'http://localhost:8080'
+  private securityData: SecurityDataType | null = null
+  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker']
+  private abortControllers = new Map<CancelToken, AbortController>()
+  private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams)
 
   private baseApiParams: RequestParams = {
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {},
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-  };
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  }
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
-    Object.assign(this, apiConfig);
+    Object.assign(this, apiConfig)
   }
 
   public setSecurityData = (data: SecurityDataType | null) => {
-    this.securityData = data;
-  };
+    this.securityData = data
+  }
 
   protected encodeQueryParam(key: string, value: any) {
-    const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    const encodedKey = encodeURIComponent(key)
+    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`
   }
 
   protected addQueryParam(query: QueryParamsType, key: string) {
-    return this.encodeQueryParam(key, query[key]);
+    return this.encodeQueryParam(key, query[key])
   }
 
   protected addArrayQueryParam(query: QueryParamsType, key: string) {
-    const value = query[key];
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
+    const value = query[key]
+    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&')
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
-    const query = rawQuery || {};
-    const keys = Object.keys(query).filter(
-      (key) => "undefined" !== typeof query[key],
-    );
+    const query = rawQuery || {}
+    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key])
     return keys
-      .map((key) =>
-        Array.isArray(query[key])
-          ? this.addArrayQueryParam(query, key)
-          : this.addQueryParam(query, key),
-      )
-      .join("&");
+      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
+      .join('&')
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
-    const queryString = this.toQueryString(rawQuery);
-    return queryString ? `?${queryString}` : "";
+    const queryString = this.toQueryString(rawQuery)
+    return queryString ? `?${queryString}` : ''
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string")
-        ? JSON.stringify(input)
-        : input,
-    [ContentType.Text]: (input: any) =>
-      input !== null && typeof input !== "string"
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
+    [ContentType.Text]: (input: any) => (input !== null && typeof input !== 'string' ? JSON.stringify(input) : input),
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
-        const property = input[key];
+        const property = input[key]
         formData.append(
           key,
           property instanceof Blob
             ? property
-            : typeof property === "object" && property !== null
+            : typeof property === 'object' && property !== null
               ? JSON.stringify(property)
-              : `${property}`,
-        );
-        return formData;
+              : `${property}`
+        )
+        return formData
       }, new FormData()),
     [ContentType.UrlEncoded]: (input: any) => this.toQueryString(input),
-  };
+  }
 
-  protected mergeRequestParams(
-    params1: RequestParams,
-    params2?: RequestParams,
-  ): RequestParams {
+  protected mergeRequestParams(params1: RequestParams, params2?: RequestParams): RequestParams {
     return {
       ...this.baseApiParams,
       ...params1,
@@ -2451,33 +2236,31 @@ export class HttpClient<SecurityDataType = unknown> {
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
-    };
+    }
   }
 
-  protected createAbortSignal = (
-    cancelToken: CancelToken,
-  ): AbortSignal | undefined => {
+  protected createAbortSignal = (cancelToken: CancelToken): AbortSignal | undefined => {
     if (this.abortControllers.has(cancelToken)) {
-      const abortController = this.abortControllers.get(cancelToken);
+      const abortController = this.abortControllers.get(cancelToken)
       if (abortController) {
-        return abortController.signal;
+        return abortController.signal
       }
-      return void 0;
+      return void 0
     }
 
-    const abortController = new AbortController();
-    this.abortControllers.set(cancelToken, abortController);
-    return abortController.signal;
-  };
+    const abortController = new AbortController()
+    this.abortControllers.set(cancelToken, abortController)
+    return abortController.signal
+  }
 
   public abortRequest = (cancelToken: CancelToken) => {
-    const abortController = this.abortControllers.get(cancelToken);
+    const abortController = this.abortControllers.get(cancelToken)
 
     if (abortController) {
-      abortController.abort();
-      this.abortControllers.delete(cancelToken);
+      abortController.abort()
+      this.abortControllers.delete(cancelToken)
     }
-  };
+  }
 
   public request = async <T = any, E = any>({
     body,
@@ -2491,63 +2274,52 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<T> => {
     const secureParams =
-      ((typeof secure === "boolean" ? secure : this.baseApiParams.secure) &&
-        this.securityWorker &&
-        (await this.securityWorker(this.securityData))) ||
-      {};
-    const requestParams = this.mergeRequestParams(params, secureParams);
-    const queryString = query && this.toQueryString(query);
-    const payloadFormatter = this.contentFormatters[type || ContentType.Json];
-    const responseFormat = format || requestParams.format;
+      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure)
+        && this.securityWorker
+        && (await this.securityWorker(this.securityData)))
+      || {}
+    const requestParams = this.mergeRequestParams(params, secureParams)
+    const queryString = query && this.toQueryString(query)
+    const payloadFormatter = this.contentFormatters[type || ContentType.Json]
+    const responseFormat = format || requestParams.format
 
-    return this.customFetch(
-      `${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`,
-      {
-        ...requestParams,
-        headers: {
-          ...(requestParams.headers || {}),
-          ...(type && type !== ContentType.FormData
-            ? { "Content-Type": type }
-            : {}),
-        },
-        signal:
-          (cancelToken
-            ? this.createAbortSignal(cancelToken)
-            : requestParams.signal) || null,
-        body:
-          typeof body === "undefined" || body === null
-            ? null
-            : payloadFormatter(body),
+    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
+      ...requestParams,
+      headers: {
+        ...(requestParams.headers || {}),
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
       },
-    ).then(async (response) => {
-      const r = response.clone() as HttpResponse<T, E>;
-      r.data = null as unknown as T;
-      r.error = null as unknown as E;
+      signal: (cancelToken ? this.createAbortSignal(cancelToken) : requestParams.signal) || null,
+      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
+      const r = response.clone() as HttpResponse<T, E>
+      r.data = null as unknown as T
+      r.error = null as unknown as E
 
       const data = !responseFormat
         ? r
         : await response[responseFormat]()
             .then((data) => {
               if (r.ok) {
-                r.data = data;
+                r.data = data
               } else {
-                r.error = data;
+                r.error = data
               }
-              return r;
+              return r
             })
             .catch((e) => {
-              r.error = e;
-              return r;
-            });
+              r.error = e
+              return r
+            })
 
       if (cancelToken) {
-        this.abortControllers.delete(cancelToken);
+        this.abortControllers.delete(cancelToken)
       }
 
-      if (!response.ok) throw data;
-      return data.data;
-    });
-  };
+      if (!response.ok) throw data
+      return data.data
+    })
+  }
 }
 
 /**
@@ -2558,9 +2330,7 @@ export class HttpClient<SecurityDataType = unknown> {
  *
  * API for Daylik
  */
-export class Api<
-  SecurityDataType extends unknown,
-> extends HttpClient<SecurityDataType> {
+export class Api<SecurityDataType> extends HttpClient<SecurityDataType> {
   auth = {
     /**
      * No description
@@ -2572,25 +2342,25 @@ export class Api<
      */
     getApiToken: (
       query?: {
-        telegramUserId?: string;
+        telegramUserId?: string
         /** @pattern ^(?:(?!^-0$)-?(?:(?:0|[1-9]\d*)))$ */
-        userId?: string;
+        userId?: string
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          token: string;
+          token: string
         },
         GetApiAuthTokenError
       >({
         path: `/api/auth/token`,
-        method: "GET",
+        method: 'GET',
         query: query,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   settings = {
     /**
      * No description
@@ -2603,24 +2373,24 @@ export class Api<
     getAll: (params: RequestParams = {}) =>
       this.request<
         {
-          UTCTimeDiff: number;
+          UTCTimeDiff: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          id: number;
-          notificationTime: string;
+          createdAt: string
+          id: number
+          notificationTime: string
           stylization: {
-            primaryColor?: string;
-            secondaryColor?: string;
-          };
+            primaryColor?: string
+            secondaryColor?: string
+          }
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         }[],
         GetSettingsError
       >({
         path: `/api/v1/settings`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -2635,24 +2405,24 @@ export class Api<
     getById: (id: number | string, params: RequestParams = {}) =>
       this.request<
         {
-          UTCTimeDiff: number;
+          UTCTimeDiff: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          id: number;
-          notificationTime: string;
+          createdAt: string
+          id: number
+          notificationTime: string
           stylization: {
-            primaryColor?: string;
-            secondaryColor?: string;
-          };
+            primaryColor?: string
+            secondaryColor?: string
+          }
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         GetSettingsByIdError
       >({
         path: `/api/v1/settings/${id}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -2667,40 +2437,40 @@ export class Api<
     patchById: (
       id: number | string,
       data: {
-        UTCTimeDiff?: number;
-        notificationTime?: string;
+        UTCTimeDiff?: number
+        notificationTime?: string
         stylization?: {
-          primaryColor?: string;
-          secondaryColor?: string;
-        };
+          primaryColor?: string
+          secondaryColor?: string
+        }
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          UTCTimeDiff: number;
+          UTCTimeDiff: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          id: number;
-          notificationTime: string;
+          createdAt: string
+          id: number
+          notificationTime: string
           stylization: {
-            primaryColor?: string;
-            secondaryColor?: string;
-          };
+            primaryColor?: string
+            secondaryColor?: string
+          }
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         PatchSettingsByIdError
       >({
         path: `/api/v1/settings/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   eventDrafts = {
     /**
      * No description
@@ -2713,13 +2483,13 @@ export class Api<
     deleteById: (id: number | string, params: RequestParams = {}) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         DeleteEventDraftsByIdError
       >({
         path: `/api/v1/event_drafts/${id}`,
-        method: "DELETE",
-        format: "json",
+        method: 'DELETE',
+        format: 'json',
         ...params,
       }),
 
@@ -2735,22 +2505,22 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          emoji: string;
-          id: number;
-          text: string;
-          time: string | null;
+          date: string
+          emoji: string
+          id: number
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         }[],
         any
       >({
         path: `/api/v1/event_drafts`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -2766,34 +2536,34 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          emoji: string;
-          id: number;
-          text: string;
-          time: string | null;
+          date: string
+          emoji: string
+          id: number
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         GetEventDraftsByIdError
       >({
         path: `/api/v1/event_drafts/${id}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -2809,47 +2579,47 @@ export class Api<
       id: number | string,
       data: {
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date?: string;
-        emoji?: string;
-        text?: string;
-        time?: string | null;
-        userId: number;
+        date?: string
+        emoji?: string
+        text?: string
+        time?: string | null
+        userId: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          emoji: string;
-          id: number;
-          text: string;
-          time: string | null;
+          date: string
+          emoji: string
+          id: number
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PatchEventDraftsByIdError
       >({
         path: `/api/v1/event_drafts/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -2864,50 +2634,50 @@ export class Api<
     post: (
       data: {
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date: string;
-        emoji: string;
-        text: string;
-        time: string | null;
-        userId: number;
+        date: string
+        emoji: string
+        text: string
+        time: string | null
+        userId: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          emoji: string;
-          id: number;
-          text: string;
-          time: string | null;
+          date: string
+          emoji: string
+          id: number
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PostEventDraftsError
       >({
         path: `/api/v1/event_drafts`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   eventShares = {
     /**
      * No description
@@ -2918,21 +2688,18 @@ export class Api<
      * @request DELETE:/api/v1/event_shares/{uuid}
      */
     deleteByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      params: RequestParams = {},
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         DeleteEventSharesByUuidError
       >({
         path: `/api/v1/event_shares/${uuid}`,
-        method: "DELETE",
-        format: "json",
+        method: 'DELETE',
+        format: 'json',
         ...params,
       }),
 
@@ -2948,25 +2715,22 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          eventId: number;
+          createdAt: string
+          eventId: number
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-          targetUserId: number | null;
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+          targetUserId: number | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          usageAmount: number;
-          usageLimit: number;
-          userId: number;
+          updatedAt: string
+          usageAmount: number
+          usageLimit: number
+          userId: number
         }[],
         GetEventSharesError
       >({
         path: `/api/v1/event_shares`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -2979,74 +2743,68 @@ export class Api<
      * @request GET:/api/v1/event_shares/{uuid}
      */
     getByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      params: RequestParams = {},
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           event: {
-            copyFromId?: number;
+            copyFromId?: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            datetime: string;
-            emoji: string;
-            id: number;
-            notificationDatetime: string;
-            text: string;
-            time: string | null;
+            date: string
+            datetime: string
+            emoji: string
+            id: number
+            notificationDatetime: string
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
-          eventId: number;
+            updatedAt: string
+            userId: number
+          }
+          eventId: number
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           targetUser: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          targetUserId: number | null;
+            updatedAt: string
+          }
+          targetUserId: number | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          usageAmount: number;
-          usageLimit: number;
+          updatedAt: string
+          usageAmount: number
+          usageLimit: number
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         GetEventSharesByUuidError
       >({
         path: `/api/v1/event_shares/${uuid}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -3059,80 +2817,74 @@ export class Api<
      * @request PATCH:/api/v1/event_shares/{uuid}
      */
     patchByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
       data: {
-        targetUserId?: number | null;
-        usageAmount?: number;
+        targetUserId?: number | null
+        usageAmount?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           event: {
-            copyFromId?: number;
+            copyFromId?: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            datetime: string;
-            emoji: string;
-            id: number;
-            notificationDatetime: string;
-            text: string;
-            time: string | null;
+            date: string
+            datetime: string
+            emoji: string
+            id: number
+            notificationDatetime: string
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
-          eventId: number;
+            updatedAt: string
+            userId: number
+          }
+          eventId: number
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           targetUser: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          targetUserId: number | null;
+            updatedAt: string
+          }
+          targetUserId: number | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          usageAmount: number;
-          usageLimit: number;
+          updatedAt: string
+          usageAmount: number
+          usageLimit: number
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PatchEventSharesByUuidError
       >({
         path: `/api/v1/event_shares/${uuid}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -3146,81 +2898,78 @@ export class Api<
      */
     post: (
       data: {
-        eventId: number;
-        targetUserId?: number | null;
-        usageAmount?: number;
-        usageLimit?: number;
-        userId: number;
+        eventId: number
+        targetUserId?: number | null
+        usageAmount?: number
+        usageLimit?: number
+        userId: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           event: {
-            copyFromId?: number;
+            copyFromId?: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            datetime: string;
-            emoji: string;
-            id: number;
-            notificationDatetime: string;
-            text: string;
-            time: string | null;
+            date: string
+            datetime: string
+            emoji: string
+            id: number
+            notificationDatetime: string
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
-          eventId: number;
+            updatedAt: string
+            userId: number
+          }
+          eventId: number
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           targetUser: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          targetUserId: number | null;
+            updatedAt: string
+          }
+          targetUserId: number | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          usageAmount: number;
-          usageLimit: number;
+          updatedAt: string
+          usageAmount: number
+          usageLimit: number
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PostEventSharesError
       >({
         path: `/api/v1/event_shares`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   events = {
     /**
      * No description
@@ -3233,13 +2982,13 @@ export class Api<
     deleteById: (id: number | string, params: RequestParams = {}) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         DeleteEventsByIdError
       >({
         path: `/api/v1/events/${id}`,
-        method: "DELETE",
-        format: "json",
+        method: 'DELETE',
+        format: 'json',
         ...params,
       }),
 
@@ -3254,26 +3003,26 @@ export class Api<
     getAll: (params: RequestParams = {}) =>
       this.request<
         {
-          copyFromId?: number;
+          copyFromId?: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          datetime: string;
-          emoji: string;
-          id: number;
-          notificationDatetime: string;
-          text: string;
-          time: string | null;
+          date: string
+          datetime: string
+          emoji: string
+          id: number
+          notificationDatetime: string
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         }[],
         GetEventsError
       >({
         path: `/api/v1/events`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -3288,38 +3037,38 @@ export class Api<
     getById: (id: number | string, params: RequestParams = {}) =>
       this.request<
         {
-          copyFromId?: number;
+          copyFromId?: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          datetime: string;
-          emoji: string;
-          id: number;
-          notificationDatetime: string;
-          text: string;
-          time: string | null;
+          date: string
+          datetime: string
+          emoji: string
+          id: number
+          notificationDatetime: string
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         GetEventsByIdError
       >({
         path: `/api/v1/events/${id}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -3334,53 +3083,53 @@ export class Api<
     patchById: (
       id: number | string,
       data: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date?: string;
-        datetime?: string;
-        emoji?: string;
-        notificationDatetime?: string;
-        text?: string;
-        time?: string | null;
+        date?: string
+        datetime?: string
+        emoji?: string
+        notificationDatetime?: string
+        text?: string
+        time?: string | null
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          copyFromId?: number;
+          copyFromId?: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          datetime: string;
-          emoji: string;
-          id: number;
-          notificationDatetime: string;
-          text: string;
-          time: string | null;
+          date: string
+          datetime: string
+          emoji: string
+          id: number
+          notificationDatetime: string
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PatchEventsByIdError
       >({
         path: `/api/v1/events/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -3394,57 +3143,57 @@ export class Api<
      */
     post: (
       data: {
-        copyFromId?: number;
+        copyFromId?: number
         /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-        date?: string;
-        datetime?: string;
-        emoji?: string;
-        notificationDatetime?: string;
-        text?: string;
-        time?: string | null;
-        userId?: number;
+        date?: string
+        datetime?: string
+        emoji?: string
+        notificationDatetime?: string
+        text?: string
+        time?: string | null
+        userId?: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          copyFromId?: number;
+          copyFromId?: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-          date: string;
-          datetime: string;
-          emoji: string;
-          id: number;
-          notificationDatetime: string;
-          text: string;
-          time: string | null;
+          date: string
+          datetime: string
+          emoji: string
+          id: number
+          notificationDatetime: string
+          text: string
+          time: string | null
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PostEventsError
       >({
         path: `/api/v1/events`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   payments = {
     /**
      * No description
@@ -3455,21 +3204,18 @@ export class Api<
      * @request DELETE:/api/v1/payments/{uuid}
      */
     deleteByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      params: RequestParams = {},
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         DeletePaymentsByUuidError
       >({
         path: `/api/v1/payments/${uuid}`,
-        method: "DELETE",
-        format: "json",
+        method: 'DELETE',
+        format: 'json',
         ...params,
       }),
 
@@ -3484,52 +3230,37 @@ export class Api<
     getAll: (
       query?: {
         /** @pattern ^(?:(?!^-0$)-?(?:(?:0|[1-9]\d*)))$ */
-        userId?: string;
+        userId?: string
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          amount: number;
+          amount: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          currency: string;
-          description: string;
+          createdAt: string
+          currency: string
+          description: string
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          idempotenceKey:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          paymentId:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-          provider: string | null;
-          providerPaymentId: string | null;
-          status:
-            | "canceled"
-            | "failed"
-            | "in_progress"
-            | "pending"
-            | "refunded"
-            | "success";
-          type: "refund" | "subscription";
+          paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+          provider: string | null
+          providerPaymentId: string | null
+          status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+          type: 'refund' | 'subscription'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         }[],
         GetPaymentsError
       >({
         path: `/api/v1/payments`,
-        method: "GET",
+        method: 'GET',
         query: query,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -3542,53 +3273,35 @@ export class Api<
      * @request GET:/api/v1/payments/{uuid}
      */
     getByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      params: RequestParams = {},
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          amount: number;
+          amount: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          currency: string;
-          description: string;
+          createdAt: string
+          currency: string
+          description: string
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          idempotenceKey:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          paymentId:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-          provider: string | null;
-          providerPaymentId: string | null;
-          status:
-            | "canceled"
-            | "failed"
-            | "in_progress"
-            | "pending"
-            | "refunded"
-            | "success";
-          type: "refund" | "subscription";
+          paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+          provider: string | null
+          providerPaymentId: string | null
+          status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+          type: 'refund' | 'subscription'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         GetPaymentsByUuidError
       >({
         path: `/api/v1/payments/${uuid}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -3601,70 +3314,46 @@ export class Api<
      * @request PATCH:/api/v1/payments/{uuid}
      */
     patchByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
       data: {
-        amount?: number;
-        currency?: string;
-        description?: string;
-        provider?: string | null;
-        providerPaymentId?: string | null;
-        status?:
-          | "canceled"
-          | "failed"
-          | "in_progress"
-          | "pending"
-          | "refunded"
-          | "success";
-        type?: "refund" | "subscription";
+        amount?: number
+        currency?: string
+        description?: string
+        provider?: string | null
+        providerPaymentId?: string | null
+        status?: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+        type?: 'refund' | 'subscription'
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          amount: number;
+          amount: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          currency: string;
-          description: string;
+          createdAt: string
+          currency: string
+          description: string
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          idempotenceKey:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          paymentId:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-          provider: string | null;
-          providerPaymentId: string | null;
-          status:
-            | "canceled"
-            | "failed"
-            | "in_progress"
-            | "pending"
-            | "refunded"
-            | "success";
-          type: "refund" | "subscription";
+          paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+          provider: string | null
+          providerPaymentId: string | null
+          status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+          type: 'refund' | 'subscription'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         PatchPaymentsByUuidError
       >({
         path: `/api/v1/payments/${uuid}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -3678,62 +3367,47 @@ export class Api<
      */
     post: (
       data: {
-        amount: number;
-        currency: string;
-        description: string;
-        provider?: string;
-        providerPaymentId?: string;
-        type: "refund" | "subscription";
-        userId: number;
+        amount: number
+        currency: string
+        description: string
+        provider?: string
+        providerPaymentId?: string
+        type: 'refund' | 'subscription'
+        userId: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          amount: number;
+          amount: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          currency: string;
-          description: string;
+          createdAt: string
+          currency: string
+          description: string
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          idempotenceKey:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+          idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
           /** a UUID */
-          paymentId:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-          provider: string | null;
-          providerPaymentId: string | null;
-          status:
-            | "canceled"
-            | "failed"
-            | "in_progress"
-            | "pending"
-            | "refunded"
-            | "success";
-          type: "refund" | "subscription";
+          paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+          provider: string | null
+          providerPaymentId: string | null
+          status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+          type: 'refund' | 'subscription'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         PostPaymentsError
       >({
         path: `/api/v1/payments`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   users = {
     /**
      * No description
@@ -3746,13 +3420,13 @@ export class Api<
     deleteById: (id: number | string, params: RequestParams = {}) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         DeleteUsersByIdError
       >({
         path: `/api/v1/users/${id}`,
-        method: "DELETE",
-        format: "json",
+        method: 'DELETE',
+        format: 'json',
         ...params,
       }),
 
@@ -3768,21 +3442,21 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
-          firstName: string | null;
-          fullName: string;
-          id: number;
-          lastName: string | null;
-          role: "admin" | "staff" | "user";
-          telegramUserId: string;
+          createdAt: string
+          firstName: string | null
+          fullName: string
+          id: number
+          lastName: string | null
+          role: 'admin' | 'staff' | 'user'
+          telegramUserId: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
         }[],
         GetUsersError
       >({
         path: `/api/v1/users`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -3798,207 +3472,180 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           eventDrafts: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            emoji: string;
-            id: number;
-            text: string;
-            time: string | null;
+            date: string
+            emoji: string
+            id: number
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           events: {
-            copyFromId?: number;
+            copyFromId?: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            datetime: string;
-            emoji: string;
-            id: number;
-            notificationDatetime: string;
-            text: string;
-            time: string | null;
+            date: string
+            datetime: string
+            emoji: string
+            id: number
+            notificationDatetime: string
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
-          firstName: string | null;
+            updatedAt: string
+            userId: number
+          }[]
+          firstName: string | null
           friends: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          }[];
-          fullName: string;
-          id: number;
+            updatedAt: string
+          }[]
+          fullName: string
+          id: number
           incomingEventShares: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            eventId: number;
+            createdAt: string
+            eventId: number
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            targetUserId: number | null;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            targetUserId: number | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            usageAmount: number;
-            usageLimit: number;
-            userId: number;
-          }[];
+            updatedAt: string
+            usageAmount: number
+            usageLimit: number
+            userId: number
+          }[]
           incomingFriendshipRequests: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            status: "accepted" | "pending" | "rejected";
-            targetUserId: number;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            status: 'accepted' | 'pending' | 'rejected'
+            targetUserId: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
-          lastName: string | null;
+            updatedAt: string
+            userId: number
+          }[]
+          lastName: string | null
           outgoingEventShares: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            eventId: number;
+            createdAt: string
+            eventId: number
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            targetUserId: number | null;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            targetUserId: number | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            usageAmount: number;
-            usageLimit: number;
-            userId: number;
-          }[];
+            updatedAt: string
+            usageAmount: number
+            usageLimit: number
+            userId: number
+          }[]
           outgoingFriendshipRequests: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            status: "accepted" | "pending" | "rejected";
-            targetUserId: number;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            status: 'accepted' | 'pending' | 'rejected'
+            targetUserId: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           payments: {
-            amount: number;
+            amount: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            currency: string;
-            description: string;
+            createdAt: string
+            currency: string
+            description: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
             /** a UUID */
-            idempotenceKey:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
             /** a UUID */
-            paymentId:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            provider: string | null;
-            providerPaymentId: string | null;
-            status:
-              | "canceled"
-              | "failed"
-              | "in_progress"
-              | "pending"
-              | "refunded"
-              | "success";
-            type: "refund" | "subscription";
+            paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            provider: string | null
+            providerPaymentId: string | null
+            status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+            type: 'refund' | 'subscription'
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           rewards: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            description: string;
-            id: number;
-            name: string;
+            createdAt: string
+            description: string
+            id: number
+            name: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          }[];
-          role: "admin" | "staff" | "user";
+            updatedAt: string
+          }[]
+          role: 'admin' | 'staff' | 'user'
           settings: {
-            UTCTimeDiff: number;
+            UTCTimeDiff: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            id: number;
-            notificationTime: string;
+            createdAt: string
+            id: number
+            notificationTime: string
             stylization: {
-              primaryColor?: string;
-              secondaryColor?: string;
-            };
+              primaryColor?: string
+              secondaryColor?: string
+            }
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
+            updatedAt: string
+            userId: number
+          }
           statistics: {
-            activityRating: number;
+            activityRating: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            createdEventsCount: number;
-            friendsCount: number;
-            id: number;
-            sentRequestsCount: number;
-            sharedEventsCount: number;
+            createdAt: string
+            createdEventsCount: number
+            friendsCount: number
+            id: number
+            sentRequestsCount: number
+            sharedEventsCount: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
+            updatedAt: string
+            userId: number
+          }
           subscription: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            endDate: string;
-            id: number;
+            endDate: string
+            id: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            startDate: string;
-            status: "active" | "canceled" | "expired";
-            type: "paid" | "trial";
+            startDate: string
+            status: 'active' | 'canceled' | 'expired'
+            type: 'paid' | 'trial'
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
-          telegramUserId: string;
+            updatedAt: string
+            userId: number
+          }
+          telegramUserId: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
         },
         GetUsersByIdError
       >({
         path: `/api/v1/users/${id}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -4013,218 +3660,191 @@ export class Api<
     patchById: (
       id: number | string,
       data: {
-        firstName?: string | null;
-        lastName?: string | null;
-        role?: "admin" | "staff" | "user";
+        firstName?: string | null
+        lastName?: string | null
+        role?: 'admin' | 'staff' | 'user'
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           eventDrafts: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            emoji: string;
-            id: number;
-            text: string;
-            time: string | null;
+            date: string
+            emoji: string
+            id: number
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           events: {
-            copyFromId?: number;
+            copyFromId?: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            datetime: string;
-            emoji: string;
-            id: number;
-            notificationDatetime: string;
-            text: string;
-            time: string | null;
+            date: string
+            datetime: string
+            emoji: string
+            id: number
+            notificationDatetime: string
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
-          firstName: string | null;
+            updatedAt: string
+            userId: number
+          }[]
+          firstName: string | null
           friends: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          }[];
-          fullName: string;
-          id: number;
+            updatedAt: string
+          }[]
+          fullName: string
+          id: number
           incomingEventShares: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            eventId: number;
+            createdAt: string
+            eventId: number
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            targetUserId: number | null;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            targetUserId: number | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            usageAmount: number;
-            usageLimit: number;
-            userId: number;
-          }[];
+            updatedAt: string
+            usageAmount: number
+            usageLimit: number
+            userId: number
+          }[]
           incomingFriendshipRequests: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            status: "accepted" | "pending" | "rejected";
-            targetUserId: number;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            status: 'accepted' | 'pending' | 'rejected'
+            targetUserId: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
-          lastName: string | null;
+            updatedAt: string
+            userId: number
+          }[]
+          lastName: string | null
           outgoingEventShares: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            eventId: number;
+            createdAt: string
+            eventId: number
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            targetUserId: number | null;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            targetUserId: number | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            usageAmount: number;
-            usageLimit: number;
-            userId: number;
-          }[];
+            updatedAt: string
+            usageAmount: number
+            usageLimit: number
+            userId: number
+          }[]
           outgoingFriendshipRequests: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            status: "accepted" | "pending" | "rejected";
-            targetUserId: number;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            status: 'accepted' | 'pending' | 'rejected'
+            targetUserId: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           payments: {
-            amount: number;
+            amount: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            currency: string;
-            description: string;
+            createdAt: string
+            currency: string
+            description: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
             /** a UUID */
-            idempotenceKey:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
             /** a UUID */
-            paymentId:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            provider: string | null;
-            providerPaymentId: string | null;
-            status:
-              | "canceled"
-              | "failed"
-              | "in_progress"
-              | "pending"
-              | "refunded"
-              | "success";
-            type: "refund" | "subscription";
+            paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            provider: string | null
+            providerPaymentId: string | null
+            status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+            type: 'refund' | 'subscription'
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           rewards: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            description: string;
-            id: number;
-            name: string;
+            createdAt: string
+            description: string
+            id: number
+            name: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          }[];
-          role: "admin" | "staff" | "user";
+            updatedAt: string
+          }[]
+          role: 'admin' | 'staff' | 'user'
           settings: {
-            UTCTimeDiff: number;
+            UTCTimeDiff: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            id: number;
-            notificationTime: string;
+            createdAt: string
+            id: number
+            notificationTime: string
             stylization: {
-              primaryColor?: string;
-              secondaryColor?: string;
-            };
+              primaryColor?: string
+              secondaryColor?: string
+            }
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
+            updatedAt: string
+            userId: number
+          }
           statistics: {
-            activityRating: number;
+            activityRating: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            createdEventsCount: number;
-            friendsCount: number;
-            id: number;
-            sentRequestsCount: number;
-            sharedEventsCount: number;
+            createdAt: string
+            createdEventsCount: number
+            friendsCount: number
+            id: number
+            sentRequestsCount: number
+            sharedEventsCount: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
+            updatedAt: string
+            userId: number
+          }
           subscription: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            endDate: string;
-            id: number;
+            endDate: string
+            id: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            startDate: string;
-            status: "active" | "canceled" | "expired";
-            type: "paid" | "trial";
+            startDate: string
+            status: 'active' | 'canceled' | 'expired'
+            type: 'paid' | 'trial'
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
-          telegramUserId: string;
+            updatedAt: string
+            userId: number
+          }
+          telegramUserId: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
         },
         PatchUsersByIdError
       >({
         path: `/api/v1/users/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -4236,19 +3856,16 @@ export class Api<
      * @summary Increase requests count for user
      * @request PATCH:/api/v1/users/{id}/increase_requests_count
      */
-    patchByIdIncreaseRequestsCount: (
-      id: number | string,
-      params: RequestParams = {},
-    ) =>
+    patchByIdIncreaseRequestsCount: (id: number | string, params: RequestParams = {}) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         PatchUsersByIdIncreaseRequestsCountError
       >({
         path: `/api/v1/users/${id}/increase_requests_count`,
-        method: "PATCH",
-        format: "json",
+        method: 'PATCH',
+        format: 'json',
         ...params,
       }),
 
@@ -4262,221 +3879,194 @@ export class Api<
      */
     post: (
       data: {
-        firstName: string | null;
-        lastName: string | null;
-        telegramUserId: string;
+        firstName: string | null
+        lastName: string | null
+        telegramUserId: string
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           eventDrafts: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            emoji: string;
-            id: number;
-            text: string;
-            time: string | null;
+            date: string
+            emoji: string
+            id: number
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           events: {
-            copyFromId?: number;
+            copyFromId?: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern 202[5-9]\.[0-1][0-9]\.[0-3][0-9] */
-            date: string;
-            datetime: string;
-            emoji: string;
-            id: number;
-            notificationDatetime: string;
-            text: string;
-            time: string | null;
+            date: string
+            datetime: string
+            emoji: string
+            id: number
+            notificationDatetime: string
+            text: string
+            time: string | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
-          firstName: string | null;
+            updatedAt: string
+            userId: number
+          }[]
+          firstName: string | null
           friends: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          }[];
-          fullName: string;
-          id: number;
+            updatedAt: string
+          }[]
+          fullName: string
+          id: number
           incomingEventShares: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            eventId: number;
+            createdAt: string
+            eventId: number
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            targetUserId: number | null;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            targetUserId: number | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            usageAmount: number;
-            usageLimit: number;
-            userId: number;
-          }[];
+            updatedAt: string
+            usageAmount: number
+            usageLimit: number
+            userId: number
+          }[]
           incomingFriendshipRequests: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            status: "accepted" | "pending" | "rejected";
-            targetUserId: number;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            status: 'accepted' | 'pending' | 'rejected'
+            targetUserId: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
-          lastName: string | null;
+            updatedAt: string
+            userId: number
+          }[]
+          lastName: string | null
           outgoingEventShares: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            eventId: number;
+            createdAt: string
+            eventId: number
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            targetUserId: number | null;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            targetUserId: number | null
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            usageAmount: number;
-            usageLimit: number;
-            userId: number;
-          }[];
+            updatedAt: string
+            usageAmount: number
+            usageLimit: number
+            userId: number
+          }[]
           outgoingFriendshipRequests: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            status: "accepted" | "pending" | "rejected";
-            targetUserId: number;
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            status: 'accepted' | 'pending' | 'rejected'
+            targetUserId: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           payments: {
-            amount: number;
+            amount: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            currency: string;
-            description: string;
+            createdAt: string
+            currency: string
+            description: string
             /** a UUID */
-            id:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
             /** a UUID */
-            idempotenceKey:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
+            idempotenceKey: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
             /** a UUID */
-            paymentId:
-              | string
-              | "00000000-0000-0000-0000-000000000000"
-              | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-            provider: string | null;
-            providerPaymentId: string | null;
-            status:
-              | "canceled"
-              | "failed"
-              | "in_progress"
-              | "pending"
-              | "refunded"
-              | "success";
-            type: "refund" | "subscription";
+            paymentId: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+            provider: string | null
+            providerPaymentId: string | null
+            status: 'canceled' | 'failed' | 'in_progress' | 'pending' | 'refunded' | 'success'
+            type: 'refund' | 'subscription'
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          }[];
+            updatedAt: string
+            userId: number
+          }[]
           rewards: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            description: string;
-            id: number;
-            name: string;
+            createdAt: string
+            description: string
+            id: number
+            name: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          }[];
-          role: "admin" | "staff" | "user";
+            updatedAt: string
+          }[]
+          role: 'admin' | 'staff' | 'user'
           settings: {
-            UTCTimeDiff: number;
+            UTCTimeDiff: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            id: number;
-            notificationTime: string;
+            createdAt: string
+            id: number
+            notificationTime: string
             stylization: {
-              primaryColor?: string;
-              secondaryColor?: string;
-            };
+              primaryColor?: string
+              secondaryColor?: string
+            }
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
+            updatedAt: string
+            userId: number
+          }
           statistics: {
-            activityRating: number;
+            activityRating: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            createdEventsCount: number;
-            friendsCount: number;
-            id: number;
-            sentRequestsCount: number;
-            sharedEventsCount: number;
+            createdAt: string
+            createdEventsCount: number
+            friendsCount: number
+            id: number
+            sentRequestsCount: number
+            sharedEventsCount: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
+            updatedAt: string
+            userId: number
+          }
           subscription: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
+            createdAt: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            endDate: string;
-            id: number;
+            endDate: string
+            id: number
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            startDate: string;
-            status: "active" | "canceled" | "expired";
-            type: "paid" | "trial";
+            startDate: string
+            status: 'active' | 'canceled' | 'expired'
+            type: 'paid' | 'trial'
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-            userId: number;
-          };
-          telegramUserId: string;
+            updatedAt: string
+            userId: number
+          }
+          telegramUserId: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
+          updatedAt: string
         },
         PostUsersError
       >({
         path: `/api/v1/users`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   friendship = {
     /**
      * No description
@@ -4487,21 +4077,18 @@ export class Api<
      * @request DELETE:/api/v1/friendship/{uuid}
      */
     deleteByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      params: RequestParams = {},
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          success: boolean;
+          success: boolean
         },
         DeleteFriendshipByUuidError
       >({
         path: `/api/v1/friendship/${uuid}`,
-        method: "DELETE",
-        format: "json",
+        method: 'DELETE',
+        format: 'json',
         ...params,
       }),
 
@@ -4516,31 +4103,28 @@ export class Api<
     getAll: (
       query?: {
         /** @pattern ^(?:(?!^-0$)-?(?:(?:0|[1-9]\d*)))$ */
-        userId?: string;
+        userId?: string
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** a UUID */
-          id:
-            | string
-            | "00000000-0000-0000-0000-000000000000"
-            | "ffffffff-ffff-ffff-ffff-ffffffffffff";
-          status: "accepted" | "pending" | "rejected";
-          targetUserId: number;
+          id: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff'
+          status: 'accepted' | 'pending' | 'rejected'
+          targetUserId: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         }[],
         GetFriendshipError
       >({
         path: `/api/v1/friendship`,
-        method: "GET",
+        method: 'GET',
         query: query,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -4553,47 +4137,44 @@ export class Api<
      * @request GET:/api/v1/friendship/{uuid}
      */
     getByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
-      params: RequestParams = {},
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          status: "accepted" | "pending" | "rejected";
+          status: 'accepted' | 'pending' | 'rejected'
           targetUser: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          targetUserId: number;
+            updatedAt: string
+          }
+          targetUserId: number
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         GetFriendshipByUuidError
       >({
         path: `/api/v1/friendship/${uuid}`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -4606,52 +4187,49 @@ export class Api<
      * @request PATCH:/api/v1/friendship/{uuid}
      */
     patchByUuid: (
-      uuid:
-        | string
-        | "00000000-0000-0000-0000-000000000000"
-        | "ffffffff-ffff-ffff-ffff-ffffffffffff",
+      uuid: string | '00000000-0000-0000-0000-000000000000' | 'ffffffff-ffff-ffff-ffff-ffffffffffff',
       data: {
-        status: "accepted" | "pending" | "rejected";
+        status: 'accepted' | 'pending' | 'rejected'
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          status: "accepted" | "pending" | "rejected";
+          status: 'accepted' | 'pending' | 'rejected'
           targetUser: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          targetUserId: number;
+            updatedAt: string
+          }
+          targetUserId: number
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PatchFriendshipByUuidError
       >({
         path: `/api/v1/friendship/${uuid}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
 
@@ -4665,51 +4243,51 @@ export class Api<
      */
     post: (
       data: {
-        targetUserId: number;
-        userId: number;
+        targetUserId: number
+        userId: number
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<
         {
-          status: "accepted" | "pending" | "rejected";
+          status: 'accepted' | 'pending' | 'rejected'
           targetUser: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          targetUserId: number;
+            updatedAt: string
+          }
+          targetUserId: number
           user: {
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            createdAt: string;
-            firstName: string | null;
-            fullName: string;
-            id: number;
-            lastName: string | null;
-            role: "admin" | "staff" | "user";
-            telegramUserId: string;
+            createdAt: string
+            firstName: string | null
+            fullName: string
+            id: number
+            lastName: string | null
+            role: 'admin' | 'staff' | 'user'
+            telegramUserId: string
             /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-            updatedAt: string;
-          };
-          userId: number;
+            updatedAt: string
+          }
+          userId: number
         },
         PostFriendshipError
       >({
         path: `/api/v1/friendship`,
-        method: "POST",
+        method: 'POST',
         body: data,
         type: ContentType.Json,
-        format: "json",
+        format: 'json',
         ...params,
       }),
-  };
+  }
   subscriptions = {
     /**
      * No description
@@ -4723,23 +4301,23 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          endDate: string;
-          id: number;
+          endDate: string
+          id: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          startDate: string;
-          status: "active" | "canceled" | "expired";
-          type: "paid" | "trial";
+          startDate: string
+          status: 'active' | 'canceled' | 'expired'
+          type: 'paid' | 'trial'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         GetSubscriptionsByIdCheckError
       >({
         path: `/api/v1/subscriptions/${id}/check`,
-        method: "GET",
-        format: "json",
+        method: 'GET',
+        format: 'json',
         ...params,
       }),
 
@@ -4755,23 +4333,23 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          endDate: string;
-          id: number;
+          endDate: string
+          id: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          startDate: string;
-          status: "active" | "canceled" | "expired";
-          type: "paid" | "trial";
+          startDate: string
+          status: 'active' | 'canceled' | 'expired'
+          type: 'paid' | 'trial'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         PatchSubscriptionsByIdCancelError
       >({
         path: `/api/v1/subscriptions/${id}/cancel`,
-        method: "PATCH",
-        format: "json",
+        method: 'PATCH',
+        format: 'json',
         ...params,
       }),
 
@@ -4787,24 +4365,24 @@ export class Api<
       this.request<
         {
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          createdAt: string;
+          createdAt: string
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          endDate: string;
-          id: number;
+          endDate: string
+          id: number
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          startDate: string;
-          status: "active" | "canceled" | "expired";
-          type: "paid" | "trial";
+          startDate: string
+          status: 'active' | 'canceled' | 'expired'
+          type: 'paid' | 'trial'
           /** @pattern ^([+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-3])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T]((([01]\d|2[0-3])((:?)[0-5]\d)?|24:?00)([.,]\d+(?!:))?)?(\17[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$ */
-          updatedAt: string;
-          userId: number;
+          updatedAt: string
+          userId: number
         },
         PatchSubscriptionsByIdRenewError
       >({
         path: `/api/v1/subscriptions/${id}/renew`,
-        method: "PATCH",
-        format: "json",
+        method: 'PATCH',
+        format: 'json',
         ...params,
       }),
-  };
+  }
 }

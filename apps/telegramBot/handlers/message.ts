@@ -1,14 +1,11 @@
 import dayjs from 'dayjs'
 import { InlineKeyboard, Middleware } from 'grammy'
 
+import { DATE_FORMAT } from 'shared'
 import { botLogger } from 'shared/logger'
-import { DATE_FORMAT } from 'shared/time'
 
-import { confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from '@/helpers'
+import { GPTResponse, confirmCreationCD, confirmDeletionCD, rejectCreationCD, rejectDeletionCD } from '@/helpers'
 import { BotContext } from '@/types'
-import { GPTResponse } from '@/types/gpt'
-
-import { MAIN_PROMPT } from '../prompts.json'
 
 const getConfirmCreationKeyboard = (eventId: number) =>
   new InlineKeyboard().text('Да', confirmCreationCD.fill({ eventId })).text('Нет', rejectCreationCD.fill({ eventId }))
@@ -46,7 +43,12 @@ export const messageHandler: Middleware<BotContext> = async (ctx) => {
             break
           }
 
-          const eventDraft = await ctx.apiV1.eventDrafts.post({ userId, ...event, time: event.time || null })
+          const eventDraft = await ctx.apiV1.eventDrafts.post({
+            userId,
+            ...event,
+            date: dayjs(event.date).format(DATE_FORMAT),
+            time: event.time || null,
+          })
 
           await ctx.api.editMessageReplyMarkup(telegramUserId, messageId, {
             reply_markup: getConfirmCreationKeyboard(eventDraft.id),
@@ -76,19 +78,7 @@ export const messageHandler: Middleware<BotContext> = async (ctx) => {
 
   const sendGPTMessage = async (text: string) => {
     const message = await ctx.replyT('bot.generation_pending')
-    const filteredEvents = ctx.user.events.filter(
-      (event) => dayjs(event.date).isSame(dayjs(), 'day') || dayjs(event.date).isAfter(dayjs(), 'day')
-    )
-
-    const answer = await ctx.gpt.sendMessage([
-      {
-        role: 'system',
-        content: MAIN_PROMPT.replaceAll('{TODAY}', dayjs().format(DATE_FORMAT))
-          .replaceAll('{DATE_FORMAT}', DATE_FORMAT)
-          .replaceAll('{EVENTS}', JSON.stringify(filteredEvents)),
-      },
-      { role: 'user', content: text },
-    ])
+    const answer = await ctx.gpt.sendMessage(ctx, text)
 
     gptMessageHandler({
       response: answer,
