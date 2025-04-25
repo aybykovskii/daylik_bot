@@ -67,7 +67,9 @@
 
     - name: Результаты db docker compose
       debug:
-        var: db_compose_result
+        msg: |
+          ✅ DB Compose завершён.
+          changed: {{ db_compose_result.changed | default(false) }}
 
     - name: Останавливаем apps docker compose
       community.docker.docker_compose_v2:
@@ -89,7 +91,9 @@
 
     - name: Результаты apps docker compose
       debug:
-        var: apps_compose_result
+        msg: |
+          ✅ Apps Compose завершён.
+          changed: {{ apps_compose_result.changed | default(false) }}
 
     - name: Создаем контейнер miniapp
       community.docker.docker_container:
@@ -113,17 +117,33 @@
         image: daylik-miniapp
         state: absent
 
-    - name: Перезапускаем nginx docker compose
+    - name: Останавливаем nginx docker compose
       community.docker.docker_compose_v2:
         project_src: '{{ repo_docker_path }}'
         files:
           - '{{ nginx_compose }}'
-        state: restarted
-      register: nginx_compose_result
+        state: absent
+      register: nginx_stop_compose_result
 
-    - name: Результаты nginx docker compose
+    - name: Результаты остановки nginx docker compose
       debug:
-        var: nginx_compose_result
+        msg: |
+          ✅ Nginx Compose остановлен.
+          changed: {{ nginx_stop_compose_result.changed | default(false) }}
+
+    - name: Запускаем nginx docker compose
+      community.docker.docker_compose_v2:
+        project_src: '{{ repo_docker_path }}'
+        files:
+          - '{{ nginx_compose }}'
+        state: present
+      register: nginx_start_compose_result
+
+    - name: Результаты запуска nginx docker compose
+      debug:
+        msg: |
+          ✅ Nginx Compose запущен.
+          changed: {{ nginx_start_compose_result.changed | default(false) }}
 
     - name: Удаляем старые образы и контейнеры
       community.docker.docker_prune:
