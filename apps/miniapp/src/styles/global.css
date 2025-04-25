@@ -25,7 +25,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  /* Dark mode DISABLED */
+  _root_ {
     --whiteLightness: 10%;
     --blackLightness: 100%;
     --textLightness: calc(var(--blackLightness) - 25%);

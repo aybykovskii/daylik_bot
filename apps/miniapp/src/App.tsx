@@ -7,7 +7,7 @@ import timezone from 'dayjs/plugin/timezone'
 import { useCallback, useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
-import { api, safeApi } from 'api'
+import { api } from 'api'
 import { i18next } from 'shared/i18n'
 import { makeUTCTimeDiff } from 'shared/time'
 import { ViewObject } from 'shared/types'
@@ -25,7 +25,6 @@ dayjs.extend(localeData)
 dayjs.extend(localizedFormat)
 
 api.baseUrl = `http://localhost:${process.env.MINI_APP_PORT}`
-safeApi.baseUrl = `http://localhost:${process.env.MINI_APP_PORT}`
 
 export const App = () => {
   const views: ViewObject[] = [
@@ -51,10 +50,10 @@ export const App = () => {
   const initializeUser = useCallback(async () => {
     if (!telegramUserId) return
 
-    const tokenResult = await safeApi.auth.getApiToken({ telegramUserId: `${telegramUserId}` })
-
-    if (tokenResult.isErr()) {
-      console.error(tokenResult.error)
+    try {
+      await api.auth.getApiToken({ telegramUserId: `${telegramUserId}` })
+    } catch (error) {
+      console.error(error)
     }
 
     const u = await loadUser(telegramUserId)
