@@ -26,15 +26,11 @@ export const EventModal = ({ event, onSave, onDelete }: Props) => {
   const [text, setText] = useState(event?.text ?? '')
 
   const handleSave = () => {
-    const datetime = dayjs(`${date.format(DATE_FORMAT)} ${time ?? '00:00'}`)
-
     const updatedEvent: Events.PatchById.RequestBody = {
       date: date.format(DATE_FORMAT),
       time: isAllDay ? null : time,
       emoji,
       text,
-      datetime: datetime.toISOString(),
-      notificationDatetime: datetime.subtract(1, 'hour').toISOString(),
     }
 
     onSave(updatedEvent)
@@ -51,8 +47,6 @@ export const EventModal = ({ event, onSave, onDelete }: Props) => {
             <input
               id="date"
               type="date"
-              min={dayjs().format('YYYY-MM-DD')}
-              max={dayjs().endOf('year').format('YYYY-MM-DD')}
               value={date.format('YYYY-MM-DD')}
               onChange={(e) => setDate(dayjs(e.target.value))}
             />
