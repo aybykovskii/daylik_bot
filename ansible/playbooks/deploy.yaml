@@ -142,6 +142,7 @@
       service:
         name: nginx
         state: stopped
+      become_user: root
 
     - name: Запускаем nginx docker compose
       community.docker.docker_compose_v2:
