@@ -7,7 +7,7 @@
 		"api:generate": "bun ./api.config.ts"
 	},
 	"dependencies": {
-		"ky": "^1.5.0",
+		"ky": "^1.8.1",
 		"shared": "workspace:^",
 		"swagger-typescript-api": "^13.0.16"
 	}

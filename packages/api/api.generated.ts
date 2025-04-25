@@ -2140,7 +2140,7 @@ export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string
   baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>
   securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void
-  customFetch?: typeof fetch
+  customFetch?: typeof fetch.fetch
 }
 
 export interface HttpResponse<D, E = unknown> extends Response {

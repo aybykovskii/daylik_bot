@@ -13,9 +13,13 @@ const makeApiCallSafe = async <T, E>(apiCall: Promise<T>): Promise<Result<T, E>>
   if (res.isErr()) {
     const errorResponse = res.error as KyResponse
 
-    const originalError = await errorResponse.json<E>()
+    if ('json' in errorResponse) {
+      const originalError = await errorResponse.json<E>()
 
-    return err(originalError)
+      return err(originalError)
+    }
+
+    return err(errorResponse)
   }
 
   return res as Ok<T, E>
