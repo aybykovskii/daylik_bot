@@ -77,6 +77,13 @@
         files:
           - '{{ apps_compose }}'
         state: absent
+      register: apps_stop_compose_result
+
+    - name: Результаты остановки apps docker compose
+      debug:
+        msg: |
+          ✅ Apps Compose остановлены и удалены
+          changed: {{ apps_stop_compose_result.changed | default(false) }}
 
     - name: Запускаем apps docker compose
       community.docker.docker_compose_v2:
@@ -92,7 +99,7 @@
     - name: Результаты apps docker compose
       debug:
         msg: |
-          ✅ Apps Compose завершён.
+          ✅ Apps Compose запущены
           changed: {{ apps_compose_result.changed | default(false) }}
 
     - name: Создаем контейнер miniapp
@@ -130,6 +137,11 @@
         msg: |
           ✅ Nginx Compose остановлен.
           changed: {{ nginx_stop_compose_result.changed | default(false) }}
+
+    - name: Останавливаем nginx, если он запущен
+      service:
+        name: nginx
+        state: stopped
 
     - name: Запускаем nginx docker compose
       community.docker.docker_compose_v2:
