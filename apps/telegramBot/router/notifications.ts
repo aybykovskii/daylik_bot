@@ -58,6 +58,8 @@ export const getNotificationRouter = (bot: Bot<BotContext>, api: typeof apiClass
       userIds = users.map((user) => user.telegramUserId)
     }
 
+    botLogger.info('Received notification, Sending to users.', { userIds })
+
     for (const [index, id] of userIds.entries()) {
       try {
         bot.api?.sendMessage(id, Array.isArray(message) ? message[index] : message, extra)
@@ -65,6 +67,8 @@ export const getNotificationRouter = (bot: Bot<BotContext>, api: typeof apiClass
         botLogger.error(`Failed to send message to ${id}`, { error })
       }
     }
+
+    botLogger.info('Message sent to users.', { userIds })
 
     return c.json({ message: 'Message sent' }, 200)
   })
