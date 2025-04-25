@@ -1,6 +1,6 @@
 import { MiddlewareHandler } from 'hono'
 
-import { env } from 'shared'
+import { env, serverLogger } from 'shared'
 
 import { authService } from './auth.service'
 
@@ -13,6 +13,7 @@ export const authMiddleware: MiddlewareHandler = async (c, next) => {
   const token = c.req.header('Authorization')?.split(' ')[1]
 
   if (!token) {
+    serverLogger.error('Unauthorized request attempt', { url: c.req.url, agent: c.req.header('User-Agent') })
     return c.json({ error: 'ERR_UNAUTHORIZED', message: 'No token provided' }, 401)
   }
 

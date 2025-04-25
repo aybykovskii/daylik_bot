@@ -2,6 +2,8 @@ import { Op } from '@sequelize/core'
 import { CronJob } from 'cron'
 import dayjs from 'dayjs'
 
+import { serverLogger } from 'shared'
+
 import { eventsService, usersService } from '@/modules'
 import { EventDto } from '@/types/events'
 
@@ -46,6 +48,10 @@ export const eventNotificationJob = new CronJob('0 * * * * *', async () => {
   )
 
   if (!Object.keys(eventToNotifyByUserId).length) return
+
+  serverLogger.info('Sending event notifications', {
+    userIds: Object.keys(eventToNotifyByUserId),
+  })
 
   botRequest('POST', 'notifications', {
     message: Object.values(eventToNotifyByUserId),

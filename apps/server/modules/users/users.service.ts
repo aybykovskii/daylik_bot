@@ -1,6 +1,6 @@
 import { Op } from '@sequelize/core'
 import dayjs from 'dayjs'
-import { Result, ResultAsync, err, ok } from 'neverthrow'
+import { Ok, Result, ResultAsync, err, ok } from 'neverthrow'
 
 import { UserModel } from '@/db'
 import { Errors } from '@/types/common'
@@ -21,7 +21,7 @@ export class UsersService {
     return await Promise.all(users.map((user) => user.asFullData()))
   }
 
-  readAll = async (): Promise<Result<UserDto[], never>> => {
+  readAll = async (): Promise<Ok<UserDto[], never>> => {
     const users = await this.model.findAll()
 
     return ok(users.map((user) => user.asDto()))

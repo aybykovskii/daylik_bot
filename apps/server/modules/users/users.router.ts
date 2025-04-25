@@ -1,5 +1,7 @@
 import { Hono } from 'hono'
 
+import { serverLogger } from 'shared'
+
 import { createRouteDescription } from '@/common/route'
 import { CommonError, validate, validatePathUserId, validateResponseUserId, validateRole } from '@/common/validation'
 import { emptySuccessBody, makeErrorBody, paramsId, successBody } from '@/types/common'
@@ -22,7 +24,7 @@ usersRouter.get(
   async (c) => {
     const users = await usersService.readAll()
 
-    return c.json(users)
+    return c.json(users.value)
   }
 )
 
@@ -39,6 +41,10 @@ usersRouter.post(
     if (result.isErr()) {
       return c.json({ error: result.error }, 400)
     }
+
+    const { id, telegramUserId } = result.value
+
+    serverLogger.info('User created', { id, telegramUserId })
 
     return c.json(result.value)
   }

@@ -1,6 +1,8 @@
 import dayjs from 'dayjs'
 import { Hono } from 'hono'
 
+import { serverLogger } from 'shared'
+
 import { createRouteDescription } from '@/common/route'
 import { CommonError, validate, validateRole } from '@/common/validation'
 import { makeErrorBody, paramsId } from '@/types/common'
@@ -31,7 +33,12 @@ subscriptionsRouter.get(
       return c.json({ error: subscription.error }, 404)
     }
 
-    const { status, type, endDate, user: { role } } = subscription.value
+    const {
+      status,
+      type,
+      endDate,
+      user: { role },
+    } = subscription.value
 
     // Staff has no limits
     if (role !== 'user') {
@@ -81,6 +88,10 @@ subscriptionsRouter.patch(
       return c.json({ error: updatedSubscriptionResult.error }, 400)
     }
 
+    const { id: uuid, userId, type, status } = updatedSubscriptionResult.value
+
+    serverLogger.info('Subscription was renewed', { uuid, userId, type, status })
+
     return c.json(updatedSubscriptionResult.value)
   }
 )
@@ -105,6 +116,10 @@ subscriptionsRouter.patch(
     if (updatedSubscriptionResult.isErr()) {
       return c.json({ error: updatedSubscriptionResult.error }, 400)
     }
+
+    const { id: uuid, userId, type, status } = updatedSubscriptionResult.value
+
+    serverLogger.info('Subscription was canceled', { uuid, userId, type, status })
 
     return c.json(updatedSubscriptionResult.value)
   }

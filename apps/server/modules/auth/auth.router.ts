@@ -1,3 +1,4 @@
+import { type } from 'arktype'
 import { Hono } from 'hono'
 
 import { createRouteDescription } from '@/common/route'
@@ -21,6 +22,11 @@ authRouter.get(
   validate(createTokenParams.in, 'query'),
   async (c) => {
     const param = c.req.valid('query')
+    const validatedParam = createTokenParams(param)
+
+    if (validatedParam instanceof type.errors) {
+      return c.json({ error: 'ERR_VALIDATION_FAILED' }, 400)
+    }
 
     const userResult = await usersService.read('userId' in param ? param.userId : param.telegramUserId)
 

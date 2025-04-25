@@ -1,5 +1,7 @@
 import { Hono } from 'hono'
 
+import { serverLogger } from 'shared'
+
 import { createRouteDescription } from '@/common/route'
 import { CommonError, validate, validateResponseUserId, validateRole } from '@/common/validation'
 import { emptySuccessBody, makeErrorBody, paramsUuid, successBody } from '@/types/common'
@@ -42,6 +44,10 @@ paymentsRouter.post(
       return c.json(payment.error, 400)
     }
 
+    const { id: uuid, userId, amount, currency } = payment.value
+
+    serverLogger.info('Payment created', { uuid, userId, amount, currency })
+
     return validateResponseUserId(c, payment.value)
   }
 )
@@ -81,6 +87,10 @@ paymentsRouter.patch(
     if (payment.isErr()) {
       return c.json(payment.error, 400)
     }
+
+    const { userId, amount, currency, status } = payment.value
+
+    serverLogger.info('Payment updated', { uuid, userId, amount, currency, status })
 
     return validateResponseUserId(c, payment.value)
   }

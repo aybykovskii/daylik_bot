@@ -9,7 +9,9 @@ export type AuthError = typeof authError.infer
 export const createTokenParams = type({
   'userId?': 'string.integer.parse',
   'telegramUserId?': 'string',
-}).as<{ userId: number } | { telegramUserId: string }>()
+})
+  .narrow(({ userId, telegramUserId }, ctx) => !!userId || !!telegramUserId || ctx.mustBe('not empty'))
+  .as<{ userId: number } | { telegramUserId: string }>()
 export type CreateTokenParams = typeof createTokenParams.infer
 
 export const createTokenResponse = type({ token: 'string' })
