@@ -2,8 +2,8 @@ import { SVGProps } from 'react'
 
 export const Cat = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    width="20px"
-    height="20px"
+    width="200px"
+    height="200px"
     viewBox="0 0 1024 1024"
     preserveAspectRatio="xMidYMid meet"
     fill="none"

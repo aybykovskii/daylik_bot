@@ -20,6 +20,15 @@ type Phrase = CommonKeys | ServerKeys | BotKeys | MiniAppKeys
 declare global {
   type I18nPhrase = Phrase
 
+  type LocalizationsNamespaces = 'common' | 'server' | 'bot' | 'miniApp'
+
+  type Localizations = {
+    common: typeof common
+    server: typeof server
+    bot: typeof bot
+    miniApp: typeof miniApp
+  }
+
   interface i18n extends CustomInstanceExtenstions {
     t(phrase: Phrase, replace?: Record<string, unknown>): string
   }
