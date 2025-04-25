@@ -1,0 +1,17 @@
+- name: Клонирование логов
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  become_user: '{{ user }}'
+  vars:
+    root: '../..'
+    repo_path: '/home/{{ user }}/{{ github_repo }}'
+
+  tasks:
+    - name: Клонируем логи
+      synchronize:
+        src: '{{ repo_path }}/packages/shared/logger/logs'
+        dest: '{{ root }}/logs'
+        mode: pull
+        recursive: yes
