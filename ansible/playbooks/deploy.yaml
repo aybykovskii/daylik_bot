@@ -11,7 +11,7 @@
     repo_docker_path: '{{ repo_path }}/docker'
     db_compose: 'compose.db.yaml'
     apps_compose: 'compose.yaml'
-    nginx_compose: 'compose.nginx.yaml'
+    static_path: '/usr/share/nginx/html'
 
   tasks:
     - name: Клонируем репозиторий
@@ -110,12 +110,12 @@
 
     - name: Удаляем старую статику
       file:
-        path: '{{ repo_path }}/static/'
+        path: '{{ static_path }}'
         state: absent
       become_user: root
 
     - name: Копируем статику miniapp
-      command: 'docker cp {{ miniapp_name }}:/app/apps/miniapp/dist {{ repo_path }}/static'
+      command: 'docker cp {{ miniapp_name }}:/app/apps/miniapp/dist {{ static_path }}'
       become_user: root
 
     - name: Удаляем контейнер miniapp
@@ -123,40 +123,6 @@
         name: '{{ miniapp_name }}'
         image: daylik-miniapp
         state: absent
-
-    - name: Останавливаем nginx docker compose
-      community.docker.docker_compose_v2:
-        project_src: '{{ repo_docker_path }}'
-        files:
-          - '{{ nginx_compose }}'
-        state: absent
-      register: nginx_stop_compose_result
-
-    - name: Результаты остановки nginx docker compose
-      debug:
-        msg: |
-          ✅ Nginx Compose остановлен.
-          changed: {{ nginx_stop_compose_result.changed | default(false) }}
-
-    - name: Останавливаем nginx, если он запущен
-      service:
-        name: nginx
-        state: stopped
-      become_user: root
-
-    - name: Запускаем nginx docker compose
-      community.docker.docker_compose_v2:
-        project_src: '{{ repo_docker_path }}'
-        files:
-          - '{{ nginx_compose }}'
-        state: present
-      register: nginx_start_compose_result
-
-    - name: Результаты запуска nginx docker compose
-      debug:
-        msg: |
-          ✅ Nginx Compose запущен.
-          changed: {{ nginx_start_compose_result.changed | default(false) }}
 
     - name: Удаляем старые образы и контейнеры
       community.docker.docker_prune:

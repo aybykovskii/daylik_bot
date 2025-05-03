@@ -1,0 +1,55 @@
+- name: Установка и настройка Fail2ban
+  hosts: servers
+  become: true
+  vars:
+    fail2ban_custom_filters_dir: '/etc/fail2ban/filter.d'
+    fail2ban_custom_jails_dir: '/etc/fail2ban/jail.d'
+    local_files_root: './config/fail2ban'
+
+  tasks:
+    - name: Установить fail2ban
+      apt:
+        name: fail2ban
+        state: present
+        update_cache: yes
+
+    - name: Убедиться, что директория для кастомных фильтров существует
+      file:
+        path: '{{ fail2ban_custom_filters_dir }}'
+        state: directory
+
+    - name: Убедиться, что директория для кастомных jail-файлов существует
+      file:
+        path: '{{ fail2ban_custom_jails_dir }}'
+        state: directory
+
+    - name: Копировать все кастомные фильтры
+      copy:
+        src: '{{ local_files_root }}/filter.d/'
+        dest: '{{ fail2ban_custom_filters_dir }}/'
+        mode: preserve
+        owner: root
+        group: root
+
+    - name: Копировать все jail-конфиги
+      copy:
+        src: '{{ local_files_root }}/jail.d/'
+        dest: '{{ fail2ban_custom_jails_dir }}/'
+        mode: preserve
+        owner: root
+        group: root
+
+    - name: Убедиться, что fail2ban включён и запущен
+      service:
+        name: fail2ban
+        state: started
+        enabled: true
+
+    - name: Показать статус jail
+      command: fail2ban-client status nginx-deny-error-codes
+      register: jail_status
+      changed_when: false
+
+    - name: Показать вывод статуса
+      debug:
+        msg: '{{ jail_status.stdout }}'

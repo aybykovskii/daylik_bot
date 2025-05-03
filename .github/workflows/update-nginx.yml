@@ -1,11 +1,11 @@
-name: Deploy
+name: Update Nginx
 
 on:
   workflow_dispatch:
 
 jobs:
-  deploy:
-    name: Deploy via Ansible
+  update-nginx:
+    name: Update Nginx via Ansible
     runs-on: ubuntu-latest
 
     steps:
@@ -24,12 +24,7 @@ jobs:
 
       - name: Restore environment files from secrets
         run: |
-          echo "${{ secrets.BASE_ENV }}" > .env
-          echo "${{ secrets.PROD_ENV }}" > .env.production
           echo "${{ secrets.ANSIBLE_ENV }}" > ansible/playbooks/env.yaml
-          cat <<EOF > prompt.md
-          ${{ secrets.PROMPT }}
-          EOF
 
       - name: Add SSH private key
         run: |
@@ -41,8 +36,8 @@ jobs:
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
       - name: Run Ansible playbook
-        run: bun run ansible:deploy --private-key ~/.ssh/id_ed25519
+        run: bun run ansible:update-nginx --private-key ~/.ssh/id_ed25519
 
       - name: Clean up env files
         if: always()
-        run: rm -rf .env .env.production prompt.md ansible/playbooks/env.yaml ~/.ssh
+        run: rm -rf ansible/playbooks/env.yaml ~/.ssh

@@ -1,0 +1,40 @@
+- name: Обновление и перезапуск Nginx
+  hosts: servers
+  become: true
+  vars_files:
+    - env.yaml
+  vars:
+    nginx_config_template: config/nginx/config.template.j2
+    nginx_config_path: /etc/nginx/sites-available/default
+    nginx_config_enabled_path: /etc/nginx/sites-enabled/default
+
+  tasks:
+    - name: Установить Nginx, если не установлен
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Остановить Nginx
+      ansible.builtin.systemd:
+        name: nginx
+        state: stopped
+
+    - name: Установить конфиг Nginx из шаблона
+      ansible.builtin.template:
+        src: '{{ nginx_config_template }}'
+        dest: '{{ nginx_config_path }}'
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Создать симлинк на конфиг
+      file:
+        src: '{{ nginx_config_path }}'
+        dest: '{{ nginx_config_enabled_path }}'
+        state: link
+
+    - name: Запустить Nginx
+      ansible.builtin.systemd:
+        name: nginx
+        enabled: true
+        state: started

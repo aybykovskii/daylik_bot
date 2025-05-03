@@ -29,10 +29,8 @@
     "docker:run:apps:prod": "bun run copy:env:prod && docker compose -f docker/compose.yaml --profile all up --build --detach",
     "docker:run:server": "bun run copy:env:dev && docker compose -f docker/compose.yaml --profile server up --build",
     "docker:run:bot": "bun run copy:env:dev && docker compose -f docker/compose.yaml --profile bot up --build",
-    "docker:run:nginx": "docker compose -f docker/compose.nginx.yaml up -d",
     "docker:stop:db": "docker compose -f docker/compose.db.yaml down",
-    "docker:stop:apps:prod": "NODE_ENV=production docker compose -f docker/compose.yaml --profile all down",
-    "docker:stop:nginx": "docker compose -f docker/compose.nginx.yaml down"
+    "docker:stop:apps:prod": "NODE_ENV=production docker compose -f docker/compose.yaml --profile all down"
   },
   "license": "ISC",
   "dependencies": {

@@ -1,0 +1,10 @@
+[nginx-deny-error-codes]
+enabled = true
+port = http,https
+filter = nginx-deny-error-codes
+logpath = /var/log/nginx/access.log
+maxretry = 3
+findtime = 600
+bantime = 86400
+backend = auto
+action = iptables[name=nginx-deny-error-codes, port=http, protocol=tcp]
