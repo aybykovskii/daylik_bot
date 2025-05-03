@@ -5,6 +5,7 @@ services:
       - ../templates:/etc/nginx/templates
       - ../static:/usr/share/nginx/html
       - /etc/letsencrypt:/etc/letsencrypt
+      - /var/log/nginx:/var/log/nginx
     env_file:
       - .env
     ports:
