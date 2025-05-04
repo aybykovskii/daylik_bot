@@ -128,3 +128,13 @@
       community.docker.docker_prune:
         containers: false
         images: true
+
+    - name: Удаляем чувствительные файлы
+      ansible.builtin.file:
+        path: '{{ item }}'
+        state: absent
+      loop:
+        - '{{ repo_path }}/.env'
+        - '{{ repo_path }}/.env.production'
+        - '{{ repo_path }}/docker/.env'
+        - '{{ repo_path }}/packages/shared/.env'
