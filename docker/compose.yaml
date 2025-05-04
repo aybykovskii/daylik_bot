@@ -29,6 +29,18 @@ x-healthcheck-defaults: &healthcheck-defaults
   retries: 5
 
 services:
+  rabbitmq:
+    <<: *root-defaults
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+    profiles:
+      - server
+      - bot
+      - rabbit
+      - all
+
   base:
     build:
       <<: *build-context
@@ -46,6 +58,9 @@ services:
         - action: sync+restart
           path: ../apps/server
           target: /app/apps/server
+    depends_on:
+      rabbitmq:
+        condition: service_started
     healthcheck:
       <<: *healthcheck-defaults
       test: 'curl --fail http://localhost:${SERVER_PORT}/health || exit 1'
@@ -69,6 +84,8 @@ services:
           target: /app/apps/telegramBot
     depends_on:
       <<: *depends-on-server
+      rabbitmq:
+        condition: service_started
     ports:
       - '3030:${BOT_PORT}'
     healthcheck:
