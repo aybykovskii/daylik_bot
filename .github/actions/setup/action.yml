@@ -4,16 +4,19 @@ runs:
   using: 'composite'
   steps:
     - name: Set up Python and Ansible
+      shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install -y ansible sshpass
 
     - name: Set up Bun
+      shell: bash
       run: |
         curl -fsSL https://bun.sh/install | bash
         echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
     - name: Restore environment files from secrets
+      shell: bash
       run: |
         echo "${{ secrets.BASE_ENV }}" > .env
         echo "${{ secrets.PROD_ENV }}" > .env.production
@@ -23,6 +26,7 @@ runs:
         EOF
 
     - name: Add SSH private key
+      shell: bash
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE }}" > ~/.ssh/id_ed25519

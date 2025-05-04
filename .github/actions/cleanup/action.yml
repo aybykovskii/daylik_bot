@@ -5,4 +5,5 @@ runs:
   steps:
     - name: Clean up env files
       if: always()
+      shell: bash
       run: rm -rf .env .env.production prompt.md ansible/playbooks/env.yaml ~/.ssh

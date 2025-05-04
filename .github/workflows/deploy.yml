@@ -12,7 +12,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run Workflow
-        uses: ./.github/actions/run-workflow
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run Playbook
+        uses: ./.github/actions/run-playbook
         with:
-          workflow: 'ansible:deploy'
+          playbook: 'deploy'
+
+      - name: Cleanup
+        uses: ./.github/actions/cleanup

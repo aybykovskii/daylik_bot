@@ -1,0 +1,14 @@
+name: Run Playbook
+description: Run the ansible playbook for the project
+
+inputs:
+  playbook:
+    description: The playbook to run
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run Playbook
+      shell: bash
+      run: bun run ansible:${{ inputs.playbook }} --private-key ~/.ssh/id_ed25519
