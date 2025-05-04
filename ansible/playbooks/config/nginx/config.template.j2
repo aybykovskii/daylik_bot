@@ -111,8 +111,8 @@ server {
     server_name admin.{{ server_name }};
 
     # ssl certificates
-    ssl_certificate /etc/letsencrypt/live/bot.telegram.{{ server_name }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/bot.telegram.{{ server_name }}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/admin.{{ server_name }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/admin.{{ server_name }}/privkey.pem;
 
     # other
     location / {
