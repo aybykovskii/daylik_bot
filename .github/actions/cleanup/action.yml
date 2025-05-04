@@ -1,0 +1,8 @@
+name: Cleanup
+description: Cleanup the environment for the project
+runs:
+  using: 'composite'
+  steps:
+    - name: Clean up env files
+      if: always()
+      run: rm -rf .env .env.production prompt.md ansible/playbooks/env.yaml ~/.ssh

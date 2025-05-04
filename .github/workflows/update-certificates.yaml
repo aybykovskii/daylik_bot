@@ -9,35 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python and Ansible
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ansible sshpass
-
-      - name: Set up Bun
-        run: |
-          curl -fsSL https://bun.sh/install | bash
-          echo "$HOME/.bun/bin" >> $GITHUB_PATH
-
-      - name: Restore environment files from secrets
-        run: |
-          echo "${{ secrets.ANSIBLE_ENV }}" > ansible/playbooks/env.yaml
-
-      - name: Add SSH private key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE }}" > ~/.ssh/id_ed25519
-          echo "${{ secrets.SSH_PUBLIC }}" > ~/.ssh/id_ed25519.pub
-          chmod 600 ~/.ssh/id_ed25519
-          chmod 644 ~/.ssh/id_ed25519.pub
-          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Run Ansible playbook
-        run: bun run ansible:update-certificates --private-key ~/.ssh/id_ed25519
-
-      - name: Clean up env files
-        if: always()
-        run: rm -rf ansible/playbooks/env.yaml ~/.ssh
+      - name: Run Workflow
+        uses: ./.github/actions/run-workflow
+        with:
+          workflow: 'ansible:update-certificates'
