@@ -138,3 +138,4 @@
         - '{{ repo_path }}/.env.production'
         - '{{ repo_path }}/docker/.env'
         - '{{ repo_path }}/packages/shared/.env'
+      become_user: root
