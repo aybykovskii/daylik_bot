@@ -36,7 +36,9 @@
   "dependencies": {
     "@hono/arktype-validator": "^2.0.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/amqplib": "^0.10.7",
     "@types/bun": "^1.2.10",
+    "amqplib": "^0.10.7",
     "arktype": "^2.1.15",
     "dayjs": "^1.11.12",
     "hono": "^4.7.5",

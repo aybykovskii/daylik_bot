@@ -2,7 +2,7 @@ import { WhereOptions } from '@sequelize/core'
 import dayjs from 'dayjs'
 import { Ok, Result, err, ok } from 'neverthrow'
 
-import { getUserDate } from 'shared'
+import { makeUserDate } from 'shared'
 
 import { EventModel } from '@/db'
 import { eventDraftsService } from '@/modules/event-drafts'
@@ -25,7 +25,7 @@ export class EventsService {
 
     const diff = user.value?.settings.UTCTimeDiff ?? 0
     const eventDate = dayjs(`${date} ${time ?? '00:00'}`)
-    const datetime = getUserDate(diff, eventDate)
+    const datetime = makeUserDate(diff, eventDate)
 
     return {
       datetime: datetime.toISOString(),

@@ -35,6 +35,11 @@ services:
     image: rabbitmq:3-management
     ports:
       - '5672:5672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
     profiles:
       - server
       - bot
@@ -60,7 +65,7 @@ services:
           target: /app/apps/server
     depends_on:
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
     healthcheck:
       <<: *healthcheck-defaults
       test: 'curl --fail http://localhost:${SERVER_PORT}/health || exit 1'
@@ -85,7 +90,7 @@ services:
     depends_on:
       <<: *depends-on-server
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
     ports:
       - '3030:${BOT_PORT}'
     healthcheck:

@@ -2,12 +2,10 @@ import { Op } from '@sequelize/core'
 import { CronJob } from 'cron'
 import dayjs from 'dayjs'
 
-import { serverLogger } from 'shared'
+import { isUserSubscribed, notificationsQueue } from 'shared'
 
 import { eventsService, usersService } from '@/modules'
 import { EventDto } from '@/types/events'
-
-import { botRequest } from '../request'
 
 export const eventNotificationJob = new CronJob('0 * * * * *', async () => {
   const users = await usersService._readAll()
@@ -31,30 +29,18 @@ export const eventNotificationJob = new CronJob('0 * * * * *', async () => {
     {} as Record<number, EventDto[]>
   )
 
-  const eventToNotifyByUserId = Object.entries(eventsByUserId).reduce(
-    (acc, [userId, events]) => {
-      const user = users.find((user) => user.id === +userId)
+  for (const [userId, events] of Object.entries(eventsByUserId)) {
+    const user = users.find((user) => user.id === +userId)
 
-      if (!user || user.subscription.status !== 'active') {
-        return acc
-      }
+    if (!user || !isUserSubscribed(user)) {
+      continue
+    }
 
-      const eventsText = events.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
+    const eventsText = events.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
 
-      acc[user.telegramUserId] = `Напоминаю, скоро:\n${eventsText}`
-      return acc
-    },
-    {} as Record<string, string>
-  )
-
-  if (!Object.keys(eventToNotifyByUserId).length) return
-
-  serverLogger.info('Sending event notifications', {
-    userIds: Object.keys(eventToNotifyByUserId),
-  })
-
-  botRequest('POST', 'notifications', {
-    message: Object.values(eventToNotifyByUserId),
-    userIds: Object.keys(eventToNotifyByUserId),
-  })
+    notificationsQueue.send({
+      message: `Напоминаю, скоро:\n${eventsText}`,
+      telegramUserId: user.telegramUserId,
+    })
+  }
 })

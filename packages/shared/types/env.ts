@@ -14,6 +14,9 @@ export const envSchema = z
     OPENAI_API_KEY: z.string(),
     SUBSCRIPTION_STARS_AMOUNT: z.coerce.number(),
 
+    RABBITMQ_DEFAULT_USER: z.string(),
+    RABBITMQ_DEFAULT_PASS: z.string(),
+
     POSTGRES_HOST: z.string(),
     POSTGRES_PORT: z.coerce.number().default(5432),
     POSTGRES_USER: z.string(),

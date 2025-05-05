@@ -4,6 +4,7 @@ import { Bot } from 'grammy'
 import { Hono } from 'hono'
 
 import { createApi } from 'api'
+import { notificationsQueue } from 'shared'
 import { env } from 'shared/environment'
 import { botLogger } from 'shared/logger'
 
@@ -42,9 +43,13 @@ bot.catch((error) => botLogger.error('Occurred bot error', error))
 
 bot.start()
 
+// Message broker
+notificationsQueue.consume(({ message, telegramUserId }) => bot.api.sendMessage(telegramUserId, message))
+
+// Router
 const root = new Hono()
 
-root.route('/notifications', getNotificationRouter(bot, apis.api))
+root.route('/notifications', getNotificationRouter(apis.api))
 root.get('/health', (c) => c.text('ok'))
 
 const server = Bun.serve({

@@ -2,12 +2,10 @@ import { Op } from '@sequelize/core'
 import { CronJob } from 'cron'
 import dayjs from 'dayjs'
 
-import { DAILY_NOTIFICATION_TIME, getTimeSorted, getUserDate, serverLogger } from 'shared'
+import { DAILY_NOTIFICATION_TIME, getTimeSorted, getUserDate, isUserSubscribed, notificationsQueue } from 'shared'
 
 import { eventsService, usersService } from '@/modules'
 import { EventDto } from '@/types/events'
-
-import { botRequest } from '../request'
 
 export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
   const users = await usersService._readAll()
@@ -28,44 +26,32 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
     {} as Record<number, EventDto[]>
   )
 
-  const eventToNotifyByUserId = Object.entries(eventsByUserId).reduce(
-    (acc, [userId, events]) => {
-      const user = users.find((user) => user.id === +userId)
+  for (const [userId, events] of Object.entries(eventsByUserId)) {
+    const user = users.find((user) => user.id === +userId)
 
-      const diff = user?.settings.UTCTimeDiff ?? 0
-      const userDate = getUserDate(diff)
+    const diff = user?.settings.UTCTimeDiff ?? 0
+    const userDate = getUserDate(diff)
 
-      if (!user || user.subscription.status !== 'active' || userDate.hour() !== DAILY_NOTIFICATION_TIME) {
-        return acc
-      }
+    if (!user || !isUserSubscribed(user) || userDate.hour() !== DAILY_NOTIFICATION_TIME) {
+      continue
+    }
 
-      const userStartOfDay = getUserDate(diff, dayjs().startOf('day'))
-      const userEndOfDay = getUserDate(diff, dayjs().endOf('day'))
+    const userStartOfDay = getUserDate(diff, dayjs().startOf('day'))
+    const userEndOfDay = getUserDate(diff, dayjs().endOf('day'))
 
-      const eventsToNotify = getTimeSorted(events).filter(
-        (event) => dayjs(event.datetime).isAfter(userStartOfDay) && dayjs(event.datetime).isBefore(userEndOfDay)
-      )
+    const eventsToNotify = getTimeSorted(events).filter(
+      (event) => dayjs(event.datetime).isAfter(userStartOfDay) && dayjs(event.datetime).isBefore(userEndOfDay)
+    )
 
-      if (!eventsToNotify.length) {
-        return acc
-      }
+    if (!eventsToNotify.length) {
+      continue
+    }
 
-      const eventsText = eventsToNotify.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
+    const eventsText = eventsToNotify.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
 
-      acc[user.telegramUserId] = `Список событий на сегодня:\n${eventsText}`
-      return acc
-    },
-    {} as Record<string, string>
-  )
-
-  if (!Object.keys(eventToNotifyByUserId).length) return
-
-  serverLogger.info('Sending daily notifications', {
-    userIds: Object.keys(eventToNotifyByUserId),
-  })
-
-  botRequest('POST', 'notifications', {
-    message: Object.values(eventToNotifyByUserId),
-    userIds: Object.keys(eventToNotifyByUserId),
-  })
+    notificationsQueue.send({
+      message: `Список событий на сегодня:\n${eventsText}`,
+      telegramUserId: user.telegramUserId,
+    })
+  }
 })
