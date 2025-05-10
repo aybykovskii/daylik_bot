@@ -4,7 +4,7 @@ import { Hono, MiddlewareHandler } from 'hono'
 import { RegExpRouter } from 'hono/router/reg-exp-router'
 
 import { openAPISpecs } from 'hono-openapi'
-import { env, serverLogger } from 'shared'
+import { env, notificationsService, serverLogger } from 'shared'
 
 import { OpenApiConfig } from '@/common/docs'
 import { dailyNotificationJob, eventNotificationJob } from '@/common/jobs'
@@ -65,6 +65,7 @@ root.notFound((c) => c.json({ error: 'ERR_ROUTE_NOT_FOUND' }, 404))
 
 const db = await initDB()
 
+await notificationsService.init()
 dailyNotificationJob.start()
 eventNotificationJob.start()
 
@@ -77,6 +78,7 @@ const server = Bun.serve({
 process.on('SIGTERM', async () => {
   await db.close()
   await server.stop()
+  await notificationsService.close()
   serverLogger.debug('SIGTERM signal received: DB connection closed, HTTP server stopped')
   process.exit(0)
 })

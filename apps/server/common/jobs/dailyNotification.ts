@@ -2,7 +2,14 @@ import { Op } from '@sequelize/core'
 import { CronJob } from 'cron'
 import dayjs from 'dayjs'
 
-import { DAILY_NOTIFICATION_TIME, getTimeSorted, getUserDate, isUserSubscribed, notificationsQueue } from 'shared'
+import {
+  DAILY_NOTIFICATION_TIME,
+  getTimeSorted,
+  getUserDate,
+  isUserSubscribed,
+  makeUserDate,
+  notificationsService,
+} from 'shared'
 
 import { eventsService, usersService } from '@/modules'
 import { EventDto } from '@/types/events'
@@ -36,8 +43,8 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
       continue
     }
 
-    const userStartOfDay = getUserDate(diff, dayjs().startOf('day'))
-    const userEndOfDay = getUserDate(diff, dayjs().endOf('day'))
+    const userStartOfDay = makeUserDate(diff, dayjs().startOf('day'))
+    const userEndOfDay = makeUserDate(diff, dayjs().endOf('day'))
 
     const eventsToNotify = getTimeSorted(events).filter(
       (event) => dayjs(event.datetime).isAfter(userStartOfDay) && dayjs(event.datetime).isBefore(userEndOfDay)
@@ -49,7 +56,7 @@ export const dailyNotificationJob = new CronJob('0 */30 * * * *', async () => {
 
     const eventsText = eventsToNotify.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
 
-    notificationsQueue.send({
+    notificationsService.send({
       message: `Список событий на сегодня:\n${eventsText}`,
       telegramUserId: user.telegramUserId,
     })

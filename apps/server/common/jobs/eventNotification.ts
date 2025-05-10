@@ -2,7 +2,7 @@ import { Op } from '@sequelize/core'
 import { CronJob } from 'cron'
 import dayjs from 'dayjs'
 
-import { isUserSubscribed, notificationsQueue } from 'shared'
+import { isUserSubscribed, notificationsService } from 'shared'
 
 import { eventsService, usersService } from '@/modules'
 import { EventDto } from '@/types/events'
@@ -38,7 +38,7 @@ export const eventNotificationJob = new CronJob('0 * * * * *', async () => {
 
     const eventsText = events.map((event) => `${event.time} ${event.emoji} ${event.text}`).join('\n')
 
-    notificationsQueue.send({
+    notificationsService.send({
       message: `Напоминаю, скоро:\n${eventsText}`,
       telegramUserId: user.telegramUserId,
     })
