@@ -7,7 +7,11 @@ import server from './i18n/ru/server.json'
 
 type Paths<T> = T extends object
   ? {
-      [K in keyof T]: K extends string ? (T[K] extends object ? `${K}.${Paths<T[K]>}` : `${K}`) : never
+      [K in keyof T]: K extends string
+        ? T[K] extends object
+          ? `${K}.${T[K] extends unknown[] ? 'random' : Paths<T[K]>}`
+          : `${K}`
+        : never
     }[keyof T]
   : never
 

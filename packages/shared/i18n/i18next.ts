@@ -38,6 +38,22 @@ export const createI18next = (instance: I18n): I18n => {
       },
     })
 
+  const baseT = instance.t
+
+  instance.t = ((key: string, replace?: Record<string, unknown>) => {
+    const result = baseT(key.endsWith('random') ? key.replace('.random', '') : key, {
+      replace,
+      returnObjects: true,
+    }) as string | string[]
+
+    if (Array.isArray(result)) {
+      const index = Math.floor(Math.random() * result.length)
+      return result[index]
+    }
+
+    return result
+  }) as unknown as typeof baseT
+
   return instance
 }
 

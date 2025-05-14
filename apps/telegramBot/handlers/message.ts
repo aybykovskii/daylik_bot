@@ -77,7 +77,7 @@ export const messageHandler: Middleware<BotContext> = async (ctx) => {
   }
 
   const sendGPTMessage = async (text: string) => {
-    const message = await ctx.replyT('bot.generation_pending')
+    const message = await ctx.replyT('bot.generationInProgress.random')
     const answer = await ctx.gpt.sendMessage(ctx, text)
 
     gptMessageHandler({
