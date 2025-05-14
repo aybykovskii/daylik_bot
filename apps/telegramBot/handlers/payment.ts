@@ -3,6 +3,7 @@ import { InlineKeyboard, Middleware } from 'grammy'
 
 import { env, getIsPaymentRefundable } from 'shared'
 
+import { getImageUrl } from '@/helpers'
 import { refundCreationCD } from '@/helpers/callbackData'
 import { BotContext } from '@/types'
 
@@ -41,7 +42,12 @@ export class Payments {
       starsPayload,
       currency,
       [{ label: ctx.t('bot.subscription.stars.paymentLabel'), amount }],
-      { reply_markup: paymentKeyboard }
+      {
+        reply_markup: paymentKeyboard,
+        photo_width: 512,
+        photo_height: 512,
+        photo_url: getImageUrl('payment_XTR.jpeg'),
+      }
     )
   }
 
