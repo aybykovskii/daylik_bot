@@ -13,6 +13,7 @@ export const envSchema = z
     TG_BOT_TOKEN: z.string(),
     OPENAI_API_KEY: z.string(),
     SUBSCRIPTION_STARS_AMOUNT: z.coerce.number(),
+    BOT_IMAGES_SOURCE: z.string(),
 
     RABBITMQ_DEFAULT_USER: z.string(),
     RABBITMQ_DEFAULT_PASS: z.string(),

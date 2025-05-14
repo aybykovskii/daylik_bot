@@ -3,7 +3,7 @@ import { Hono, MiddlewareHandler, ValidationTargets } from 'hono'
 
 import { api as apiClass } from 'api'
 import { validator } from 'hono-openapi/arktype'
-import { botLogger, notificationsQueue } from 'shared'
+import { botLogger, notificationsService } from 'shared'
 
 import { MessageExtra } from '@/types'
 
@@ -60,7 +60,7 @@ export const getNotificationRouter = (api: typeof apiClass) => {
     for (const [index, telegramUserId] of telegramUserIds.entries()) {
       const userMessage = Array.isArray(message) ? message[index] : message
 
-      notificationsQueue.send({ message: userMessage, telegramUserId })
+      notificationsService.send({ message: userMessage, telegramUserId })
     }
 
     botLogger.info('Message sent to users.', { telegramUserIds })

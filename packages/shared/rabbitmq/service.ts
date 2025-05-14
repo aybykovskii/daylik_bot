@@ -60,4 +60,4 @@ export class RabbitMQService<Msg extends object> {
   }
 }
 
-export const notificationsQueue = await new RabbitMQService<EventNotification>(CONNECT_URL, NOTIFICATION_QUEUE).init()
+export const notificationsService = new RabbitMQService<EventNotification>(CONNECT_URL, NOTIFICATION_QUEUE)

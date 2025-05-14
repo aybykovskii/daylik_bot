@@ -4,7 +4,7 @@ import { Bot } from 'grammy'
 import { Hono } from 'hono'
 
 import { createApi } from 'api'
-import { notificationsQueue } from 'shared'
+import { notificationsService } from 'shared'
 import { env } from 'shared/environment'
 import { botLogger } from 'shared/logger'
 
@@ -17,6 +17,8 @@ const apis = createApi({
   baseUrl: `http://server:${env.SERVER_PORT}`,
   headers: { [env.AUTH_HEADER_KEY]: env.AUTH_HEADER_VALUE },
 })
+
+const notificationQueue = await notificationsService.init()
 
 const bot = new Bot<BotContext>(env.TG_BOT_TOKEN)
 
@@ -44,7 +46,7 @@ bot.catch((error) => botLogger.error('Occurred bot error', error))
 bot.start()
 
 // Message broker
-notificationsQueue.consume(({ message, telegramUserId }) => bot.api.sendMessage(telegramUserId, message))
+notificationQueue.consume(({ message, telegramUserId }) => bot.api.sendMessage(telegramUserId, message))
 
 // Router
 const root = new Hono()
@@ -59,6 +61,7 @@ const server = Bun.serve({
 })
 
 process.once('SIGTERM', async () => {
+  await notificationQueue.close()
   await bot.stop()
   await server.stop()
   process.exit(0)
